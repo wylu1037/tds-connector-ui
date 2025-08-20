@@ -1,10 +1,8 @@
 "use client"
 
-import { lazy, Suspense } from "react"
 import { useTheme } from "next-themes"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
 import { 
   Shield,
   Key,
@@ -17,29 +15,14 @@ import {
   Monitor,
 } from "lucide-react"
 
-// Lazy load Tab components for better performance
-const IdentityTab = lazy(() => import("@/components/identity").then(m => ({ default: m.IdentityTab })))
-const DataOfferingTab = lazy(() => import("@/components/data-offering").then(m => ({ default: m.DataOfferingTab })))
-const DataConsumptionTab = lazy(() => import("@/components/data-consumption").then(m => ({ default: m.DataConsumptionTab })))
-const PolicyContractsTab = lazy(() => import("@/components/policy").then(m => ({ default: m.PolicyContractsTab })))
-const BlockchainTab = lazy(() => import("@/components/blockchain").then(m => ({ default: m.BlockchainTab })))
-const SandboxTab = lazy(() => import("@/components/sandbox").then(m => ({ default: m.SandboxTab })))
-const MonitoringTab = lazy(() => import("@/components/monitoring").then(m => ({ default: m.MonitoringTab })))
-
-// Loading skeleton component
-const TabLoadingSkeleton = () => (
-  <div className="space-y-6">
-    <div className="grid gap-4 md:grid-cols-4">
-      {[...Array(4)].map((_, i) => (
-        <Skeleton key={i} className="h-24 w-full" />
-      ))}
-    </div>
-    <div className="grid gap-6 lg:grid-cols-2">
-      <Skeleton className="h-96 w-full" />
-      <Skeleton className="h-96 w-full" />
-    </div>
-  </div>
-)
+// Import the new Tab components
+import { IdentityTab } from "@/components/identity"
+import { DataOfferingTab } from "@/components/data-offering"
+import { DataConsumptionTab } from "@/components/data-consumption"
+import { PolicyContractsTab } from "@/components/policy"
+import { BlockchainTab } from "@/components/blockchain"
+import { SandboxTab } from "@/components/sandbox"
+import { MonitoringTab } from "@/components/monitoring"
 
 export default function ConnectorDashboard() {
   const { setTheme, theme } = useTheme()
@@ -122,45 +105,31 @@ export default function ConnectorDashboard() {
 
           {/* Tab Content */}
           <TabsContent value="identity">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <IdentityTab />
-            </Suspense>
+            <IdentityTab />
           </TabsContent>
 
           <TabsContent value="data-offering">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <DataOfferingTab />
-            </Suspense>
+            <DataOfferingTab />
           </TabsContent>
 
           <TabsContent value="data-consumption">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <DataConsumptionTab />
-            </Suspense>
+            <DataConsumptionTab />
           </TabsContent>
 
           <TabsContent value="policy">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <PolicyContractsTab />
-            </Suspense>
+            <PolicyContractsTab />
           </TabsContent>
 
           <TabsContent value="blockchain">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <BlockchainTab />
-            </Suspense>
+            <BlockchainTab />
           </TabsContent>
 
           <TabsContent value="sandbox">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <SandboxTab />
-            </Suspense>
+            <SandboxTab />
           </TabsContent>
 
           <TabsContent value="monitoring">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <MonitoringTab />
-            </Suspense>
+            <MonitoringTab />
           </TabsContent>
         </Tabs>
       </div>

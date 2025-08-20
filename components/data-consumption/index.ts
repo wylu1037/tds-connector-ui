@@ -1,0 +1,1 @@
+export { DataConsumptionTab } from './DataConsumptionTab'
