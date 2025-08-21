@@ -1,19 +1,25 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { 
-  Activity, 
-  Shield, 
-  AlertTriangle, 
+import {
+  Activity,
+  AlertTriangle,
   CheckCircle,
-  RefreshCw,
   Eye,
-  X
-} from "lucide-react"
-import { useMonitoring } from "@/hooks"
+  RefreshCw,
+  Shield,
+  X,
+} from "lucide-react";
 import { MetricCard, StatusBadge } from "@/components/shared"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { useMonitoring } from "@/hooks";
 
 export function MonitoringTab() {
   const {

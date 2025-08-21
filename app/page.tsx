@@ -1,169 +1,23 @@
-"use client"
+"use client";
 
-import { lazy, Suspense } from "react"
-import { useTheme } from "next-themes"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { 
-  Shield,
-  Key,
-  Network,
-  Database,
-  Settings,
-  Activity,
-  Moon,
-  Sun,
-  Monitor,
-} from "lucide-react"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-// Lazy load Tab components for better performance
-const IdentityTab = lazy(() => import("@/components/identity").then(m => ({ default: m.IdentityTab })))
-const DataOfferingTab = lazy(() => import("@/components/data-offering").then(m => ({ default: m.DataOfferingTab })))
-const DataConsumptionTab = lazy(() => import("@/components/data-consumption").then(m => ({ default: m.DataConsumptionTab })))
-const PolicyContractsTab = lazy(() => import("@/components/policy").then(m => ({ default: m.PolicyContractsTab })))
-const BlockchainTab = lazy(() => import("@/components/blockchain").then(m => ({ default: m.BlockchainTab })))
-const SandboxTab = lazy(() => import("@/components/sandbox").then(m => ({ default: m.SandboxTab })))
-const MonitoringTab = lazy(() => import("@/components/monitoring").then(m => ({ default: m.MonitoringTab })))
+export default function HomePage() {
+  const router = useRouter();
 
-// Loading skeleton component
-const TabLoadingSkeleton = () => (
-  <div className="space-y-6">
-    <div className="grid gap-4 md:grid-cols-4">
-      {[...Array(4)].map((_, i) => (
-        <Skeleton key={i} className="h-24 w-full" />
-      ))}
-    </div>
-    <div className="grid gap-6 lg:grid-cols-2">
-      <Skeleton className="h-96 w-full" />
-      <Skeleton className="h-96 w-full" />
-    </div>
-  </div>
-)
+  useEffect(() => {
+    // Redirect to identity page by default
+    router.replace("/identity");
+  }, [router]);
 
-export default function ConnectorDashboard() {
-  const { setTheme, theme } = useTheme()
-
+  // Show loading state while redirecting
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b bg-card">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="flex items-center space-x-2">
-                <Shield className="h-8 w-8 text-primary" />
-                <div>
-                  <h1 className="text-2xl font-bold">TDS Connector</h1>
-                  <p className="text-sm text-muted-foreground">Trusted Data Space Management Platform</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              >
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-              <Button variant="outline" size="sm">
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="container mx-auto px-6 py-8">
-        <Tabs defaultValue="identity" className="space-y-6">
-          {/* Tab Navigation */}
-          <TabsList className="grid w-full grid-cols-7">
-            <TabsTrigger value="identity" className="flex items-center space-x-2">
-              <Key className="h-4 w-4" />
-              <span className="hidden sm:inline">Identity & DID</span>
-              <span className="sm:hidden">Identity</span>
-            </TabsTrigger>
-            <TabsTrigger value="data-offering" className="flex items-center space-x-2">
-              <Database className="h-4 w-4" />
-              <span className="hidden sm:inline">Data Offering</span>
-              <span className="sm:hidden">Offering</span>
-            </TabsTrigger>
-            <TabsTrigger value="data-consumption" className="flex items-center space-x-2">
-              <Network className="h-4 w-4" />
-              <span className="hidden sm:inline">Data Consumption</span>
-              <span className="sm:hidden">Consumption</span>
-            </TabsTrigger>
-            <TabsTrigger value="policy" className="flex items-center space-x-2">
-              <Shield className="h-4 w-4" />
-              <span className="hidden sm:inline">Policy & Contracts</span>
-              <span className="sm:hidden">Policy</span>
-            </TabsTrigger>
-            <TabsTrigger value="blockchain" className="flex items-center space-x-2">
-              <Activity className="h-4 w-4" />
-              <span className="hidden sm:inline">Blockchain</span>
-              <span className="sm:hidden">Chain</span>
-            </TabsTrigger>
-            <TabsTrigger value="sandbox" className="flex items-center space-x-2">
-              <Monitor className="h-4 w-4" />
-              <span className="hidden sm:inline">Sandbox</span>
-              <span className="sm:hidden">Sandbox</span>
-            </TabsTrigger>
-            <TabsTrigger value="monitoring" className="flex items-center space-x-2">
-              <Activity className="h-4 w-4" />
-              <span className="hidden sm:inline">Monitoring</span>
-              <span className="sm:hidden">Monitor</span>
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Tab Content */}
-          <TabsContent value="identity">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <IdentityTab />
-            </Suspense>
-          </TabsContent>
-
-          <TabsContent value="data-offering">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <DataOfferingTab />
-            </Suspense>
-          </TabsContent>
-
-          <TabsContent value="data-consumption">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <DataConsumptionTab />
-            </Suspense>
-          </TabsContent>
-
-          <TabsContent value="policy">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <PolicyContractsTab />
-            </Suspense>
-          </TabsContent>
-
-          <TabsContent value="blockchain">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <BlockchainTab />
-            </Suspense>
-          </TabsContent>
-
-          <TabsContent value="sandbox">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <SandboxTab />
-            </Suspense>
-          </TabsContent>
-
-          <TabsContent value="monitoring">
-            <Suspense fallback={<TabLoadingSkeleton />}>
-              <MonitoringTab />
-            </Suspense>
-          </TabsContent>
-        </Tabs>
+    <div className="flex items-center justify-center min-h-[400px]">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+        <p className="text-muted-foreground">Loading dashboard...</p>
       </div>
     </div>
-  )
+  );
 }

@@ -1,0 +1,50 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Moon, Settings, Sun, Shield } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+
+export default function Header() {
+  const { setTheme, theme } = useTheme();
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  return (
+    <div className="border-b bg-card">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
+              <Shield className="h-8 w-8 text-primary" />
+              <h1 className="text-2xl font-bold font-serif text-foreground">
+                Trusted Data Space Connector
+              </h1>
+            </div>
+            <Badge
+              variant={isRegistered ? "default" : "secondary"}
+              className="ml-4"
+            >
+              {isRegistered ? "Registered" : "Not Registered"}
+            </Badge>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+            <Button variant="outline" size="sm">
+              <Settings className="h-4 w-4 mr-2" />
+              Settings
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

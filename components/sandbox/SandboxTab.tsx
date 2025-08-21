@@ -1,26 +1,38 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { 
-  Monitor, 
-  Activity, 
-  Database, 
+import {
+  Activity,
   Clock,
-  Plus, 
-  Play, 
-  Square,
-  Eye,
+  Database,
   Edit,
-  Trash2
-} from "lucide-react"
-import { useSandbox, useDataOfferings } from "@/hooks"
-import { MetricCard, StatusBadge, ActionDialog } from "@/components/shared"
+  Eye,
+  Monitor,
+  Play,
+  Plus,
+  Square,
+  Trash2,
+} from "lucide-react";
+import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { useDataOfferings, useSandbox } from "@/hooks";
 
 export function SandboxTab() {
   const {

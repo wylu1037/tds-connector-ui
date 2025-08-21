@@ -1,23 +1,35 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { 
-  FileContract, 
-  Users, 
-  Clock, 
+import {
+  Clock,
+  Edit,
+  Eye,
+  FileText,
+  Plus,
   Shield,
-  Plus, 
-  Edit, 
   Trash2,
-  Eye 
-} from "lucide-react"
-import { useContracts, useDataOfferings } from "@/hooks"
-import { MetricCard, StatusBadge, ActionDialog } from "@/components/shared"
+  Users,
+} from "lucide-react";
+import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useContracts, useDataOfferings } from "@/hooks";
 
 export function PolicyContractsTab() {
   const {
@@ -29,9 +41,9 @@ export function PolicyContractsTab() {
     createContract,
     activeContracts,
     pendingContracts,
-  } = useContracts()
+  } = useContracts();
 
-  const { dataOfferings, policyTemplates } = useDataOfferings()
+  const { dataOfferings, policyTemplates } = useDataOfferings();
 
   return (
     <div className="space-y-6">
@@ -41,7 +53,7 @@ export function PolicyContractsTab() {
           title="Active Contracts"
           value={activeContracts.length}
           description="Currently enforced"
-          icon={FileContract}
+          icon={FileText}
           variant="primary"
         />
         <MetricCard
@@ -72,7 +84,9 @@ export function PolicyContractsTab() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Digital Contracts</CardTitle>
-                <CardDescription>Manage data sharing agreements and smart contracts</CardDescription>
+                <CardDescription>
+                  Manage data sharing agreements and smart contracts
+                </CardDescription>
               </div>
               <ActionDialog
                 trigger={
@@ -93,7 +107,12 @@ export function PolicyContractsTab() {
                     <Input
                       id="contract-title"
                       value={newContract.title}
-                      onChange={(e) => setNewContract({ ...newContract, title: e.target.value })}
+                      onChange={(e) =>
+                        setNewContract({
+                          ...newContract,
+                          title: e.target.value,
+                        })
+                      }
                       placeholder="Data Sharing Agreement - Analytics"
                     />
                   </div>
@@ -102,7 +121,12 @@ export function PolicyContractsTab() {
                     <Textarea
                       id="contract-description"
                       value={newContract.description}
-                      onChange={(e) => setNewContract({ ...newContract, description: e.target.value })}
+                      onChange={(e) =>
+                        setNewContract({
+                          ...newContract,
+                          description: e.target.value,
+                        })
+                      }
                       placeholder="Describe the contract terms..."
                     />
                   </div>
@@ -112,7 +136,12 @@ export function PolicyContractsTab() {
                       <Input
                         id="provider"
                         value={newContract.provider}
-                        onChange={(e) => setNewContract({ ...newContract, provider: e.target.value })}
+                        onChange={(e) =>
+                          setNewContract({
+                            ...newContract,
+                            provider: e.target.value,
+                          })
+                        }
                         placeholder="Provider organization"
                       />
                     </div>
@@ -121,7 +150,12 @@ export function PolicyContractsTab() {
                       <Input
                         id="consumer"
                         value={newContract.consumer}
-                        onChange={(e) => setNewContract({ ...newContract, consumer: e.target.value })}
+                        onChange={(e) =>
+                          setNewContract({
+                            ...newContract,
+                            consumer: e.target.value,
+                          })
+                        }
                         placeholder="Consumer organization"
                       />
                     </div>
@@ -129,9 +163,14 @@ export function PolicyContractsTab() {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="data-offering">Data Offering</Label>
-                      <Select 
-                        value={newContract.dataOfferingId} 
-                        onValueChange={(value) => setNewContract({ ...newContract, dataOfferingId: value })}
+                      <Select
+                        value={newContract.dataOfferingId}
+                        onValueChange={(value) =>
+                          setNewContract({
+                            ...newContract,
+                            dataOfferingId: value,
+                          })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select offering" />
@@ -147,9 +186,14 @@ export function PolicyContractsTab() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="policy-template">Policy Template</Label>
-                      <Select 
-                        value={newContract.policyTemplateId} 
-                        onValueChange={(value) => setNewContract({ ...newContract, policyTemplateId: value })}
+                      <Select
+                        value={newContract.policyTemplateId}
+                        onValueChange={(value) =>
+                          setNewContract({
+                            ...newContract,
+                            policyTemplateId: value,
+                          })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select policy" />
@@ -171,7 +215,12 @@ export function PolicyContractsTab() {
                         id="start-date"
                         type="datetime-local"
                         value={newContract.startDate}
-                        onChange={(e) => setNewContract({ ...newContract, startDate: e.target.value })}
+                        onChange={(e) =>
+                          setNewContract({
+                            ...newContract,
+                            startDate: e.target.value,
+                          })
+                        }
                       />
                     </div>
                     <div className="space-y-2">
@@ -180,17 +229,23 @@ export function PolicyContractsTab() {
                         id="end-date"
                         type="datetime-local"
                         value={newContract.endDate}
-                        onChange={(e) => setNewContract({ ...newContract, endDate: e.target.value })}
+                        onChange={(e) =>
+                          setNewContract({
+                            ...newContract,
+                            endDate: e.target.value,
+                          })
+                        }
                       />
                     </div>
                   </div>
                   <div className="flex justify-end space-x-2">
-                    <Button variant="outline" onClick={() => setIsCreateContractOpen(false)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsCreateContractOpen(false)}
+                    >
                       Cancel
                     </Button>
-                    <Button onClick={createContract}>
-                      Create Contract
-                    </Button>
+                    <Button onClick={createContract}>Create Contract</Button>
                   </div>
                 </div>
               </ActionDialog>
@@ -206,16 +261,25 @@ export function PolicyContractsTab() {
                         <h4 className="font-medium">{contract.title}</h4>
                         <StatusBadge status={contract.status} type="contract" />
                       </div>
-                      <p className="text-sm text-muted-foreground">{contract.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {contract.description}
+                      </p>
                       <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
                         <span>Provider: {contract.provider}</span>
                         <span>Consumer: {contract.consumer}</span>
                       </div>
                       <div className="flex items-center space-x-4 mt-1 text-xs text-muted-foreground">
-                        <span>Start: {new Date(contract.startDate).toLocaleDateString()}</span>
-                        <span>End: {new Date(contract.endDate).toLocaleDateString()}</span>
+                        <span>
+                          Start:{" "}
+                          {new Date(contract.startDate).toLocaleDateString()}
+                        </span>
+                        <span>
+                          End: {new Date(contract.endDate).toLocaleDateString()}
+                        </span>
                         {contract.violationCount > 0 && (
-                          <span className="text-red-600">Violations: {contract.violationCount}</span>
+                          <span className="text-red-600">
+                            Violations: {contract.violationCount}
+                          </span>
                         )}
                       </div>
                     </div>
@@ -241,7 +305,9 @@ export function PolicyContractsTab() {
         <Card>
           <CardHeader>
             <CardTitle>Policy Management</CardTitle>
-            <CardDescription>Define and manage access control policies</CardDescription>
+            <CardDescription>
+              Define and manage access control policies
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -258,15 +324,22 @@ export function PolicyContractsTab() {
                       </Button>
                     </div>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-2">{policy.description}</p>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {policy.description}
+                  </p>
                   <div className="flex items-center space-x-2 mb-2">
                     <StatusBadge status={policy.category} className="text-xs" />
                     <StatusBadge status={policy.severity} className="text-xs" />
-                    <span className="text-xs text-muted-foreground">{policy.enforcementType}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {policy.enforcementType}
+                    </span>
                   </div>
                   <div className="space-y-1">
                     {policy.rules.slice(0, 2).map((rule, index) => (
-                      <div key={index} className="text-xs text-muted-foreground">
+                      <div
+                        key={index}
+                        className="text-xs text-muted-foreground"
+                      >
                         • {rule}
                       </div>
                     ))}
@@ -283,5 +356,5 @@ export function PolicyContractsTab() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

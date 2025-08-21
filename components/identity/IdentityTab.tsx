@@ -1,17 +1,17 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { AlertCircle, CheckCircle, Copy, Key, RefreshCw } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { 
-  Key, 
-  Copy, 
-  RefreshCw, 
-  CheckCircle, 
-  AlertCircle 
-} from "lucide-react"
+import { Label } from "@/components/ui/label";
 import { useIdentity } from "@/hooks"
 
 export function IdentityTab() {

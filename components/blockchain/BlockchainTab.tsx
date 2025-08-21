@@ -1,24 +1,36 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { 
-  Network, 
-  Activity, 
-  Shield, 
-  Database,
-  Plus, 
-  Eye,
-  CheckCircle,
+import {
+  Activity,
   AlertCircle,
-  Clock
-} from "lucide-react"
-import { useBlockchain, useContracts } from "@/hooks"
-import { MetricCard, StatusBadge, ActionDialog } from "@/components/shared"
+  CheckCircle,
+  Clock,
+  Database,
+  Eye,
+  Network,
+  Plus,
+  Shield,
+} from "lucide-react";
+import { useState } from "react";
+import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useBlockchain, useContracts } from "@/hooks";
 
 export function BlockchainTab() {
   const {
