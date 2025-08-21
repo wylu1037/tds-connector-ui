@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ConnectedConnector, ConnectorHealth } from "@/types"
+import { getDataForSpace } from "@/lib/services/DataSpaceDataService"
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext"
 
 export interface UseIdentityReturn {
   // Identity state
@@ -38,37 +40,19 @@ export interface UseIdentityReturn {
 }
 
 export function useIdentity(): UseIdentityReturn {
+  const { currentDataSpace } = useDataSpace();
   const [connectorId, setConnectorId] = useState("")
   const [didDocument, setDidDocument] = useState("")
   const [isRegistered, setIsRegistered] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   
-  const [connectedConnectors, setConnectedConnectors] = useState<ConnectedConnector[]>([
-    {
-      id: "1",
-      name: "Data Provider A",
-      did: "did:example:provider123",
-      status: "connected",
-      lastSeen: "2024-01-15T10:30:00Z",
-      offeringsCount: 12,
-    },
-    {
-      id: "2",
-      name: "Analytics Hub",
-      did: "did:example:analytics456",
-      status: "connected",
-      lastSeen: "2024-01-15T09:15:00Z",
-      offeringsCount: 8,
-    },
-    {
-      id: "3",
-      name: "Research Institute",
-      did: "did:example:research789",
-      status: "pending",
-      lastSeen: "2024-01-14T16:45:00Z",
-      offeringsCount: 0,
-    },
-  ])
+  const [connectedConnectors, setConnectedConnectors] = useState<ConnectedConnector[]>([]);
+  
+  // 当数据空间切换时，更新连接的连接器数据
+  useEffect(() => {
+    const spaceData = getDataForSpace(currentDataSpace.id);
+    setConnectedConnectors(spaceData.connectedConnectors);
+  }, [currentDataSpace.id]);
 
   const [connectorHealth, setConnectorHealth] = useState<ConnectorHealth[]>([
     {

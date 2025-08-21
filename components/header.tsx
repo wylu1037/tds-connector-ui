@@ -5,10 +5,13 @@ import { Moon, Settings, Sun, Shield } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { DataSpaceSwitcher } from "@/components/DataSpaceSwitcher";
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
 
 export default function Header() {
   const { setTheme, theme } = useTheme();
   const [isRegistered, setIsRegistered] = useState(false);
+  const { currentDataSpace } = useDataSpace();
 
   return (
     <div className="border-b bg-card">
@@ -29,6 +32,7 @@ export default function Header() {
             </Badge>
           </div>
           <div className="flex items-center space-x-4">
+            <DataSpaceSwitcher />
             <Button
               variant="outline"
               size="icon"

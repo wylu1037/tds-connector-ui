@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { DataOffering, ExternalDataOffering, DataRequest, PolicyTemplate, DataContract } from "@/types"
+import { getDataForSpace } from "@/lib/services/DataSpaceDataService"
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext"
 
 export interface UseDataOfferingsReturn {
   // Data offerings
@@ -73,120 +75,26 @@ export interface UseDataOfferingsReturn {
 }
 
 export function useDataOfferings(): UseDataOfferingsReturn {
-  const [dataOfferings, setDataOfferings] = useState<DataOffering[]>([
-    {
-      id: "1",
-      title: "Customer Analytics Dataset",
-      description: "Anonymized customer behavior data for analytics",
-      dataType: "CSV",
-      accessPolicy: "Restricted",
-      status: "active",
-      createdAt: "2024-01-10T10:00:00Z",
-    },
-    {
-      id: "2",
-      title: "Product Performance Metrics",
-      description: "Real-time product usage and performance data",
-      dataType: "JSON",
-      accessPolicy: "Open",
-      status: "active",
-      createdAt: "2024-01-12T14:30:00Z",
-    },
-  ])
+  const { currentDataSpace } = useDataSpace();
+  const [dataOfferings, setDataOfferings] = useState<DataOffering[]>([]);
+  
+  // 当数据空间切换时，更新数据
+  useEffect(() => {
+    const spaceData = getDataForSpace(currentDataSpace.id);
+    setDataOfferings(spaceData.dataOfferings);
+    setPolicyTemplates(spaceData.policyTemplates);
+    setDataContracts(spaceData.dataContracts);
+    setExternalOfferings(spaceData.externalOfferings);
+    setDataRequests(spaceData.dataRequests);
+  }, [currentDataSpace.id]);
 
-  const [policyTemplates, setPolicyTemplates] = useState<PolicyTemplate[]>([
-    {
-      id: "1",
-      name: "Standard Access Policy",
-      description: "Basic access control with time-based restrictions",
-      rules: ["Access allowed during business hours", "Maximum 1000 requests per day", "Data must be anonymized"],
-      category: "access",
-      severity: "medium",
-      enforcementType: "automatic",
-    },
-    {
-      id: "2",
-      name: "Research Data Policy",
-      description: "Policy for academic and research use cases",
-      rules: ["Non-commercial use only", "Attribution required", "Results must be published openly"],
-      category: "usage",
-      severity: "high",
-      enforcementType: "manual",
-    },
-  ])
+  const [policyTemplates, setPolicyTemplates] = useState<PolicyTemplate[]>([])
 
-  const [dataContracts, setDataContracts] = useState<DataContract[]>([
-    {
-      id: "1",
-      contractAddress: "0x1234abcd567890ef1234567890abcdef56789012",
-      providerDID: "did:example:provider123",
-      consumerDID: "did:example:consumer456",
-      policy: "Restricted Access",
-      status: "active",
-      createdAt: "2024-01-10T10:00:00Z",
-      expiresAt: "2024-12-31T23:59:59Z",
-    },
-    {
-      id: "2", 
-      contractAddress: "0xabcdef1234567890abcdef1234567890ef123456",
-      providerDID: "did:example:provider789",
-      consumerDID: "did:example:consumer123",
-      policy: "Partner Only",
-      status: "active",
-      createdAt: "2024-01-12T14:30:00Z",
-    },
-    {
-      id: "3",
-      contractAddress: "0x567890abcdef123456789012345678901234abcd",
-      providerDID: "did:example:provider456",
-      consumerDID: "did:example:consumer789",
-      policy: "GDPR Compliance",
-      status: "expired",
-      createdAt: "2023-12-01T09:00:00Z",
-      expiresAt: "2024-01-01T00:00:00Z",
-    },
-  ])
+  const [dataContracts, setDataContracts] = useState<DataContract[]>([])
 
-  const [externalOfferings, setExternalOfferings] = useState<ExternalDataOffering[]>([
-    {
-      id: "1",
-      title: "Global Market Intelligence",
-      description: "Comprehensive market analysis and trends data",
-      dataType: "JSON/CSV",
-      provider: "Market Analytics Corp",
-      providerDID: "did:example:market123",
-      accessPolicy: "Premium",
-      category: "analytics",
-      lastUpdated: "2024-01-15T08:00:00Z",
-      size: "2.3 GB",
-      price: "$500/month",
-    },
-    {
-      id: "2",
-      title: "Climate Data Archive",
-      description: "Historical weather and climate datasets",
-      dataType: "NetCDF",
-      provider: "Climate Research Institute",
-      providerDID: "did:example:climate456",
-      accessPolicy: "Open Access",
-      category: "research",
-      lastUpdated: "2024-01-14T12:00:00Z",
-      size: "15.7 TB",
-    },
-  ])
+  const [externalOfferings, setExternalOfferings] = useState<ExternalDataOffering[]>([])
 
-  const [dataRequests, setDataRequests] = useState<DataRequest[]>([
-    {
-      id: "1",
-      offeringId: "1",
-      offeringTitle: "Global Market Intelligence",
-      provider: "Market Analytics Corp",
-      requestedAt: "2024-01-15T09:00:00Z",
-      status: "pending",
-      accessMode: "api",
-      purpose: "Market trend analysis for product development",
-    },
-  ])
+  const [dataRequests, setDataRequests] = useState<DataRequest[]>([])
 
   // Dialog states
   const [isAddOfferingOpen, setIsAddOfferingOpen] = useState(false)

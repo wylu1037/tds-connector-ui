@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import type React from "react";
 import { ThemeProvider } from "@/components/theme-provider";
+import { DataSpaceProvider } from "@/lib/contexts/DataSpaceContext";
 import Header from "@/components/header";
 import Navigation from "@/components/navigation";
 import "./globals.css";
@@ -42,16 +43,18 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-background">
-            {/* Header */}
-            <Header />
+          <DataSpaceProvider>
+            <div className="min-h-screen bg-background">
+              {/* Header */}
+              <Header />
 
-            {/* Navigation */}
-            <Navigation />
+              {/* Navigation */}
+              <Navigation />
 
-            {/* Main Content */}
-            <div className="container mx-auto px-6 pb-8">{children}</div>
-          </div>
+              {/* Main Content */}
+              <div className="container mx-auto px-6 pb-8">{children}</div>
+            </div>
+          </DataSpaceProvider>
         </ThemeProvider>
       </body>
     </html>
