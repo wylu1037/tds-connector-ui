@@ -107,13 +107,13 @@ export function IdentityTab() {
     try {
       await navigator.clipboard.writeText(text);
       toast({
-        title: "复制成功",
-        description: `${description} 已复制到剪贴板`,
+        title: "Copy Success",
+        description: `${description} Copied to clipboard`,
       });
     } catch (err) {
       toast({
-        title: "复制失败",
-        description: "无法复制到剪贴板",
+        title: "Copy Failed",
+        description: "Failed to copy to clipboard",
         variant: "destructive",
       });
     }
@@ -150,7 +150,7 @@ export function IdentityTab() {
                   variant="ghost"
                   size="sm"
                   onClick={() =>
-                    copyToClipboard(didDocumentData.id, "DID标识符")
+                    copyToClipboard(didDocumentData.id, "DID Identifier")
                   }
                 >
                   <Copy className="h-4 w-4" />
@@ -360,7 +360,7 @@ export function IdentityTab() {
       </Card>
 
       {/* 发行者卡片 */}
-      <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+      <Card className="border border-border">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

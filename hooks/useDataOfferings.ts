@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { DataOffering, ExternalDataOffering, DataRequest, PolicyTemplate } from "@/types"
+import { DataOffering, ExternalDataOffering, DataRequest, PolicyTemplate, DataContract } from "@/types"
 
 export interface UseDataOfferingsReturn {
   // Data offerings
@@ -9,6 +9,10 @@ export interface UseDataOfferingsReturn {
   // Policy templates
   policyTemplates: PolicyTemplate[]
   setPolicyTemplates: (templates: PolicyTemplate[]) => void
+  
+  // Data contracts
+  dataContracts: DataContract[]
+  setDataContracts: (contracts: DataContract[]) => void
   
   // External offerings
   externalOfferings: ExternalDataOffering[]
@@ -21,8 +25,8 @@ export interface UseDataOfferingsReturn {
   // Dialog states
   isAddOfferingOpen: boolean
   setIsAddOfferingOpen: (open: boolean) => void
-  isAddPolicyOpen: boolean
-  setIsAddPolicyOpen: (open: boolean) => void
+  isAddContractOpen: boolean
+  setIsAddContractOpen: (open: boolean) => void
   isRequestDataOpen: boolean
   setIsRequestDataOpen: (open: boolean) => void
   
@@ -39,14 +43,13 @@ export interface UseDataOfferingsReturn {
   }
   setNewOffering: (offering: any) => void
   
-  newPolicy: {
-    name: string
-    description: string
-    category: string
-    severity: string
-    enforcementType: string
+  newContract: {
+    contractAddress: string
+    providerDID: string
+    consumerDID: string
+    policy: string
   }
-  setNewPolicy: (policy: any) => void
+  setNewContract: (contract: any) => void
   
   newRequest: {
     accessMode: "api" | "download"
@@ -62,7 +65,7 @@ export interface UseDataOfferingsReturn {
   
   // Actions
   createOffering: () => Promise<void>
-  createPolicy: () => Promise<void>
+  createContract: () => Promise<void>
   requestData: () => Promise<void>
   
   // Computed values
@@ -112,6 +115,38 @@ export function useDataOfferings(): UseDataOfferingsReturn {
     },
   ])
 
+  const [dataContracts, setDataContracts] = useState<DataContract[]>([
+    {
+      id: "1",
+      contractAddress: "0x1234abcd567890ef1234567890abcdef56789012",
+      providerDID: "did:example:provider123",
+      consumerDID: "did:example:consumer456",
+      policy: "Restricted Access",
+      status: "active",
+      createdAt: "2024-01-10T10:00:00Z",
+      expiresAt: "2024-12-31T23:59:59Z",
+    },
+    {
+      id: "2", 
+      contractAddress: "0xabcdef1234567890abcdef1234567890ef123456",
+      providerDID: "did:example:provider789",
+      consumerDID: "did:example:consumer123",
+      policy: "Partner Only",
+      status: "active",
+      createdAt: "2024-01-12T14:30:00Z",
+    },
+    {
+      id: "3",
+      contractAddress: "0x567890abcdef123456789012345678901234abcd",
+      providerDID: "did:example:provider456",
+      consumerDID: "did:example:consumer789",
+      policy: "GDPR Compliance",
+      status: "expired",
+      createdAt: "2023-12-01T09:00:00Z",
+      expiresAt: "2024-01-01T00:00:00Z",
+    },
+  ])
+
   const [externalOfferings, setExternalOfferings] = useState<ExternalDataOffering[]>([
     {
       id: "1",
@@ -155,7 +190,7 @@ export function useDataOfferings(): UseDataOfferingsReturn {
 
   // Dialog states
   const [isAddOfferingOpen, setIsAddOfferingOpen] = useState(false)
-  const [isAddPolicyOpen, setIsAddPolicyOpen] = useState(false)
+  const [isAddContractOpen, setIsAddContractOpen] = useState(false)
   const [isRequestDataOpen, setIsRequestDataOpen] = useState(false)
   
   // Selected items
@@ -169,12 +204,11 @@ export function useDataOfferings(): UseDataOfferingsReturn {
     accessPolicy: "",
   })
 
-  const [newPolicy, setNewPolicy] = useState({
-    name: "",
-    description: "",
-    category: "access",
-    severity: "medium",
-    enforcementType: "automatic",
+  const [newContract, setNewContract] = useState({
+    contractAddress: "",
+    providerDID: "",
+    consumerDID: "",
+    policy: "",
   })
 
   const [newRequest, setNewRequest] = useState({
@@ -213,20 +247,20 @@ export function useDataOfferings(): UseDataOfferingsReturn {
     setIsAddOfferingOpen(false)
   }
 
-  const createPolicy = async () => {
+  const createContract = async () => {
     await new Promise(resolve => setTimeout(resolve, 1000))
-    const newPolicyTemplate: PolicyTemplate = {
+    const newDataContract: DataContract = {
       id: Date.now().toString(),
-      name: newPolicy.name,
-      description: newPolicy.description,
-      rules: ["Custom rule set"],
-      category: newPolicy.category as "access" | "usage" | "retention" | "compliance",
-      severity: newPolicy.severity as "low" | "medium" | "high",
-      enforcementType: newPolicy.enforcementType as "automatic" | "manual" | "hybrid",
+      contractAddress: newContract.contractAddress,
+      providerDID: newContract.providerDID,
+      consumerDID: newContract.consumerDID,
+      policy: newContract.policy,
+      status: "active",
+      createdAt: new Date().toISOString(),
     }
-    setPolicyTemplates(prev => [...prev, newPolicyTemplate])
-    setNewPolicy({ name: "", description: "", category: "access", severity: "medium", enforcementType: "automatic" })
-    setIsAddPolicyOpen(false)
+    setDataContracts(prev => [...prev, newDataContract])
+    setNewContract({ contractAddress: "", providerDID: "", consumerDID: "", policy: "" })
+    setIsAddContractOpen(false)
   }
 
   const requestData = async () => {
@@ -254,22 +288,24 @@ export function useDataOfferings(): UseDataOfferingsReturn {
     setDataOfferings,
     policyTemplates,
     setPolicyTemplates,
+    dataContracts,
+    setDataContracts,
     externalOfferings,
     setExternalOfferings,
     dataRequests,
     setDataRequests,
     isAddOfferingOpen,
     setIsAddOfferingOpen,
-    isAddPolicyOpen,
-    setIsAddPolicyOpen,
+    isAddContractOpen,
+    setIsAddContractOpen,
     isRequestDataOpen,
     setIsRequestDataOpen,
     selectedOffering,
     setSelectedOffering,
     newOffering,
     setNewOffering,
-    newPolicy,
-    setNewPolicy,
+    newContract,
+    setNewContract,
     newRequest,
     setNewRequest,
     searchQuery,
@@ -277,7 +313,7 @@ export function useDataOfferings(): UseDataOfferingsReturn {
     categoryFilter,
     setCategoryFilter,
     createOffering,
-    createPolicy,
+    createContract,
     requestData,
     filteredOfferings,
   }

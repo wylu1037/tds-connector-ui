@@ -34,3 +34,14 @@ export interface DataRequest {
   accessMode: "api" | "download"
   purpose: string
 }
+
+export interface DataContract {
+  id: string
+  contractAddress: string
+  providerDID: string
+  consumerDID: string
+  policy: string
+  status: "active" | "expired" | "suspended"
+  createdAt: string
+  expiresAt?: string
+}

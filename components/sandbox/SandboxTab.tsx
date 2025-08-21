@@ -98,7 +98,9 @@ export function SandboxTab() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Sandbox Environments</CardTitle>
-                <CardDescription>Isolated environments for secure data processing</CardDescription>
+                <CardDescription>
+                  Isolated environments for secure data processing
+                </CardDescription>
               </div>
               <ActionDialog
                 trigger={
@@ -119,16 +121,20 @@ export function SandboxTab() {
                     <Input
                       id="sandbox-name"
                       value={newSandbox.name}
-                      onChange={(e) => setNewSandbox({ ...newSandbox, name: e.target.value })}
+                      onChange={(e) =>
+                        setNewSandbox({ ...newSandbox, name: e.target.value })
+                      }
                       placeholder="Python Analytics"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="runtime">Runtime</Label>
-                      <Select 
-                        value={newSandbox.runtime} 
-                        onValueChange={(value) => setNewSandbox({ ...newSandbox, runtime: value })}
+                      <Select
+                        value={newSandbox.runtime}
+                        onValueChange={(value) =>
+                          setNewSandbox({ ...newSandbox, runtime: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -144,9 +150,11 @@ export function SandboxTab() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="memory-limit">Memory Limit</Label>
-                      <Select 
-                        value={newSandbox.memoryLimit} 
-                        onValueChange={(value) => setNewSandbox({ ...newSandbox, memoryLimit: value })}
+                      <Select
+                        value={newSandbox.memoryLimit}
+                        onValueChange={(value) =>
+                          setNewSandbox({ ...newSandbox, memoryLimit: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue />
@@ -162,9 +170,11 @@ export function SandboxTab() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="image">Container Image</Label>
-                    <Select 
-                      value={newSandbox.image} 
-                      onValueChange={(value) => setNewSandbox({ ...newSandbox, image: value })}
+                    <Select
+                      value={newSandbox.image}
+                      onValueChange={(value) =>
+                        setNewSandbox({ ...newSandbox, image: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select image" />
@@ -182,17 +192,23 @@ export function SandboxTab() {
                     <Switch
                       id="network-isolated"
                       checked={newSandbox.networkIsolated}
-                      onCheckedChange={(checked) => setNewSandbox({ ...newSandbox, networkIsolated: checked })}
+                      onCheckedChange={(checked) =>
+                        setNewSandbox({
+                          ...newSandbox,
+                          networkIsolated: checked,
+                        })
+                      }
                     />
                     <Label htmlFor="network-isolated">Network Isolation</Label>
                   </div>
                   <div className="flex justify-end space-x-2">
-                    <Button variant="outline" onClick={() => setIsCreateSandboxOpen(false)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsCreateSandboxOpen(false)}
+                    >
                       Cancel
                     </Button>
-                    <Button onClick={createSandbox}>
-                      Create Sandbox
-                    </Button>
+                    <Button onClick={createSandbox}>Create Sandbox</Button>
                   </div>
                 </div>
               </ActionDialog>
@@ -209,19 +225,36 @@ export function SandboxTab() {
                         <StatusBadge status={sandbox.status} type="sandbox" />
                       </div>
                       <div className="text-sm text-muted-foreground space-y-1">
-                        <div>Runtime: {sandbox.runtime} | Memory: {sandbox.memoryLimit}</div>
+                        <div>
+                          Runtime: {sandbox.runtime} | Memory:{" "}
+                          {sandbox.memoryLimit}
+                        </div>
                         <div>Image: {sandbox.image}</div>
-                        <div>CPU: {sandbox.cpuUsage}% | Memory: {sandbox.memoryUsage}%</div>
-                        <div>Created: {new Date(sandbox.createdAt).toLocaleDateString()}</div>
+                        <div>
+                          CPU: {sandbox.cpuUsage}% | Memory:{" "}
+                          {sandbox.memoryUsage}%
+                        </div>
+                        <div>
+                          Created:{" "}
+                          {new Date(sandbox.createdAt).toLocaleDateString()}
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center space-x-1">
                       {sandbox.status === "stopped" ? (
-                        <Button size="sm" variant="outline" onClick={() => startSandbox(sandbox.id)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => startSandbox(sandbox.id)}
+                        >
                           <Play className="h-4 w-4" />
                         </Button>
                       ) : sandbox.status === "running" ? (
-                        <Button size="sm" variant="outline" onClick={() => stopSandbox(sandbox.id)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => stopSandbox(sandbox.id)}
+                        >
                           <Square className="h-4 w-4" />
                         </Button>
                       ) : null}
@@ -266,36 +299,42 @@ export function SandboxTab() {
                     <Input
                       id="job-name"
                       value={newJob.name}
-                      onChange={(e) => setNewJob({ ...newJob, name: e.target.value })}
+                      onChange={(e) =>
+                        setNewJob({ ...newJob, name: e.target.value })
+                      }
                       placeholder="Customer Segmentation Analysis"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="sandbox">Sandbox Environment</Label>
-                      <Select 
-                        value={newJob.sandboxId} 
-                        onValueChange={(value) => setNewJob({ ...newJob, sandboxId: value })}
+                      <Select
+                        value={newJob.sandboxId}
+                        onValueChange={(value) =>
+                          setNewJob({ ...newJob, sandboxId: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select sandbox" />
                         </SelectTrigger>
                         <SelectContent>
                           {sandboxEnvironments
-                            .filter(env => env.status === "running")
+                            .filter((env) => env.status === "running")
                             .map((sandbox) => (
-                            <SelectItem key={sandbox.id} value={sandbox.id}>
-                              {sandbox.name} ({sandbox.runtime})
-                            </SelectItem>
-                          ))}
+                              <SelectItem key={sandbox.id} value={sandbox.id}>
+                                {sandbox.name} ({sandbox.runtime})
+                              </SelectItem>
+                            ))}
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="data-offering">Data Offering</Label>
-                      <Select 
-                        value={newJob.dataOfferingId} 
-                        onValueChange={(value) => setNewJob({ ...newJob, dataOfferingId: value })}
+                      <Select
+                        value={newJob.dataOfferingId}
+                        onValueChange={(value) =>
+                          setNewJob({ ...newJob, dataOfferingId: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select data" />
@@ -315,19 +354,22 @@ export function SandboxTab() {
                     <Textarea
                       id="script"
                       value={newJob.script}
-                      onChange={(e) => setNewJob({ ...newJob, script: e.target.value })}
+                      onChange={(e) =>
+                        setNewJob({ ...newJob, script: e.target.value })
+                      }
                       placeholder="import pandas as pd&#10;# Your data processing code here"
                       className="font-mono text-sm"
                       rows={8}
                     />
                   </div>
                   <div className="flex justify-end space-x-2">
-                    <Button variant="outline" onClick={() => setIsCreateJobOpen(false)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsCreateJobOpen(false)}
+                    >
                       Cancel
                     </Button>
-                    <Button onClick={createJob}>
-                      Create Job
-                    </Button>
+                    <Button onClick={createJob}>Create Job</Button>
                   </div>
                 </div>
               </ActionDialog>
@@ -345,22 +387,37 @@ export function SandboxTab() {
                       </div>
                       <div className="text-xs text-muted-foreground space-y-1">
                         <div>
-                          Sandbox: {sandboxEnvironments.find(s => s.id === job.sandboxId)?.name}
+                          Sandbox:{" "}
+                          {
+                            sandboxEnvironments.find(
+                              (s) => s.id === job.sandboxId
+                            )?.name
+                          }
                         </div>
-                        <div>Started: {new Date(job.startTime).toLocaleString()}</div>
+                        <div>
+                          Started: {new Date(job.startTime).toLocaleString()}
+                        </div>
                         {job.endTime && (
-                          <div>Ended: {new Date(job.endTime).toLocaleString()}</div>
+                          <div>
+                            Ended: {new Date(job.endTime).toLocaleString()}
+                          </div>
                         )}
                         <div>Input: {job.inputSize}</div>
                         {job.outputSize && <div>Output: {job.outputSize}</div>}
                         {job.errorMessage && (
-                          <div className="text-red-600">Error: {job.errorMessage}</div>
+                          <div className="text-red-600">
+                            Error: {job.errorMessage}
+                          </div>
                         )}
                       </div>
                     </div>
                     <div className="flex items-center space-x-1">
                       {job.status === "queued" && (
-                        <Button size="sm" variant="outline" onClick={() => runJob(job.id)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => runJob(job.id)}
+                        >
                           <Play className="h-4 w-4" />
                         </Button>
                       )}
@@ -386,7 +443,9 @@ export function SandboxTab() {
       <Card>
         <CardHeader>
           <CardTitle>Container Images</CardTitle>
-          <CardDescription>Available runtime environments for data processing</CardDescription>
+          <CardDescription>
+            Available runtime environments for data processing
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -400,7 +459,9 @@ export function SandboxTab() {
                     </div>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground mb-2">{image.description}</p>
+                <p className="text-sm text-muted-foreground mb-2">
+                  {image.description}
+                </p>
                 <div className="flex items-center justify-between text-sm">
                   <div className="space-y-1">
                     <div>Runtime: {image.runtime}</div>
@@ -409,7 +470,10 @@ export function SandboxTab() {
                   </div>
                   <div className="text-right text-xs text-muted-foreground">
                     <div>Tag: {image.tag}</div>
-                    <div>Updated: {new Date(image.lastUpdated).toLocaleDateString()}</div>
+                    <div>
+                      Updated:{" "}
+                      {new Date(image.lastUpdated).toLocaleDateString()}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -418,5 +482,5 @@ export function SandboxTab() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
