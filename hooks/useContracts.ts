@@ -1,10 +1,20 @@
-import { useState } from "react"
-import { DigitalContract, SmartContractTemplate } from "@/types"
+import { useState, useEffect } from "react"
+import { DigitalContract, SmartContractTemplate, PolicyTemplate, ContractTemplate } from "@/types"
+import { getDataForSpace } from "@/lib/services/DataSpaceDataService"
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext"
 
 export interface UseContractsReturn {
   // Digital contracts
   digitalContracts: DigitalContract[]
   setDigitalContracts: (contracts: DigitalContract[]) => void
+  
+  // Policy templates
+  policyTemplates: PolicyTemplate[]
+  setPolicyTemplates: (templates: PolicyTemplate[]) => void
+  
+  // Contract templates
+  contractTemplates: ContractTemplate[]
+  setContractTemplates: (templates: ContractTemplate[]) => void
   
   // Smart contract templates
   smartContractTemplates: SmartContractTemplate[]
@@ -45,6 +55,8 @@ export interface UseContractsReturn {
 }
 
 export function useContracts(): UseContractsReturn {
+  const { currentDataSpace } = useDataSpace();
+  
   const [digitalContracts, setDigitalContracts] = useState<DigitalContract[]>([
     {
       id: "1",
@@ -103,6 +115,16 @@ export function useContracts(): UseContractsReturn {
       violationCount: 0,
     },
   ])
+
+  const [policyTemplates, setPolicyTemplates] = useState<PolicyTemplate[]>([]);
+  const [contractTemplates, setContractTemplates] = useState<ContractTemplate[]>([]);
+  
+  // 当数据空间切换时，更新Policy和Contract模板数据
+  useEffect(() => {
+    const spaceData = getDataForSpace(currentDataSpace.id);
+    setPolicyTemplates(spaceData.policyTemplates);
+    setContractTemplates(spaceData.contractTemplates);
+  }, [currentDataSpace.id]);
 
   const [smartContractTemplates, setSmartContractTemplates] = useState<SmartContractTemplate[]>([
     {
@@ -221,6 +243,10 @@ export function useContracts(): UseContractsReturn {
   return {
     digitalContracts,
     setDigitalContracts,
+    policyTemplates,
+    setPolicyTemplates,
+    contractTemplates,
+    setContractTemplates,
     smartContractTemplates,
     setSmartContractTemplates,
     isCreateContractOpen,

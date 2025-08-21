@@ -1,13 +1,38 @@
 // Contract and policy related types
 
+export interface PolicyRule {
+  id: string
+  type: "access_period" | "access_count" | "identity_restriction" | "encryption" | "ip_restriction" | "transfer_limit" | "qps_limit"
+  name: string
+  description: string
+  value: string | number
+  unit?: string
+  isActive: boolean
+}
+
 export interface PolicyTemplate {
   id: string
   name: string
   description: string
-  rules: string[]
+  rules: PolicyRule[]
   category: "access" | "usage" | "retention" | "compliance"
   severity: "low" | "medium" | "high"
   enforcementType: "automatic" | "manual" | "hybrid"
+  createdAt: string
+  updatedAt?: string
+}
+
+export interface ContractTemplate {
+  id: string
+  name: string
+  description: string
+  policyIds: string[]
+  policies: PolicyTemplate[]
+  contractType: "single_policy" | "multi_policy"
+  status: "draft" | "active" | "deprecated"
+  createdAt: string
+  updatedAt?: string
+  usageCount: number
 }
 
 export interface DigitalContract {

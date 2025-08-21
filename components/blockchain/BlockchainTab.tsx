@@ -12,7 +12,7 @@ import {
   Shield,
 } from "lucide-react";
 import { useState } from "react";
-import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
+import { MetricCard, StatusBadge } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,6 +31,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useBlockchain, useContracts } from "@/hooks";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export function BlockchainTab() {
   const {
@@ -113,86 +120,91 @@ export function BlockchainTab() {
                   contract deployment
                 </CardDescription>
               </div>
-              <ActionDialog
-                trigger={
-                  <Button size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Network
-                  </Button>
-                }
-                title="Add Blockchain Network"
-                description="Connect to a new blockchain network"
+              <Dialog
                 open={isAddNetworkOpen}
                 onOpenChange={setIsAddNetworkOpen}
               >
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="network-name">Network Name</Label>
-                    <Input
-                      id="network-name"
-                      value={newNetwork.name}
-                      onChange={(e) =>
-                        setNewNetwork({ ...newNetwork, name: e.target.value })
-                      }
-                      placeholder="My Custom Network"
-                    />
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add Blockchain Network</DialogTitle>
+                    <DialogDescription>
+                      Connect to a new blockchain network
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="network-name">Network Name</Label>
+                      <Input
+                        id="network-name"
+                        value={newNetwork.name}
+                        onChange={(e) =>
+                          setNewNetwork({ ...newNetwork, name: e.target.value })
+                        }
+                        placeholder="My Custom Network"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="network-type">Network Type</Label>
+                      <Select
+                        value={newNetwork.type}
+                        onValueChange={(value) =>
+                          setNewNetwork({ ...newNetwork, type: value })
+                        }
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="ethereum">Ethereum</SelectItem>
+                          <SelectItem value="polygon">Polygon</SelectItem>
+                          <SelectItem value="hyperledger">
+                            Hyperledger
+                          </SelectItem>
+                          <SelectItem value="private">Private</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="rpc-url">RPC URL</Label>
+                      <Input
+                        id="rpc-url"
+                        value={newNetwork.rpcUrl}
+                        onChange={(e) =>
+                          setNewNetwork({
+                            ...newNetwork,
+                            rpcUrl: e.target.value,
+                          })
+                        }
+                        placeholder="https://mainnet.infura.io/v3/your-project-id"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="chain-id">Chain ID</Label>
+                      <Input
+                        id="chain-id"
+                        type="number"
+                        value={newNetwork.chainId}
+                        onChange={(e) =>
+                          setNewNetwork({
+                            ...newNetwork,
+                            chainId: e.target.value,
+                          })
+                        }
+                        placeholder="1"
+                      />
+                    </div>
+                    <div className="flex justify-end space-x-2">
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsAddNetworkOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button onClick={handleAddNetwork}>Add Network</Button>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="network-type">Network Type</Label>
-                    <Select
-                      value={newNetwork.type}
-                      onValueChange={(value) =>
-                        setNewNetwork({ ...newNetwork, type: value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="ethereum">Ethereum</SelectItem>
-                        <SelectItem value="polygon">Polygon</SelectItem>
-                        <SelectItem value="hyperledger">Hyperledger</SelectItem>
-                        <SelectItem value="private">Private</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="rpc-url">RPC URL</Label>
-                    <Input
-                      id="rpc-url"
-                      value={newNetwork.rpcUrl}
-                      onChange={(e) =>
-                        setNewNetwork({ ...newNetwork, rpcUrl: e.target.value })
-                      }
-                      placeholder="https://mainnet.infura.io/v3/your-project-id"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="chain-id">Chain ID</Label>
-                    <Input
-                      id="chain-id"
-                      type="number"
-                      value={newNetwork.chainId}
-                      onChange={(e) =>
-                        setNewNetwork({
-                          ...newNetwork,
-                          chainId: e.target.value,
-                        })
-                      }
-                      placeholder="1"
-                    />
-                  </div>
-                  <div className="flex justify-end space-x-2">
-                    <Button
-                      variant="outline"
-                      onClick={() => setIsAddNetworkOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button onClick={handleAddNetwork}>Add Network</Button>
-                  </div>
-                </div>
-              </ActionDialog>
+                </DialogContent>
+              </Dialog>
             </div>
           </CardHeader>
           <CardContent>
@@ -259,73 +271,72 @@ export function BlockchainTab() {
                   Blockchain-based automated contract enforcement
                 </CardDescription>
               </div>
-              <ActionDialog
-                trigger={
-                  <Button size="sm" variant="outline">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Deploy Contract
-                  </Button>
-                }
-                title="Deploy Smart Contract"
-                description="Deploy a smart contract template to the blockchain"
+              <Dialog
                 open={isDeploySmartContractOpen}
                 onOpenChange={setIsDeploySmartContractOpen}
-                maxWidth="lg"
               >
-                {selectedSmartContractTemplate && (
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="font-medium">
-                        {selectedSmartContractTemplate.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {selectedSmartContractTemplate.description}
-                      </p>
-                    </div>
-                    <div>
-                      <Label>Contract Parameters</Label>
-                      <div className="space-y-2 mt-2">
-                        {selectedSmartContractTemplate.parameters.map(
-                          (param, index) => (
-                            <div key={index} className="space-y-1">
-                              <Label className="text-sm">
-                                {param.name} ({param.type})
-                              </Label>
-                              <Input
-                                placeholder={
-                                  param.defaultValue || `Enter ${param.name}`
-                                }
-                                className="text-sm"
-                              />
-                              <p className="text-xs text-muted-foreground">
-                                {param.description}
-                              </p>
-                            </div>
-                          )
-                        )}
+                <DialogContent className="max-w-lg">
+                  <DialogHeader>
+                    <DialogTitle>Deploy Smart Contract</DialogTitle>
+                    <DialogDescription>
+                      Deploy a smart contract template to the blockchain
+                    </DialogDescription>
+                  </DialogHeader>
+                  {selectedSmartContractTemplate && (
+                    <div className="space-y-4">
+                      <div>
+                        <h3 className="font-medium">
+                          {selectedSmartContractTemplate.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {selectedSmartContractTemplate.description}
+                        </p>
+                      </div>
+                      <div>
+                        <Label>Contract Parameters</Label>
+                        <div className="space-y-2 mt-2">
+                          {selectedSmartContractTemplate.parameters.map(
+                            (param, index) => (
+                              <div key={index} className="space-y-1">
+                                <Label className="text-sm">
+                                  {param.name} ({param.type})
+                                </Label>
+                                <Input
+                                  placeholder={
+                                    param.defaultValue || `Enter ${param.name}`
+                                  }
+                                  className="text-sm"
+                                />
+                                <p className="text-xs text-muted-foreground">
+                                  {param.description}
+                                </p>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                      <div className="p-3 bg-muted rounded-lg">
+                        <p className="text-sm font-medium">Deployment Cost</p>
+                        <p className="text-sm text-muted-foreground">
+                          Estimated:{" "}
+                          {selectedSmartContractTemplate.deploymentCost}
+                        </p>
+                      </div>
+                      <div className="flex justify-end space-x-2">
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsDeploySmartContractOpen(false)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button onClick={deploySmartContract}>
+                          Deploy Contract
+                        </Button>
                       </div>
                     </div>
-                    <div className="p-3 bg-muted rounded-lg">
-                      <p className="text-sm font-medium">Deployment Cost</p>
-                      <p className="text-sm text-muted-foreground">
-                        Estimated:{" "}
-                        {selectedSmartContractTemplate.deploymentCost}
-                      </p>
-                    </div>
-                    <div className="flex justify-end space-x-2">
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsDeploySmartContractOpen(false)}
-                      >
-                        Cancel
-                      </Button>
-                      <Button onClick={deploySmartContract}>
-                        Deploy Contract
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </ActionDialog>
+                  )}
+                </DialogContent>
+              </Dialog>
             </div>
           </CardHeader>
           <CardContent>
