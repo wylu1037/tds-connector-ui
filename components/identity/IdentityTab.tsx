@@ -33,37 +33,37 @@ export function IdentityTab() {
 
   // Mock data based on HTML content
   const connectorData = {
-    didIdentifier: "did:example:0df1zlohf",
+    didIdentifier: "did:jg:0df1zlohf",
     name: "Example Connector v2.1",
     version: "2.1.0",
-    creationDate: "2023-06-15T10:30:00Z",
+    creationDate: "2025-01-15 10:30:21",
   };
 
   const didDocumentData = {
     "@context": ["https://www.w3.org/ns/did/v1"],
-    id: "did:example:0df1zlohf",
+    id: "did:jg:0df1zlohf",
     publicKey: [
       {
-        id: "did:example:0df1zlohf#keys-1",
+        id: "did:jg:0df1zlohf#keys-1",
         type: "Ed25519VerificationKey2018",
-        controller: "did:example:0df1zlohf",
+        controller: "did:jg:0df1zlohf",
         publicKeyBase58: "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
       },
     ],
-    authentication: ["did:example:0df1zlohf#keys-1"],
+    authentication: ["did:jg:0df1zlohf#keys-1"],
     service: [
       {
-        id: "did:example:0df1zlohf#connector-endpoint",
+        id: "did:jg:0df1zlohf#connector-endpoint",
         type: "ConnectorService",
-        serviceEndpoint: "https://connector.example.com/api",
+        serviceEndpoint: "https://connector.jg.com/api",
       },
     ],
   };
 
   const userData = {
-    didIdentifier: "did:example:user:87654321",
+    didIdentifier: "did:jg:user:87654321",
     userType: "Individual",
-    lastAuthenticated: "2023-09-21T14:22:36Z",
+    lastAuthenticated: "2025-08-14 14:22:36",
     status: "已验证",
   };
 
@@ -73,31 +73,31 @@ export function IdentityTab() {
       "https://schema.org/",
       "https://example.com/schemas/user-identity-v1.json",
     ],
-    id: "did:example:vc:8f7e6d5c4b3a210",
+    id: "did:jg:vc:8f7e6d5c4b3a210",
     type: ["VerifiableCredential", "IdentityCredential"],
     issuer: {
-      id: "did:example:issuer:123456",
+      id: "did:jg:issuer:123456",
       name: "Example Corp",
       url: "https://www.example.com",
     },
-    issuanceDate: "2023-09-20T08:30:00Z",
-    expirationDate: "2024-09-20T08:30:00Z",
+    issuanceDate: "2025-08-10 08:30:00",
+    expirationDate: "2026-08-10 08:30:00",
     credentialSubject: {
-      id: "did:example:user:87654321",
+      id: "did:jg:user:87654321",
       name: "John Doe",
       type: "Individual",
       email: "john.doe@example.com",
       memberOf: {
-        id: "did:example:issuer:123456",
+        id: "did:jg:issuer:123456",
         name: "Example Corp",
         type: "Organization",
       },
-      authenticationDate: "2023-09-21T14:22:36Z",
+      authenticationDate: "2025-08-14 14:22:36",
     },
     proof: {
       type: "Ed25519Signature2018",
-      created: "2023-09-22T10:05:30Z",
-      verificationMethod: "did:example:issuer:123456#key-1",
+      created: "2025-08-15 10:05:30",
+      verificationMethod: "did:jg:issuer:123456#key-1",
       proofPurpose: "assertionMethod",
       jws: "z5T7a......f8K3p",
     },
@@ -123,7 +123,7 @@ export function IdentityTab() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* 标识符卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -137,25 +137,23 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                DID Subject Identifier
-              </p>
-              <div className="flex items-center gap-2">
-                <code className="bg-muted rounded flex-1 text-sm break-all">
-                  {didDocumentData.id}
-                </code>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() =>
-                    copyToClipboard(didDocumentData.id, "DID Identifier")
-                  }
-                >
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </div>
+          <div>
+            <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              DID Subject Identifier
+            </p>
+            <div className="flex items-center gap-2">
+              <code className="bg-muted rounded flex-1 text-sm break-all">
+                {didDocumentData.id}
+              </code>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  copyToClipboard(didDocumentData.id, "DID Identifier")
+                }
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </CardContent>
@@ -163,7 +161,7 @@ export function IdentityTab() {
 
       {/* 认证方式卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -177,22 +175,20 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Public Key Authentication
-              </p>
-              <code className="bg-muted rounded block text-sm break-all">
-                {didDocumentData.authentication[0]}
-              </code>
-            </div>
+          <div>
+            <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              Public Key Authentication
+            </p>
+            <code className="bg-muted rounded block text-sm break-all">
+              {didDocumentData.authentication[0]}
+            </code>
           </div>
         </CardContent>
       </Card>
 
       {/* 公钥信息卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -206,44 +202,42 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Verification Key #1
-              </p>
-              <code className="text-xs font-mono block mb-3">
-                {didDocumentData.publicKey[0].id}
-              </code>
-              <div className="space-y-2">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-sm text-muted-foreground">
-                    Algorithm Type
-                  </span>
-                  <span className="text-sm font-medium">
-                    {didDocumentData.publicKey[0].type}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground block mb-1">
-                    Public Key (Base58)
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <code className="bg-muted rounded flex-1 text-sm break-all">
-                      {didDocumentData.publicKey[0].publicKeyBase58}
-                    </code>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() =>
-                        copyToClipboard(
-                          didDocumentData.publicKey[0].publicKeyBase58,
-                          "Public Key"
-                        )
-                      }
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
+          <div>
+            <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              Verification Key #1
+            </p>
+            <code className="text-xs font-mono block mb-3">
+              {didDocumentData.publicKey[0].id}
+            </code>
+            <div className="space-y-2">
+              <div className="flex justify-between py-2 border-b border-gray-100">
+                <span className="text-sm text-muted-foreground">
+                  Algorithm Type
+                </span>
+                <span className="text-sm font-medium">
+                  {didDocumentData.publicKey[0].type}
+                </span>
+              </div>
+              <div>
+                <span className="text-sm text-muted-foreground block mb-1">
+                  Public Key (Base58)
+                </span>
+                <div className="flex items-center gap-2">
+                  <code className="bg-muted rounded flex-1 text-sm break-all truncate">
+                    {didDocumentData.publicKey[0].publicKeyBase58}
+                  </code>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      copyToClipboard(
+                        didDocumentData.publicKey[0].publicKeyBase58,
+                        "Public Key"
+                      )
+                    }
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </div>
@@ -253,7 +247,7 @@ export function IdentityTab() {
 
       {/* 服务信息卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -267,49 +261,47 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Connector Service Interface
-              </p>
-              <code className="text-xs font-mono block mb-3">
-                {didDocumentData.service[0].id}
-              </code>
-              <div className="space-y-2">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-sm text-muted-foreground">
-                    Service Type
-                  </span>
-                  <span className="text-sm font-medium">
-                    {didDocumentData.service[0].type}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-sm text-muted-foreground block mb-1">
-                    Service Address
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={didDocumentData.service[0].serviceEndpoint}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-muted rounded flex-1 text-sm font-mono text-primary hover:underline break-all"
-                    >
-                      {didDocumentData.service[0].serviceEndpoint}
-                    </a>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() =>
-                        copyToClipboard(
-                          didDocumentData.service[0].serviceEndpoint,
-                          "Service Address"
-                        )
-                      }
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
+          <div>
+            <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              Connector Service Interface
+            </p>
+            <code className="text-xs font-mono block mb-3 truncate">
+              {didDocumentData.service[0].id}
+            </code>
+            <div className="space-y-2">
+              <div className="flex justify-between py-2 border-b border-gray-100">
+                <span className="text-sm text-muted-foreground">
+                  Service Type
+                </span>
+                <span className="text-sm font-medium">
+                  {didDocumentData.service[0].type}
+                </span>
+              </div>
+              <div>
+                <span className="text-sm text-muted-foreground block mb-1">
+                  Service Address
+                </span>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={didDocumentData.service[0].serviceEndpoint}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-muted rounded flex-1 text-sm font-mono text-primary hover:underline break-all truncate"
+                  >
+                    {didDocumentData.service[0].serviceEndpoint}
+                  </a>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() =>
+                      copyToClipboard(
+                        didDocumentData.service[0].serviceEndpoint,
+                        "Service Address"
+                      )
+                    }
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             </div>
@@ -323,7 +315,7 @@ export function IdentityTab() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* VC标识符卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -337,23 +329,21 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Credential ID
-              </p>
-              <div className="flex items-center gap-2">
-                <code className="bg-muted rounded flex-1 text-sm break-all truncate">
-                  {vcData.id}
-                </code>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => copyToClipboard(vcData.id, "VC Identifier")}
-                >
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </div>
+          <div>
+            <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              Credential ID
+            </p>
+            <div className="flex items-center gap-2">
+              <code className="bg-muted rounded flex-1 text-sm break-all truncate">
+                {vcData.id}
+              </code>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => copyToClipboard(vcData.id, "VC Identifier")}
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </CardContent>
@@ -361,7 +351,7 @@ export function IdentityTab() {
 
       {/* 发行者卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -375,22 +365,20 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Issuer DID
-              </p>
-              <code className="bg-muted rounded block text-sm break-all">
-                {vcData.issuer.id}
-              </code>
-            </div>
+          <div>
+            <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              Issuer DID
+            </p>
+            <code className="bg-muted rounded block text-sm break-all">
+              {vcData.issuer.id}
+            </code>
           </div>
         </CardContent>
       </Card>
 
       {/* 发行信息卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -406,7 +394,7 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div>
               <p className="text-sm font-medium mb-2 text-muted-foreground/80">
                 Issuance Date
@@ -429,7 +417,7 @@ export function IdentityTab() {
 
       {/* 凭证类型卡片 */}
       <Card className="border border-border">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -443,13 +431,13 @@ export function IdentityTab() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="space-y-5">
+          <div className="space-y-3">
             {vcData.type.map((type, index) => (
               <div key={index} className="bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground/80">
+                <p className="text-sm font-medium mb-2 text-muted-foreground/80">
                   {index === 0 ? "Base Type" : "Specific Type"}
                 </p>
-                <p className="font-medium">{type}</p>
+                <code className="bg-muted rounded block text-sm">{type}</code>
               </div>
             ))}
           </div>
@@ -458,7 +446,7 @@ export function IdentityTab() {
 
       {/* 凭证主题卡片 */}
       <Card className="border border-border col-span-full">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -517,7 +505,7 @@ export function IdentityTab() {
 
       {/* 数字签名卡片 */}
       <Card className="border border-border col-span-full">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-lg">
@@ -533,7 +521,7 @@ export function IdentityTab() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <p className="text-sm font-medium mb-2 text-muted-foreground/80">
+              <p className="text-sm font-medium mb-4 text-muted-foreground/80">
                 Signature Algorithm
               </p>
               <code className="bg-muted rounded block text-sm">
@@ -605,7 +593,7 @@ export function IdentityTab() {
             </CardHeader>
 
             {/* 基本信息部分 */}
-            <CardContent className="p-6">
+            <CardContent className="px-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
@@ -740,7 +728,7 @@ export function IdentityTab() {
             </CardHeader>
 
             {/* 基本信息部分 */}
-            <CardContent className="p-6">
+            <CardContent className="px-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">

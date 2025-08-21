@@ -100,7 +100,7 @@ export function useIdentity(): UseIdentityReturn {
       service: [{
         id: `${newDID}#service-1`,
         type: "DataConnectorService",
-        serviceEndpoint: "https://connector.example.com/api"
+        serviceEndpoint: "https://connector.jg.com/api"
       }]
     }, null, 2))
     setIsGenerating(false)

@@ -40,7 +40,7 @@ export function DataSpaceSwitcher() {
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[240px] p-0">
+      <PopoverContent className="w-auto p-0">
         <Command>
           <CommandInput placeholder="Search data space..." />
           <CommandList>
@@ -48,6 +48,7 @@ export function DataSpaceSwitcher() {
             <CommandGroup>
               {availableDataSpaces.map((dataSpace) => (
                 <CommandItem
+                  className="cursor-pointer"
                   key={dataSpace.id}
                   value={dataSpace.id}
                   onSelect={() => {
@@ -58,14 +59,20 @@ export function DataSpaceSwitcher() {
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      currentDataSpace.id === dataSpace.id ? "opacity-100" : "opacity-0"
+                      currentDataSpace.id === dataSpace.id
+                        ? "opacity-100"
+                        : "opacity-0"
                     )}
                   />
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{dataSpace.name}</span>
                       <Badge
-                        variant={dataSpace.status === 'active' ? 'default' : 'secondary'}
+                        variant={
+                          dataSpace.status === "active"
+                            ? "default"
+                            : "secondary"
+                        }
                         className="ml-2 text-xs"
                       >
                         {dataSpace.status}
