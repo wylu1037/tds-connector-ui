@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { BlockchainNetwork, AuditLog, BlockchainTransaction } from "@/types"
+import { getDataForSpace } from "@/lib/services/DataSpaceDataService"
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext"
 
 export interface UseBlockchainReturn {
   // Networks
@@ -31,117 +33,21 @@ export interface UseBlockchainReturn {
 }
 
 export function useBlockchain(): UseBlockchainReturn {
-  const [blockchainNetworks, setBlockchainNetworks] = useState<BlockchainNetwork[]>([
-    {
-      id: "mainnet",
-      name: "Ethereum Mainnet",
-      type: "ethereum",
-      rpcUrl: "https://mainnet.infura.io/v3/your-project-id",
-      chainId: 1,
-      status: "connected",
-      blockHeight: 18500000,
-      gasPrice: "25 gwei",
-    },
-    {
-      id: "polygon",
-      name: "Polygon",
-      type: "polygon",
-      rpcUrl: "https://polygon-rpc.com",
-      chainId: 137,
-      status: "connected",
-      blockHeight: 51000000,
-      gasPrice: "30 gwei",
-    },
-    {
-      id: "private",
-      name: "Private Network",
-      type: "private",
-      rpcUrl: "http://localhost:8545",
-      chainId: 1337,
-      status: "disconnected",
-      blockHeight: 100,
-      gasPrice: "1 gwei",
-    },
-  ])
+  const { currentDataSpace } = useDataSpace();
+  
+  const [blockchainNetworks, setBlockchainNetworks] = useState<BlockchainNetwork[]>([]);
+  const [blockchainTransactions, setBlockchainTransactions] = useState<BlockchainTransaction[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
 
-  const [selectedNetwork, setSelectedNetwork] = useState<string>("mainnet")
+  // 当数据空间切换时，更新区块链相关数据
+  useEffect(() => {
+    const spaceData = getDataForSpace(currentDataSpace.id);
+    setBlockchainNetworks(spaceData.blockchainNetworks);
+    setBlockchainTransactions(spaceData.blockchainTransactions);
+    setAuditLogs(spaceData.auditLogs);
+  }, [currentDataSpace.id]);
 
-  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([
-    {
-      id: "1",
-      timestamp: "2024-01-15T10:30:00Z",
-      action: "did_registration",
-      actor: "did:example:connector123",
-      target: "Blockchain Registry",
-      details: "DID document registered successfully",
-      blockchainTxId: "0x1234567890abcdef",
-      status: "success",
-      gasUsed: "21000",
-    },
-    {
-      id: "2",
-      timestamp: "2024-01-15T09:15:00Z",
-      action: "contract_deployment",
-      actor: "did:example:provider456",
-      target: "Smart Contract",
-      details: "Data access control contract deployed",
-      blockchainTxId: "0xabcdef1234567890",
-      status: "success",
-      gasUsed: "150000",
-    },
-    {
-      id: "3",
-      timestamp: "2024-01-15T08:45:00Z",
-      action: "data_request",
-      actor: "did:example:consumer789",
-      target: "Data Provider A",
-      details: "Data access request submitted",
-      status: "pending",
-    },
-  ])
-
-  const [blockchainTransactions, setBlockchainTransactions] = useState<BlockchainTransaction[]>([
-    {
-      id: "1",
-      hash: "0x1234567890abcdef1234567890abcdef12345678",
-      type: "did_registration",
-      from: "0xabcdef1234567890abcdef1234567890abcdef12",
-      to: "0x1234567890abcdef1234567890abcdef12345678",
-      value: "0.001 ETH",
-      gasUsed: "21000",
-      gasPrice: "25 gwei",
-      status: "confirmed",
-      timestamp: "2024-01-15T10:30:00Z",
-      blockNumber: 18500123,
-    },
-    {
-      id: "2",
-      hash: "0xabcdef1234567890abcdef1234567890abcdef12",
-      type: "contract_deployment",
-      from: "0x1234567890abcdef1234567890abcdef12345678",
-      to: "0x0000000000000000000000000000000000000000",
-      value: "0 ETH",
-      gasUsed: "150000",
-      gasPrice: "30 gwei",
-      status: "confirmed",
-      timestamp: "2024-01-15T09:15:00Z",
-      blockNumber: 18500098,
-    },
-    {
-      id: "3",
-      hash: "0x567890abcdef1234567890abcdef1234567890ab",
-      type: "data_access",
-      from: "0xdef1234567890abcdef1234567890abcdef123456",
-      to: "0x4567890abcdef1234567890abcdef1234567890ab",
-      value: "0.05 ETH",
-      gasUsed: "75000",
-      gasPrice: "28 gwei",
-      status: "pending",
-      timestamp: "2024-01-15T11:00:00Z",
-      blockNumber: 0,
-    },
-  ])
-
+  const [selectedNetwork, setSelectedNetwork] = useState<string>("")
   const [isAddNetworkOpen, setIsAddNetworkOpen] = useState(false)
 
   const addNetwork = async (networkData: any) => {
@@ -149,12 +55,16 @@ export function useBlockchain(): UseBlockchainReturn {
     const newNetwork: BlockchainNetwork = {
       id: Date.now().toString(),
       name: networkData.name,
-      type: networkData.type,
-      rpcUrl: networkData.rpcUrl,
+      type: "ZLTC",
+      chainType: networkData.chainType,
       chainId: parseInt(networkData.chainId),
       status: "disconnected",
+      curveAlgorithm: networkData.curveAlgorithm,
+      witnessNodes: parseInt(networkData.witnessNodes) || 0,
+      consensusNodes: parseInt(networkData.consensusNodes) || 0,
       blockHeight: 0,
-      gasPrice: "0 gwei",
+      purpose: networkData.purpose,
+      description: networkData.description,
     }
     setBlockchainNetworks(prev => [...prev, newNetwork])
     setIsAddNetworkOpen(false)

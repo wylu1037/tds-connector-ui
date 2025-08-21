@@ -3,26 +3,28 @@
 export interface BlockchainNetwork {
   id: string
   name: string
-  type: "ethereum" | "hyperledger" | "polygon" | "private"
-  rpcUrl: string
+  type: "ZLTC"
+  chainType: "main" | "sub"
   chainId: number
   status: "connected" | "disconnected" | "syncing"
+  curveAlgorithm: "Secp256k1" | "Sm2p256v1"
+  witnessNodes: number
+  consensusNodes: number
   blockHeight: number
-  gasPrice: string
+  purpose: string
+  description: string
 }
 
 export interface BlockchainTransaction {
   id: string
   hash: string
-  type: "did_registration" | "contract_deployment" | "data_access" | "payment"
+  type: "did_registration" | "contract_deployment" | "data_access" | "audit_log"
   from: string
   to: string
-  value: string
-  gasUsed: string
-  gasPrice: string
   status: "pending" | "confirmed" | "failed"
   timestamp: string
   blockNumber: number
+  chainType: "main" | "sub"
 }
 
 export interface AuditLog {
