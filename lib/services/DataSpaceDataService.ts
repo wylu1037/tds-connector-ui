@@ -266,7 +266,38 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         price: "$2000/month",
       },
     ],
-    dataRequests: [],
+    dataRequests: [
+      {
+        id: "hdr1",
+        offeringId: "he1",
+        offeringTitle: "Clinical Trial Data",
+        provider: "Pharma Research Corp",
+        requestedAt: "2024-01-18T09:00:00Z",
+        status: "approved",
+        accessMode: "api",
+        purpose: "Medical research for drug efficacy analysis",
+      },
+      {
+        id: "hdr2",
+        offeringId: "he2",
+        offeringTitle: "Medical Imaging Archive",
+        provider: "Imaging Research Center",
+        requestedAt: "2024-01-19T14:30:00Z",
+        status: "pending",
+        accessMode: "download",
+        purpose: "AI model training for diagnostic assistance",
+      },
+      {
+        id: "hdr3",
+        offeringId: "he3",
+        offeringTitle: "Patient Demographics Dataset",
+        provider: "Healthcare Analytics Inc",
+        requestedAt: "2024-01-17T11:15:00Z",
+        status: "completed",
+        accessMode: "api",
+        purpose: "Population health study",
+      },
+    ],
     blockchainNetworks: [
       {
         id: "healthcare-main",
@@ -597,7 +628,28 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         price: "$5000/month",
       },
     ],
-    dataRequests: [],
+    dataRequests: [
+      {
+        id: "fdr1",
+        offeringId: "fe1",
+        offeringTitle: "ESG Ratings Database",
+        provider: "ESG Analytics Inc",
+        requestedAt: "2024-01-19T10:00:00Z",
+        status: "approved",
+        accessMode: "api",
+        purpose: "ESG investment analysis and portfolio optimization",
+      },
+      {
+        id: "fdr2",
+        offeringId: "fe2",
+        offeringTitle: "Financial Market Data",
+        provider: "Market Data Corp",
+        requestedAt: "2024-01-20T08:30:00Z",
+        status: "pending",
+        accessMode: "download",
+        purpose: "Risk assessment and algorithmic trading",
+      },
+    ],
     blockchainNetworks: [
       {
         id: "finance-main",
@@ -838,7 +890,28 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         size: "3.1 GB",
       },
     ],
-    dataRequests: [],
+    dataRequests: [
+      {
+        id: "mdr1",
+        offeringId: "me1",
+        offeringTitle: "Weather Impact on Transport",
+        provider: "Weather & Transport Analytics",
+        requestedAt: "2024-01-20T12:00:00Z",
+        status: "approved",
+        accessMode: "api",
+        purpose: "Smart city traffic optimization and route planning",
+      },
+      {
+        id: "mdr2",
+        offeringId: "me2",
+        offeringTitle: "Public Transport Data",
+        provider: "City Transport Authority",
+        requestedAt: "2024-01-18T16:45:00Z",
+        status: "completed",
+        accessMode: "download",
+        purpose: "Urban mobility analysis and service improvement",
+      },
+    ],
     blockchainNetworks: [
       {
         id: "mobility-main",
@@ -1035,7 +1108,18 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       },
     ],
     externalOfferings: [],
-    dataRequests: [],
+    dataRequests: [
+      {
+        id: "edr1",
+        offeringId: "ee1",
+        offeringTitle: "Grid Load Forecasting",
+        provider: "Energy Analytics Corp",
+        requestedAt: "2024-01-19T15:00:00Z",
+        status: "pending",
+        accessMode: "api",
+        purpose: "Critical infrastructure monitoring and load balancing",
+      },
+    ],
     blockchainNetworks: [
       {
         id: "energy-main",

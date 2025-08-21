@@ -119,7 +119,7 @@ export function PolicyContractsTab() {
             <div className="space-y-4">
               {policyTemplates.map((policy) => (
                 <Card key={policy.id}>
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-0">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <h4 className="font-semibold">{policy.name}</h4>
@@ -158,7 +158,7 @@ export function PolicyContractsTab() {
                     <div className="space-y-3">
                       {/* 简化展示：每个Policy只有一个规则 */}
                       {policy.rules.length > 0 && (
-                        <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                        <div className="flex items-center justify-between bg-muted/50 rounded-lg">
                           <div className="flex items-center gap-3">
                             {(() => {
                               const rule = policy.rules[0]; // 取第一个规则
@@ -232,7 +232,7 @@ export function PolicyContractsTab() {
             <div className="space-y-4">
               {contractTemplates.map((contract) => (
                 <Card key={contract.id}>
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-0">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <h4 className="font-semibold">{contract.name}</h4>
@@ -272,7 +272,7 @@ export function PolicyContractsTab() {
                   <CardContent className="pt-0">
                     <div className="space-y-3">
                       <div>
-                        <h5 className="text-sm font-medium mb-2">
+                        <h5 className="text-sm mb-2 font-bold">
                           Included Policies:
                         </h5>
                         <div className="space-y-1">
@@ -283,7 +283,7 @@ export function PolicyContractsTab() {
                             return policy ? (
                               <div
                                 key={policyId}
-                                className="flex items-center gap-2 p-2 bg-muted/50 rounded"
+                                className="flex items-center gap-2 py-1 bg-muted/50 rounded"
                               >
                                 <Shield className="h-4 w-4 text-primary" />
                                 <span className="text-sm font-medium">
