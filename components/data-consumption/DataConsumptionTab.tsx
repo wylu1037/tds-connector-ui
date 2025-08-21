@@ -98,7 +98,9 @@ export function DataConsumptionTab() {
         />
         <MetricCard
           title="Connected Partners"
-          value={connectedConnectors.filter(c => c.status === "connected").length}
+          value={
+            connectedConnectors.filter((c) => c.status === "connected").length
+          }
           description="Trusted connectors"
           icon={Users}
         />
@@ -117,9 +119,11 @@ export function DataConsumptionTab() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Data Catalog</CardTitle>
-                <CardDescription>Discover and request data from other connectors</CardDescription>
+                <CardDescription>
+                  Discover and request data from other connectors
+                </CardDescription>
               </div>
-              <ActionDialog
+              {/* <ActionDialog
                 trigger={
                   <Button size="sm" variant="outline">
                     <Plus className="h-4 w-4 mr-2" />
@@ -160,7 +164,7 @@ export function DataConsumptionTab() {
                     </Button>
                   </div>
                 </div>
-              </ActionDialog>
+              </ActionDialog> */}
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -181,7 +185,9 @@ export function DataConsumptionTab() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h4 className="font-medium">{offering.title}</h4>
-                      <p className="text-sm text-muted-foreground mt-1">{offering.description}</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {offering.description}
+                      </p>
                       <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
                         <span>Provider: {offering.provider}</span>
                         <span>Type: {offering.dataType}</span>
@@ -189,7 +195,10 @@ export function DataConsumptionTab() {
                         {offering.price && <span>Price: {offering.price}</span>}
                       </div>
                     </div>
-                    <Button size="sm" onClick={() => handleRequestData(offering)}>
+                    <Button
+                      size="sm"
+                      onClick={() => handleRequestData(offering)}
+                    >
                       Request
                     </Button>
                   </div>
@@ -208,16 +217,29 @@ export function DataConsumptionTab() {
           <CardContent>
             <div className="space-y-3">
               {dataRequests.map((request: DataRequest) => (
-                <div key={request.id} className="flex items-center justify-between p-3 border rounded-lg">
+                <div
+                  key={request.id}
+                  className="flex items-center justify-between p-3 border rounded-lg"
+                >
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
-                      <h4 className="font-medium text-sm">{request.offeringTitle}</h4>
-                      <StatusBadge status={request.status} className="text-xs" />
+                      <h4 className="font-medium text-sm">
+                        {request.offeringTitle}
+                      </h4>
+                      <StatusBadge
+                        status={request.status}
+                        className="text-xs"
+                      />
                     </div>
-                    <p className="text-sm text-muted-foreground">{request.provider}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {request.provider}
+                    </p>
                     <div className="flex items-center space-x-4 mt-1 text-xs text-muted-foreground">
                       <span>Mode: {request.accessMode}</span>
-                      <span>Requested: {new Date(request.requestedAt).toLocaleDateString()}</span>
+                      <span>
+                        Requested:{" "}
+                        {new Date(request.requestedAt).toLocaleDateString()}
+                      </span>
                     </div>
                   </div>
                   {request.status === "approved" && (
@@ -237,7 +259,9 @@ export function DataConsumptionTab() {
       <Card>
         <CardHeader>
           <CardTitle>Connected Connectors</CardTitle>
-          <CardDescription>Manage your trusted connector relationships</CardDescription>
+          <CardDescription>
+            Manage your trusted connector relationships
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -247,13 +271,16 @@ export function DataConsumptionTab() {
                   <h4 className="font-medium">{connector.name}</h4>
                   <StatusBadge status={connector.status} />
                 </div>
-                <p className="text-sm text-muted-foreground font-mono">{connector.did}</p>
+                <p className="text-sm text-muted-foreground font-mono">
+                  {connector.did}
+                </p>
                 <div className="flex items-center justify-between mt-3 text-sm">
                   <span className="text-muted-foreground">
                     {connector.offeringsCount} offerings
                   </span>
                   <span className="text-muted-foreground">
-                    Last seen: {new Date(connector.lastSeen).toLocaleDateString()}
+                    Last seen:{" "}
+                    {new Date(connector.lastSeen).toLocaleDateString()}
                   </span>
                 </div>
               </div>
@@ -267,7 +294,7 @@ export function DataConsumptionTab() {
         trigger={<></>}
         title="Request Data Access"
         description={
-          selectedOffering 
+          selectedOffering
             ? `Request access to "${selectedOffering.title}" from ${selectedOffering.provider}`
             : undefined
         }
@@ -278,9 +305,11 @@ export function DataConsumptionTab() {
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="access-mode">Access Mode</Label>
-            <Select 
-              value={newRequest.accessMode} 
-              onValueChange={(value: "api" | "download") => setNewRequest({ ...newRequest, accessMode: value })}
+            <Select
+              value={newRequest.accessMode}
+              onValueChange={(value: "api" | "download") =>
+                setNewRequest({ ...newRequest, accessMode: value })
+              }
             >
               <SelectTrigger>
                 <SelectValue />
@@ -296,20 +325,23 @@ export function DataConsumptionTab() {
             <Textarea
               id="purpose"
               value={newRequest.purpose}
-              onChange={(e) => setNewRequest({ ...newRequest, purpose: e.target.value })}
+              onChange={(e) =>
+                setNewRequest({ ...newRequest, purpose: e.target.value })
+              }
               placeholder="Describe the intended use of this data..."
             />
           </div>
           <div className="flex justify-end space-x-2">
-            <Button variant="outline" onClick={() => setIsRequestDataOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsRequestDataOpen(false)}
+            >
               Cancel
             </Button>
-            <Button onClick={requestData}>
-              Submit Request
-            </Button>
+            <Button onClick={requestData}>Submit Request</Button>
           </div>
         </div>
       </ActionDialog>
     </div>
-  )
+  );
 }

@@ -4,6 +4,7 @@ import {
   Activity,
   Database,
   Key,
+  Link as LinkIcon,
   Monitor,
   Network,
   Shield,
@@ -45,7 +46,7 @@ const navigationItems = [
   {
     value: "blockchain",
     href: "/blockchain",
-    icon: Activity,
+    icon: LinkIcon,
     label: "Blockchain",
     shortLabel: "Chain",
   },

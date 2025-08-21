@@ -42,12 +42,12 @@ export function SearchFilter({
           placeholder={searchPlaceholder}
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10"
+          className="pl-10 bg-background"
         />
       </div>
       {filterOptions.length > 0 && onFilterChange && (
         <Select value={filterValue} onValueChange={onFilterChange}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-42 bg-background">
             <Filter className="h-4 w-4 mr-2" />
             <SelectValue placeholder={filterPlaceholder} />
           </SelectTrigger>

@@ -80,7 +80,9 @@ export function BlockchainTab() {
         />
         <MetricCard
           title="Recent Transactions"
-          value={recentTransactions.filter(tx => tx.status === "confirmed").length}
+          value={
+            recentTransactions.filter((tx) => tx.status === "confirmed").length
+          }
           description="Last 24 hours"
           icon={Activity}
           variant="secondary"
@@ -107,7 +109,8 @@ export function BlockchainTab() {
               <div>
                 <CardTitle>Blockchain Networks</CardTitle>
                 <CardDescription>
-                  Connect to blockchain networks for DID registration and smart contract deployment
+                  Connect to blockchain networks for DID registration and smart
+                  contract deployment
                 </CardDescription>
               </div>
               <ActionDialog
@@ -128,15 +131,19 @@ export function BlockchainTab() {
                     <Input
                       id="network-name"
                       value={newNetwork.name}
-                      onChange={(e) => setNewNetwork({ ...newNetwork, name: e.target.value })}
+                      onChange={(e) =>
+                        setNewNetwork({ ...newNetwork, name: e.target.value })
+                      }
                       placeholder="My Custom Network"
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="network-type">Network Type</Label>
-                    <Select 
-                      value={newNetwork.type} 
-                      onValueChange={(value) => setNewNetwork({ ...newNetwork, type: value })}
+                    <Select
+                      value={newNetwork.type}
+                      onValueChange={(value) =>
+                        setNewNetwork({ ...newNetwork, type: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -154,7 +161,9 @@ export function BlockchainTab() {
                     <Input
                       id="rpc-url"
                       value={newNetwork.rpcUrl}
-                      onChange={(e) => setNewNetwork({ ...newNetwork, rpcUrl: e.target.value })}
+                      onChange={(e) =>
+                        setNewNetwork({ ...newNetwork, rpcUrl: e.target.value })
+                      }
                       placeholder="https://mainnet.infura.io/v3/your-project-id"
                     />
                   </div>
@@ -164,17 +173,23 @@ export function BlockchainTab() {
                       id="chain-id"
                       type="number"
                       value={newNetwork.chainId}
-                      onChange={(e) => setNewNetwork({ ...newNetwork, chainId: e.target.value })}
+                      onChange={(e) =>
+                        setNewNetwork({
+                          ...newNetwork,
+                          chainId: e.target.value,
+                        })
+                      }
                       placeholder="1"
                     />
                   </div>
                   <div className="flex justify-end space-x-2">
-                    <Button variant="outline" onClick={() => setIsAddNetworkOpen(false)}>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsAddNetworkOpen(false)}
+                    >
                       Cancel
                     </Button>
-                    <Button onClick={handleAddNetwork}>
-                      Add Network
-                    </Button>
+                    <Button onClick={handleAddNetwork}>Add Network</Button>
                   </div>
                 </div>
               </ActionDialog>
@@ -184,8 +199,11 @@ export function BlockchainTab() {
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label>Current Network</Label>
-                <Select value={selectedNetwork} onValueChange={setSelectedNetwork}>
-                  <SelectTrigger>
+                <Select
+                  value={selectedNetwork}
+                  onValueChange={setSelectedNetwork}
+                >
+                  <SelectTrigger className="bg-background">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -197,7 +215,7 @@ export function BlockchainTab() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="space-y-3">
                 {blockchainNetworks.map((network) => (
                   <div key={network.id} className="p-3 border rounded-lg">
@@ -207,7 +225,11 @@ export function BlockchainTab() {
                         <StatusBadge status={network.status} />
                       </div>
                       {network.status === "disconnected" && (
-                        <Button size="sm" variant="outline" onClick={() => connectToNetwork(network.id)}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => connectToNetwork(network.id)}
+                        >
                           Connect
                         </Button>
                       )}
@@ -215,7 +237,9 @@ export function BlockchainTab() {
                     <div className="text-sm text-muted-foreground space-y-1">
                       <div>Type: {network.type}</div>
                       <div>Chain ID: {network.chainId}</div>
-                      <div>Block Height: {network.blockHeight.toLocaleString()}</div>
+                      <div>
+                        Block Height: {network.blockHeight.toLocaleString()}
+                      </div>
                       <div>Gas Price: {network.gasPrice}</div>
                     </div>
                   </div>
@@ -231,7 +255,9 @@ export function BlockchainTab() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Smart Contract Templates</CardTitle>
-                <CardDescription>Blockchain-based automated contract enforcement</CardDescription>
+                <CardDescription>
+                  Blockchain-based automated contract enforcement
+                </CardDescription>
               </div>
               <ActionDialog
                 trigger={
@@ -249,7 +275,9 @@ export function BlockchainTab() {
                 {selectedSmartContractTemplate && (
                   <div className="space-y-4">
                     <div>
-                      <h3 className="font-medium">{selectedSmartContractTemplate.name}</h3>
+                      <h3 className="font-medium">
+                        {selectedSmartContractTemplate.name}
+                      </h3>
                       <p className="text-sm text-muted-foreground mt-1">
                         {selectedSmartContractTemplate.description}
                       </p>
@@ -257,26 +285,38 @@ export function BlockchainTab() {
                     <div>
                       <Label>Contract Parameters</Label>
                       <div className="space-y-2 mt-2">
-                        {selectedSmartContractTemplate.parameters.map((param, index) => (
-                          <div key={index} className="space-y-1">
-                            <Label className="text-sm">{param.name} ({param.type})</Label>
-                            <Input
-                              placeholder={param.defaultValue || `Enter ${param.name}`}
-                              className="text-sm"
-                            />
-                            <p className="text-xs text-muted-foreground">{param.description}</p>
-                          </div>
-                        ))}
+                        {selectedSmartContractTemplate.parameters.map(
+                          (param, index) => (
+                            <div key={index} className="space-y-1">
+                              <Label className="text-sm">
+                                {param.name} ({param.type})
+                              </Label>
+                              <Input
+                                placeholder={
+                                  param.defaultValue || `Enter ${param.name}`
+                                }
+                                className="text-sm"
+                              />
+                              <p className="text-xs text-muted-foreground">
+                                {param.description}
+                              </p>
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
                     <div className="p-3 bg-muted rounded-lg">
                       <p className="text-sm font-medium">Deployment Cost</p>
                       <p className="text-sm text-muted-foreground">
-                        Estimated: {selectedSmartContractTemplate.deploymentCost}
+                        Estimated:{" "}
+                        {selectedSmartContractTemplate.deploymentCost}
                       </p>
                     </div>
                     <div className="flex justify-end space-x-2">
-                      <Button variant="outline" onClick={() => setIsDeploySmartContractOpen(false)}>
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsDeploySmartContractOpen(false)}
+                      >
                         Cancel
                       </Button>
                       <Button onClick={deploySmartContract}>
@@ -295,14 +335,20 @@ export function BlockchainTab() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h4 className="font-medium">{template.name}</h4>
-                      <p className="text-sm text-muted-foreground mt-1">{template.description}</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {template.description}
+                      </p>
                       <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
                         <span>Category: {template.category}</span>
                         <span>Parameters: {template.parameters.length}</span>
                         <span>Cost: {template.deploymentCost}</span>
                       </div>
                     </div>
-                    <Button size="sm" variant="outline" onClick={() => handleDeployContract(template)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleDeployContract(template)}
+                    >
                       Deploy
                     </Button>
                   </div>
@@ -324,7 +370,10 @@ export function BlockchainTab() {
           <CardContent>
             <div className="space-y-3">
               {recentTransactions.slice(0, 5).map((tx) => (
-                <div key={tx.id} className="flex items-center justify-between p-2 border rounded">
+                <div
+                  key={tx.id}
+                  className="flex items-center justify-between p-2 border rounded"
+                >
                   <div className="flex items-center space-x-3">
                     <div className="flex items-center space-x-1">
                       {tx.status === "confirmed" ? (
@@ -334,7 +383,9 @@ export function BlockchainTab() {
                       ) : (
                         <Clock className="h-4 w-4 text-yellow-500" />
                       )}
-                      <span className="text-sm font-medium">{tx.type.replace('_', ' ')}</span>
+                      <span className="text-sm font-medium">
+                        {tx.type.replace("_", " ")}
+                      </span>
                     </div>
                   </div>
                   <div className="text-right">
@@ -360,7 +411,9 @@ export function BlockchainTab() {
               {recentAuditLogs.slice(0, 5).map((log) => (
                 <div key={log.id} className="p-2 border rounded">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-medium">{log.action.replace('_', ' ')}</span>
+                    <span className="text-sm font-medium">
+                      {log.action.replace("_", " ")}
+                    </span>
                     <StatusBadge status={log.status} className="text-xs" />
                   </div>
                   <p className="text-xs text-muted-foreground">{log.details}</p>
@@ -375,5 +428,5 @@ export function BlockchainTab() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
