@@ -8,6 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { DataSpaceSwitcher } from "@/components/DataSpaceSwitcher";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipProvider,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 export default function Header() {
   const router = useRouter();
@@ -32,7 +38,7 @@ export default function Header() {
               {isRegistered ? "Registered" : "Not Registered"}
             </Badge>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             <DataSpaceSwitcher />
             <Button
               variant="outline"
@@ -43,14 +49,22 @@ export default function Header() {
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => router.push("/settings")}
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              Settings
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => router.push("/settings")}
+                  >
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={5}>
+                  Settings
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>

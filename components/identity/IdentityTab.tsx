@@ -35,7 +35,7 @@ export function IdentityTab() {
   const connectorData = {
     didIdentifier: "did:jg:0df1zlohf",
     name: "Example Connector v2.1",
-    version: "2.1.0",
+    version: "v0.0.1",
     creationDate: "2025-01-15 10:30:21",
   };
 

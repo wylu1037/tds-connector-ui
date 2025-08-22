@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { DataOffering, ExternalDataOffering, DataRequest, PolicyTemplate, DataContract } from "@/types"
+import { DataOffering, ExternalDataOffering, DataRequest, PolicyTemplate, DataContract, DataSourceType, RegistrationStatus } from "@/types"
 import { getDataForSpace } from "@/lib/services/DataSpaceDataService"
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext"
 
@@ -40,16 +40,20 @@ export interface UseDataOfferingsReturn {
   newOffering: {
     title: string
     description: string
-    dataType: string
+    dataType: DataSourceType | ""
     accessPolicy: string
+    sourceConfig?: any
   }
   setNewOffering: (offering: any) => void
   
   newContract: {
+    name: string
     contractAddress: string
     providerDID: string
     consumerDID: string
     policy: string
+    maxAccessCount?: number
+    expiresAt?: string
   }
   setNewContract: (contract: any) => void
   
@@ -108,15 +112,19 @@ export function useDataOfferings(): UseDataOfferingsReturn {
   const [newOffering, setNewOffering] = useState({
     title: "",
     description: "",
-    dataType: "",
+    dataType: "" as DataSourceType | "",
     accessPolicy: "",
+    sourceConfig: undefined,
   })
 
   const [newContract, setNewContract] = useState({
+    name: "",
     contractAddress: "",
     providerDID: "",
     consumerDID: "",
     policy: "",
+    maxAccessCount: undefined,
+    expiresAt: "",
   })
 
   const [newRequest, setNewRequest] = useState({
@@ -145,13 +153,15 @@ export function useDataOfferings(): UseDataOfferingsReturn {
       id: Date.now().toString(),
       title: newOffering.title,
       description: newOffering.description,
-      dataType: newOffering.dataType,
+      dataType: newOffering.dataType as DataSourceType,
       accessPolicy: newOffering.accessPolicy,
       status: "active",
+      registrationStatus: "unregistered",
       createdAt: new Date().toISOString(),
+      sourceConfig: newOffering.sourceConfig,
     }
     setDataOfferings(prev => [...prev, newDataOffering])
-    setNewOffering({ title: "", description: "", dataType: "", accessPolicy: "" })
+    setNewOffering({ title: "", description: "", dataType: "", accessPolicy: "", sourceConfig: undefined })
     setIsAddOfferingOpen(false)
   }
 
@@ -159,15 +169,23 @@ export function useDataOfferings(): UseDataOfferingsReturn {
     await new Promise(resolve => setTimeout(resolve, 1000))
     const newDataContract: DataContract = {
       id: Date.now().toString(),
+      name: newContract.name,
       contractAddress: newContract.contractAddress,
       providerDID: newContract.providerDID,
       consumerDID: newContract.consumerDID,
       policy: newContract.policy,
       status: "active",
       createdAt: new Date().toISOString(),
+      expiresAt: newContract.expiresAt,
+      accessCount: 0,
+      dataVolume: "0 MB",
+      maxAccessCount: newContract.maxAccessCount,
+      violationCount: 0,
+      isViolated: false,
+      isExpired: false,
     }
     setDataContracts(prev => [...prev, newDataContract])
-    setNewContract({ contractAddress: "", providerDID: "", consumerDID: "", policy: "" })
+    setNewContract({ name: "", contractAddress: "", providerDID: "", consumerDID: "", policy: "", maxAccessCount: undefined, expiresAt: "" })
     setIsAddContractOpen(false)
   }
 
