@@ -5,6 +5,7 @@ export interface BlockchainNetwork {
   name: string
   type: "ZLTC"
   chainType: "main" | "sub"
+  subChainType?: "catalog" | "audit" | "business" | "lineage"
   chainId: number
   status: "connected" | "disconnected" | "syncing"
   curveAlgorithm: "Secp256k1" | "Sm2p256v1"
@@ -18,13 +19,14 @@ export interface BlockchainNetwork {
 export interface BlockchainTransaction {
   id: string
   hash: string
-  type: "did_registration" | "contract_deployment" | "data_access" | "audit_log"
+  type: "did_registration" | "contract_deployment" | "data_access" | "audit_log" | "catalog_query" | "connector_operation" | "business_contract" | "lineage_trace"
   from: string
   to: string
   status: "pending" | "confirmed" | "failed"
   timestamp: string
   blockNumber: number
   chainType: "main" | "sub"
+  subChainType?: "catalog" | "audit" | "business" | "lineage"
 }
 
 export interface AuditLog {
