@@ -4,7 +4,6 @@ import type React from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DataSpaceProvider } from "@/lib/contexts/DataSpaceContext";
 import Header from "@/components/header";
-import Navigation from "@/components/navigation";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -47,9 +46,6 @@ export default function RootLayout({
             <div className="min-h-screen bg-background">
               {/* Header */}
               <Header />
-
-              {/* Navigation */}
-              <Navigation />
 
               {/* Main Content */}
               <div className="container mx-auto px-6 pb-8">{children}</div>

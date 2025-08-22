@@ -6,24 +6,25 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { DataSpaceSwitcher } from "@/components/DataSpaceSwitcher";
-import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Header() {
+  const router = useRouter();
   const { setTheme, theme } = useTheme();
-  const [isRegistered, setIsRegistered] = useState(false);
-  const { currentDataSpace } = useDataSpace();
+  const [isRegistered, setIsRegistered] = useState(true);
 
   return (
     <div className="border-b bg-card">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold font-serif text-foreground">
+              <h1 className="text-2xl font-bold font-serif text-foreground hidden md:block">
                 Trusted Data Space Connector
               </h1>
-            </div>
+            </Link>
             <Badge
               variant={isRegistered ? "default" : "secondary"}
               className="ml-4"
@@ -42,7 +43,11 @@ export default function Header() {
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.push("/settings")}
+            >
               <Settings className="h-4 w-4 mr-2" />
               Settings
             </Button>
