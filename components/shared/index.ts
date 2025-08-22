@@ -8,3 +8,4 @@ export type { FilterOption, SearchFilterProps } from "./SearchFilter";
 export { SearchFilter } from "./SearchFilter";
 export type { StatusBadgeProps } from "./StatusBadge";
 export { StatusBadge } from "./StatusBadge";
+export { SecurityRatingChart } from "./SecurityRatingChart";

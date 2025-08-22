@@ -94,4 +94,11 @@ export interface DataContract {
   violationCount: number
   isViolated: boolean
   isExpired: boolean
+  // Consumer perspective fields
+  connectorId?: string // Which connector this contract is with
+  connectorName?: string
+  dataOfferingId?: string
+  dataOfferingTitle?: string
+  accessMethods?: ("download" | "api")[]
+  lastAccessed?: string
 }

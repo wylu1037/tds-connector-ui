@@ -100,6 +100,37 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         violationCount: 2,
         isViolated: true,
         isExpired: true,
+        // Consumer perspective fields
+        connectorId: "hconn1",
+        connectorName: "Hospital Network EU",
+        dataOfferingId: "h1",
+        dataOfferingTitle: "Patient Demographics Dataset",
+        accessMethods: ["download", "api"],
+        lastAccessed: "2024-01-18T14:30:00Z",
+      },
+      {
+        id: "hc4",
+        name: "Research Data Access Contract",
+        contractAddress: "0xhealth555666777888999000aaabbbcccddd",
+        providerDID: "did:health:research-inst-456",
+        consumerDID: "did:health:our-connector-123",
+        policy: "Research License",
+        status: "in_use",
+        createdAt: "2024-01-20T09:00:00Z",
+        expiresAt: "2024-07-20T23:59:59Z",
+        accessCount: 245,
+        dataVolume: "15.8 GB", 
+        maxAccessCount: 1000,
+        violationCount: 0,
+        isViolated: false,
+        isExpired: false,
+        // Consumer perspective fields
+        connectorId: "hconn2",
+        connectorName: "Research Institute",
+        dataOfferingId: "h2",
+        dataOfferingTitle: "Medical Imaging Archive",
+        accessMethods: ["api"],
+        lastAccessed: "2024-01-20T16:45:00Z",
       },
     ],
     connectedConnectors: [
@@ -110,6 +141,62 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-15T08:30:00Z",
         offeringsCount: 15,
+        description: "Leading European hospital network providing anonymized healthcare data for research and analytics",
+        organization: "EuroHealth Consortium",
+        location: "Brussels, Belgium",
+        contactEmail: "data@eurohospitals.eu",
+        dataCategories: ["Patient Demographics", "Medical Imaging", "Clinical Trials"],
+        certifications: ["ISO 27001", "GDPR Compliant", "HIPAA"],
+        securityAssessment: {
+          overallScore: 92.5,
+          rating: "S",
+          lastAssessed: "2024-01-10T00:00:00Z",
+          assessor: "SecureAudit Corp",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 1.0,
+              status: "green",
+              description: "Full mTLS implementation with certificate rotation and MFA for all access"
+            },
+            {
+              name: "Security Communication & Encryption", 
+              weight: 0.15,
+              score: 1.0,
+              status: "green",
+              description: "TLS 1.3 with forward secrecy and message integrity verification"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.9,
+              status: "green", 
+              description: "RBAC with policy engine and real-time monitoring with minor gaps in enforcement"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.95,
+              status: "green",
+              description: "Regular security audits, patching, and hardware-backed key protection"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 1.0,
+              status: "green",
+              description: "Comprehensive logging with integrity protection and 12-month retention"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.9,
+              status: "green",
+              description: "GDPR compliant with automated data lifecycle management"
+            }
+          ]
+        }
       },
       {
         id: "hconn2", 
@@ -118,6 +205,62 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-14T16:45:00Z",
         offeringsCount: 8,
+        description: "Medical research institute specializing in AI-driven healthcare analytics",
+        organization: "MedTech Research Foundation",
+        location: "Boston, MA, USA",
+        contactEmail: "partnerships@medtechrf.org",
+        dataCategories: ["Clinical Research", "AI Models", "Genomics"],
+        certifications: ["ISO 27001", "SOC 2 Type II"],
+        securityAssessment: {
+          overallScore: 78.5,
+          rating: "B",
+          lastAssessed: "2024-01-08T00:00:00Z",
+          assessor: "CyberSec Validators",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 0.8,
+              status: "yellow",
+              description: "mTLS partially implemented, some certificate management gaps"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15, 
+              score: 0.9,
+              status: "green",
+              description: "TLS 1.2/1.3 with strong ciphers and message signing"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.7,
+              status: "yellow",
+              description: "Basic RBAC implemented but usage control policies need enhancement"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.75,
+              status: "yellow",
+              description: "Regular audits but patch management could be more systematic"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 0.8,
+              status: "yellow",
+              description: "Good logging but integrity protection needs improvement"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.85,
+              status: "green",
+              description: "Good privacy controls with automated anonymization"
+            }
+          ]
+        }
       },
     ],
     digitalContracts: [],
@@ -491,6 +634,62 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-15T09:00:00Z",
         offeringsCount: 25,
+        description: "European Central Bank providing regulatory and market data",
+        organization: "European Central Bank",
+        location: "Frankfurt, Germany",
+        contactEmail: "data-sharing@ecb.europa.eu",
+        dataCategories: ["Market Data", "Regulatory Reports", "Economic Indicators"],
+        certifications: ["ISO 27001", "SOC 2", "PCI DSS"],
+        securityAssessment: {
+          overallScore: 96.0,
+          rating: "S",
+          lastAssessed: "2024-01-05T00:00:00Z",
+          assessor: "Elite Security Auditors",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 1.0,
+              status: "green",
+              description: "Banking-grade identity management with hardware security modules"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15,
+              score: 1.0,
+              status: "green",
+              description: "Military-grade encryption with quantum-resistant algorithms"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.95,
+              status: "green",
+              description: "Advanced ABAC with real-time policy enforcement and monitoring"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 1.0,
+              status: "green",
+              description: "Continuous security monitoring with zero-trust architecture"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 1.0,
+              status: "green",
+              description: "Immutable audit logs with blockchain-based integrity"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.8,
+              status: "yellow",
+              description: "Strong privacy controls with minor data retention optimization needed"
+            }
+          ]
+        }
       },
       {
         id: "fconn2",
@@ -499,6 +698,62 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected", 
         lastSeen: "2024-01-14T18:30:00Z",
         offeringsCount: 12,
+        description: "Consortium of leading fintech companies sharing innovation data",
+        organization: "European FinTech Alliance",
+        location: "London, UK",
+        contactEmail: "partnerships@fintechalliance.eu",
+        dataCategories: ["Innovation Metrics", "Market Analytics", "Risk Models"],
+        certifications: ["ISO 27001", "FCA Regulated"],
+        securityAssessment: {
+          overallScore: 82.5,
+          rating: "A",
+          lastAssessed: "2024-01-12T00:00:00Z",
+          assessor: "Financial Security Corp",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 0.85,
+              status: "green",
+              description: "Strong identity controls with multi-factor authentication"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15,
+              score: 0.9,
+              status: "green",
+              description: "TLS 1.3 with strong cipher suites and certificate pinning"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.8,
+              status: "yellow",
+              description: "Good RBAC but usage policies need strengthening"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.8,
+              status: "yellow",
+              description: "Regular security updates with good vulnerability management"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 0.85,
+              status: "green",
+              description: "Comprehensive logging with good retention policies"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.9,
+              status: "green",
+              description: "GDPR compliant with strong privacy by design"
+            }
+          ]
+        }
       },
     ],
     digitalContracts: [],
@@ -839,6 +1094,37 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         violationCount: 0,
         isViolated: false,
         isExpired: false,
+        // Consumer perspective fields
+        connectorId: "mconn1",
+        connectorName: "Smart City Platform",
+        dataOfferingId: "m1",
+        dataOfferingTitle: "Traffic Flow Data",
+        accessMethods: ["api"],
+        lastAccessed: "2024-01-19T11:30:00Z",
+      },
+      {
+        id: "mc2",
+        name: "Public Transport Data Contract",
+        contractAddress: "0xmobility789abc123def456ghi789jkl012mno345pqr",
+        providerDID: "did:mobility:transport-hub-456",
+        consumerDID: "did:mobility:our-connector-789",
+        policy: "Municipal License",
+        status: "active",
+        createdAt: "2024-01-18T15:00:00Z",
+        expiresAt: "2024-06-18T23:59:59Z",
+        accessCount: 156,
+        dataVolume: "8.2 GB",
+        maxAccessCount: 500,
+        violationCount: 0,
+        isViolated: false,
+        isExpired: false,
+        // Consumer perspective fields
+        connectorId: "mconn2",
+        connectorName: "Transport Analytics Hub",
+        dataOfferingId: "m2",
+        dataOfferingTitle: "Public Transport Schedule",
+        accessMethods: ["download", "api"],
+        lastAccessed: "2024-01-20T09:15:00Z",
       },
     ],
     connectedConnectors: [
@@ -849,6 +1135,126 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-15T07:45:00Z",
         offeringsCount: 20,
+        description: "Comprehensive smart city platform providing real-time urban mobility data and analytics",
+        organization: "Metropolitan Smart City Alliance",
+        location: "Amsterdam, Netherlands",
+        contactEmail: "data@smartcity-amsterdam.eu",
+        dataCategories: ["Traffic Data", "Public Transport", "Bike Sharing", "Parking"],
+        certifications: ["ISO 27001", "Smart City Certified", "GDPR Compliant"],
+        securityAssessment: {
+          overallScore: 85.5,
+          rating: "A",
+          lastAssessed: "2024-01-12T00:00:00Z",
+          assessor: "Urban Security Solutions",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 0.85,
+              status: "green",
+              description: "Strong IoT device identity management with certificate-based authentication"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15,
+              score: 0.9,
+              status: "green",
+              description: "TLS 1.3 for API communications with IoT security protocols"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.8,
+              status: "yellow",
+              description: "Good RBAC implementation but real-time policy enforcement needs improvement"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.85,
+              status: "green",
+              description: "Regular security updates with IoT device management and monitoring"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 0.9,
+              status: "green",
+              description: "Comprehensive logging with smart city data provenance tracking"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.9,
+              status: "green",
+              description: "Privacy-preserving data collection with citizen consent management"
+            }
+          ]
+        }
+      },
+      {
+        id: "mconn2",
+        name: "Transport Analytics Hub",
+        did: "did:mobility:transport-hub-456",
+        status: "connected",
+        lastSeen: "2024-01-14T19:20:00Z",
+        offeringsCount: 12,
+        description: "Advanced transportation analytics and optimization platform for multi-modal urban mobility",
+        organization: "European Transport Research Institute",
+        location: "Berlin, Germany",
+        contactEmail: "partnerships@etri.eu",
+        dataCategories: ["Route Optimization", "Mobility Patterns", "Carbon Footprint"],
+        certifications: ["ISO 14001", "Carbon Trust Standard"],
+        securityAssessment: {
+          overallScore: 76.0,
+          rating: "B",
+          lastAssessed: "2024-01-09T00:00:00Z",
+          assessor: "Transport Security Group",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 0.75,
+              status: "yellow",
+              description: "Basic identity management with some gaps in multi-modal authentication"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15,
+              score: 0.8,
+              status: "yellow",
+              description: "Good encryption but some legacy transport protocols need updating"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.7,
+              status: "yellow",
+              description: "Basic access controls with limited data usage policy enforcement"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.8,
+              status: "yellow",
+              description: "Regular updates but vulnerability management could be more proactive"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 0.75,
+              status: "yellow",
+              description: "Good logging but cross-system traceability needs improvement"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.8,
+              status: "yellow",
+              description: "GDPR compliant with room for improvement in anonymization techniques"
+            }
+          ]
+        }
       },
     ],
     digitalContracts: [],
@@ -1106,6 +1512,13 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         violationCount: 0,
         isViolated: false,
         isExpired: false,
+        // Consumer perspective fields
+        connectorId: "econn1",
+        connectorName: "Energy Grid Operator",
+        dataOfferingId: "e1",
+        dataOfferingTitle: "Grid Load Forecasting",
+        accessMethods: ["api"],
+        lastAccessed: undefined, // Never accessed due to data unavailable status
       },
     ],
     connectedConnectors: [
@@ -1116,6 +1529,126 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "pending",
         lastSeen: "2024-01-10T12:00:00Z",
         offeringsCount: 5,
+        description: "Critical infrastructure operator managing national electrical grid data and renewable energy integration",
+        organization: "National Grid Energy Corp",
+        location: "Frankfurt, Germany",
+        contactEmail: "security@nationalgrid.de",
+        dataCategories: ["Grid Load", "Renewable Sources", "Critical Infrastructure"],
+        certifications: ["IEC 62443", "ISO 27019", "NERC CIP"],
+        securityAssessment: {
+          overallScore: 58.5,
+          rating: "C",
+          lastAssessed: "2024-01-05T00:00:00Z",
+          assessor: "Critical Infrastructure Security",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 0.6,
+              status: "yellow",
+              description: "Basic SCADA authentication but lacks modern identity federation"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15,
+              score: 0.7,
+              status: "yellow",
+              description: "Some encrypted channels but legacy industrial protocols present"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.5,
+              status: "red",
+              description: "Limited access controls with insufficient data usage monitoring"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.6,
+              status: "yellow",
+              description: "Critical infrastructure protection but patch management is slow"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 0.4,
+              status: "red",
+              description: "Basic logging but insufficient for comprehensive audit trails"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.8,
+              status: "yellow",
+              description: "Good privacy controls but data retention policies need updates"
+            }
+          ]
+        }
+      },
+      {
+        id: "econn2",
+        name: "Renewable Energy Cooperative",
+        did: "did:energy:renewable-coop-789",
+        status: "disconnected",
+        lastSeen: "2024-01-05T16:30:00Z",
+        offeringsCount: 3,
+        description: "Community-based renewable energy network providing distributed generation data and smart grid analytics",
+        organization: "European Renewable Energy Alliance",
+        location: "Copenhagen, Denmark",
+        contactEmail: "data@renewablealliance.eu",
+        dataCategories: ["Solar Generation", "Wind Data", "Smart Grid"],
+        certifications: ["Green Energy Certified", "Smart Grid Ready"],
+        securityAssessment: {
+          overallScore: 42.0,
+          rating: "D",
+          lastAssessed: "2023-12-20T00:00:00Z",
+          assessor: "GreenTech Security Audit",
+          dimensions: [
+            {
+              name: "Identity & Trust Management",
+              weight: 0.20,
+              score: 0.3,
+              status: "red",
+              description: "Weak identity management with shared credentials"
+            },
+            {
+              name: "Security Communication & Encryption",
+              weight: 0.15,
+              score: 0.5,
+              status: "red",
+              description: "Inconsistent encryption across distributed systems"
+            },
+            {
+              name: "Access Control & Data Usage Control",
+              weight: 0.25,
+              score: 0.4,
+              status: "red",
+              description: "Basic access controls with no data usage policies"
+            },
+            {
+              name: "Platform & System Security",
+              weight: 0.20,
+              score: 0.3,
+              status: "red",
+              description: "Outdated systems with known vulnerabilities"
+            },
+            {
+              name: "Audit & Traceability",
+              weight: 0.10,
+              score: 0.6,
+              status: "yellow",
+              description: "Some logging capabilities but inconsistent across the network"
+            },
+            {
+              name: "User Information & Privacy",
+              weight: 0.10,
+              score: 0.7,
+              status: "yellow",
+              description: "Basic privacy protection but needs improvement"
+            }
+          ]
+        }
       },
     ],
     digitalContracts: [],
