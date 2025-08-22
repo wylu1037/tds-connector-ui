@@ -105,7 +105,7 @@ export function SandboxTab() {
               <ActionDialog
                 trigger={
                   <Button size="sm">
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="h-4 w-4" />
                     Create Sandbox
                   </Button>
                 }
@@ -283,7 +283,7 @@ export function SandboxTab() {
               <ActionDialog
                 trigger={
                   <Button size="sm" variant="secondary">
-                    <Plus className="h-4 w-4 mr-2" />
+                    <Plus className="h-4 w-4" />
                     New Job
                   </Button>
                 }

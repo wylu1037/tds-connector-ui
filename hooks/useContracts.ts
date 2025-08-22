@@ -23,6 +23,8 @@ export interface UseContractsReturn {
   // Dialog states
   isCreateContractOpen: boolean
   setIsCreateContractOpen: (open: boolean) => void
+  isCreateContractTemplateOpen: boolean
+  setIsCreateContractTemplateOpen: (open: boolean) => void
   isDeploySmartContractOpen: boolean
   setIsDeploySmartContractOpen: (open: boolean) => void
   
@@ -47,6 +49,7 @@ export interface UseContractsReturn {
   
   // Actions
   createContract: () => Promise<void>
+  createContractTemplate: (template: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">) => Promise<void>
   deploySmartContract: () => Promise<void>
   
   // Computed values
@@ -176,6 +179,7 @@ export function useContracts(): UseContractsReturn {
 
   // Dialog states
   const [isCreateContractOpen, setIsCreateContractOpen] = useState(false)
+  const [isCreateContractTemplateOpen, setIsCreateContractTemplateOpen] = useState(false)
   const [isDeploySmartContractOpen, setIsDeploySmartContractOpen] = useState(false)
   
   // Selected items
@@ -226,6 +230,18 @@ export function useContracts(): UseContractsReturn {
     setIsCreateContractOpen(false)
   }
 
+  const createContractTemplate = async (template: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">) => {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    const newContractTemplate: ContractTemplate = {
+      ...template,
+      id: Date.now().toString(),
+      createdAt: new Date().toISOString(),
+      usageCount: 0,
+    }
+    setContractTemplates(prev => [...prev, newContractTemplate])
+    setIsCreateContractTemplateOpen(false)
+  }
+
   const deploySmartContract = async () => {
     if (!selectedSmartContractTemplate) return
     
@@ -251,6 +267,8 @@ export function useContracts(): UseContractsReturn {
     setSmartContractTemplates,
     isCreateContractOpen,
     setIsCreateContractOpen,
+    isCreateContractTemplateOpen,
+    setIsCreateContractTemplateOpen,
     isDeploySmartContractOpen,
     setIsDeploySmartContractOpen,
     selectedContract,
@@ -260,6 +278,7 @@ export function useContracts(): UseContractsReturn {
     newContract,
     setNewContract,
     createContract,
+    createContractTemplate,
     deploySmartContract,
     activeContracts,
     pendingContracts,

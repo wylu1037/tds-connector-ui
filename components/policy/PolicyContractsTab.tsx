@@ -29,6 +29,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useContracts } from "@/hooks";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import { CreateContractTemplateDialog } from "./CreateContractTemplateDialog";
 
 // Policy规则类型图标映射
 const policyRuleIcons = {
@@ -59,6 +60,9 @@ export function PolicyContractsTab() {
     contractTemplates,
     activeContracts,
     pendingContracts,
+    isCreateContractTemplateOpen,
+    setIsCreateContractTemplateOpen,
+    createContractTemplate,
   } = useContracts();
 
   const { currentDataSpace } = useDataSpace();
@@ -109,8 +113,8 @@ export function PolicyContractsTab() {
                   Define access control and usage policies for data sharing
                 </CardDescription>
               </div>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-2" />
+              <Button size="sm" className="hidden">
+                <Plus className="h-4 w-4" />
                 Add Policy
               </Button>
             </div>
@@ -222,7 +226,11 @@ export function PolicyContractsTab() {
                   Pre-configured contracts combining multiple policies
                 </CardDescription>
               </div>
-              <Button size="sm" variant="secondary">
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => setIsCreateContractTemplateOpen(true)}
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 Create Contract
               </Button>
@@ -332,6 +340,14 @@ export function PolicyContractsTab() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Create Contract Template Dialog */}
+      <CreateContractTemplateDialog
+        open={isCreateContractTemplateOpen}
+        onOpenChange={setIsCreateContractTemplateOpen}
+        policyTemplates={policyTemplates}
+        onCreateContract={createContractTemplate}
+      />
     </div>
   );
 }
