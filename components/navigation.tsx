@@ -79,12 +79,12 @@ export default function Navigation() {
   const activeRoute = getActiveRoute();
 
   return (
-    <div className="container mx-auto px-6 py-8">
+    <div className="py-8">
       <nav className="relative flex space-x-1 p-1 bg-muted rounded-lg">
         {navigationItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeRoute === item.value;
-          
+
           return (
             <Link
               key={item.value}
@@ -92,8 +92,8 @@ export default function Navigation() {
               className={cn(
                 "relative flex items-center space-x-2 px-3 py-1 rounded-md text-sm font-medium transition-colors",
                 "hover:text-foreground flex-1 justify-center z-10",
-                isActive 
-                  ? "text-foreground" 
+                isActive
+                  ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
@@ -110,7 +110,7 @@ export default function Navigation() {
                   }}
                 />
               )}
-              
+
               {/* Content */}
               <div className="relative flex items-center space-x-2">
                 <motion.div
