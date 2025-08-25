@@ -6,8 +6,10 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { DataSpaceSwitcher } from "@/components/DataSpaceSwitcher";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import {
   Tooltip,
   TooltipTrigger,
@@ -19,6 +21,7 @@ export default function Header() {
   const router = useRouter();
   const { setTheme, theme } = useTheme();
   const [isRegistered, setIsRegistered] = useState(true);
+  const t = useTranslations("Header");
 
   return (
     <div className="border-b bg-card">
@@ -40,6 +43,7 @@ export default function Header() {
           </div>
           <div className="flex items-center space-x-2">
             <DataSpaceSwitcher />
+            <LanguageSwitcher />
             <Button
               variant="outline"
               size="icon"
@@ -61,7 +65,7 @@ export default function Header() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" sideOffset={5}>
-                  Settings
+                  {t("settings")}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

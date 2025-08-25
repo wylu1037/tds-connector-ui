@@ -1,22 +1,7 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Source_Sans_3 } from "next/font/google";
-import type React from "react";
-import { ThemeProvider } from "@/components/theme-provider";
-import { DataSpaceProvider } from "@/lib/contexts/DataSpaceContext";
-import Header from "@/components/header";
-import "./globals.css";
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-playfair",
-});
-
-const sourceSans = Source_Sans_3({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-source-sans",
-});
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: "Trusted Data Space Connector",
@@ -25,33 +10,26 @@ export const metadata: Metadata = {
   generator: "v0.app",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html
-      lang="en"
-      className={`${playfair.variable} ${sourceSans.variable} antialiased`}
-    >
-      <body className="font-sans">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <DataSpaceProvider>
-            <div className="min-h-screen bg-background">
-              {/* Header */}
-              <Header />
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
-              {/* Main Content */}
-              <div className="container mx-auto px-6 pb-8">{children}</div>
-            </div>
-          </DataSpaceProvider>
-        </ThemeProvider>
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const messages = await getMessages();
+
+  return (
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,39 @@
+{
+  "Navigation": {
+    "identity": "Identity & DID",
+    "dataOffering": "Data Offering",
+    "dataConsumption": "Data Consumption", 
+    "policy": "Policy & Contracts",
+    "blockchain": "Blockchain",
+    "sandbox": "Sandbox",
+    "monitoring": "Monitoring"
+  },
+  "Navigation.short": {
+    "identity": "Identity",
+    "dataOffering": "Offering",
+    "dataConsumption": "Consumption",
+    "policy": "Policy",
+    "blockchain": "Chain",
+    "sandbox": "Sandbox",
+    "monitoring": "Monitor"
+  },
+  "Layout": {
+    "title": "Trusted Data Space Connector",
+    "description": "Enterprise-grade IDS-compliant data space connector for secure data exchange",
+    "loading": "Loading dashboard..."
+  },
+  "Header": {
+    "switchLanguage": "Switch Language",
+    "settings": "Settings"
+  },
+  "Settings": {
+    "tabs": {
+      "general": "General",
+      "security": "Security", 
+      "network": "Network",
+      "blockchain": "Blockchain",
+      "notifications": "Notifications",
+      "advanced": "Advanced"
+    }
+  }
+}

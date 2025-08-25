@@ -11,6 +11,7 @@ import {
   AdvancedSettings,
 } from "@/components/settings";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 
 const SettingsLoadingSkeleton = () => {
   return (
@@ -121,6 +122,8 @@ export default function SettingsPage() {
     systemMaintenance: false,
   });
 
+  const t = useTranslations("Settings.tabs");
+
   return (
     <div className="min-h-screen ">
       <Suspense fallback={<SettingsLoadingSkeleton />}>
@@ -131,12 +134,14 @@ export default function SettingsPage() {
             className="space-y-6"
           >
             <TabsList className="grid w-full grid-cols-6">
-              <TabsTrigger value="general">General</TabsTrigger>
-              <TabsTrigger value="security">Security</TabsTrigger>
-              <TabsTrigger value="network">Network</TabsTrigger>
-              <TabsTrigger value="blockchain">Blockchain</TabsTrigger>
-              <TabsTrigger value="notifications">Notifications</TabsTrigger>
-              <TabsTrigger value="advanced">Advanced</TabsTrigger>
+              <TabsTrigger value="general">{t("general")}</TabsTrigger>
+              <TabsTrigger value="security">{t("security")}</TabsTrigger>
+              <TabsTrigger value="network">{t("network")}</TabsTrigger>
+              <TabsTrigger value="blockchain">{t("blockchain")}</TabsTrigger>
+              <TabsTrigger value="notifications">
+                {t("notifications")}
+              </TabsTrigger>
+              <TabsTrigger value="advanced">{t("advanced")}</TabsTrigger>
             </TabsList>
 
             {/* General Settings Tab */}

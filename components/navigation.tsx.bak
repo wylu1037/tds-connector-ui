@@ -9,76 +9,71 @@ import {
   Network,
   Shield,
 } from "lucide-react";
-import { usePathname } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+
+const navigationItems = [
+  {
+    value: "identity",
+    href: "/identity",
+    icon: Key,
+    label: "Identity & DID",
+    shortLabel: "Identity",
+  },
+  {
+    value: "data-offering",
+    href: "/data-offering",
+    icon: Database,
+    label: "Data Offering",
+    shortLabel: "Offering",
+  },
+  {
+    value: "data-consumption",
+    href: "/data-consumption",
+    icon: Network,
+    label: "Data Consumption",
+    shortLabel: "Consumption",
+  },
+  {
+    value: "policy",
+    href: "/policy",
+    icon: Shield,
+    label: "Policy & Contracts",
+    shortLabel: "Policy",
+  },
+  {
+    value: "blockchain",
+    href: "/blockchain",
+    icon: LinkIcon,
+    label: "Blockchain",
+    shortLabel: "Chain",
+  },
+  {
+    value: "sandbox",
+    href: "/sandbox",
+    icon: Monitor,
+    label: "Sandbox",
+    shortLabel: "Sandbox",
+  },
+  {
+    value: "monitoring",
+    href: "/monitoring",
+    icon: Activity,
+    label: "Monitoring",
+    shortLabel: "Monitor",
+  },
+];
 
 export default function Navigation() {
   const pathname = usePathname();
-  const t = useTranslations("Navigation");
-  const tShort = useTranslations("Navigation.short");
-
-  const navigationItems = [
-    {
-      value: "identity",
-      href: "/identity",
-      icon: Key,
-      label: t("identity"),
-      shortLabel: tShort("identity"),
-    },
-    {
-      value: "data-offering",
-      href: "/data-offering",
-      icon: Database,
-      label: t("dataOffering"),
-      shortLabel: tShort("dataOffering"),
-    },
-    {
-      value: "data-consumption",
-      href: "/data-consumption",
-      icon: Network,
-      label: t("dataConsumption"),
-      shortLabel: tShort("dataConsumption"),
-    },
-    {
-      value: "policy",
-      href: "/policy",
-      icon: Shield,
-      label: t("policy"),
-      shortLabel: tShort("policy"),
-    },
-    {
-      value: "blockchain",
-      href: "/blockchain",
-      icon: LinkIcon,
-      label: t("blockchain"),
-      shortLabel: tShort("blockchain"),
-    },
-    {
-      value: "sandbox",
-      href: "/sandbox",
-      icon: Monitor,
-      label: t("sandbox"),
-      shortLabel: tShort("sandbox"),
-    },
-    {
-      value: "monitoring",
-      href: "/monitoring",
-      icon: Activity,
-      label: t("monitoring"),
-      shortLabel: tShort("monitoring"),
-    },
-  ];
 
   // Get current active route
   const getActiveRoute = () => {
     if (pathname === "/") return "identity"; // default route
     const route = pathname.slice(1); // remove leading slash
-    return navigationItems.some((item) => item.value === route)
-      ? route
-      : "identity";
+    return navigationItems.some(item => item.value === route) ? route : "identity";
   };
 
   const activeRoute = getActiveRoute();
