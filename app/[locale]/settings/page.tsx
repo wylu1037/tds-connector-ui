@@ -1,38 +1,38 @@
 "use client";
 
-import { Suspense, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  GeneralSettings,
-  SecuritySettings,
-  NetworkSettings,
-  BlockchainSettings,
-  NotificationsSettings,
   AdvancedSettings,
+  BlockchainSettings,
+  GeneralSettings,
+  NetworkSettings,
+  NotificationsSettings,
+  SecuritySettings,
 } from "@/components/settings";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
+import { Suspense, useState } from "react";
 
 const SettingsLoadingSkeleton = () => {
   return (
     <div className="space-y-6">
       {/* Tab Navigation Skeleton */}
-      <div className="flex space-x-1 bg-muted rounded-lg p-1 w-full max-w-4xl">
+      <div className="bg-muted flex w-full max-w-4xl space-x-1 rounded-lg p-1">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-10 flex-1 bg-background" />
+          <Skeleton key={i} className="bg-background h-10 flex-1" />
         ))}
       </div>
 
       {/* Main Content Skeleton */}
       <div className="space-y-6">
         {/* First Card - Connector Configuration */}
-        <div className="border rounded-lg p-6 space-y-4">
+        <div className="space-y-4 rounded-lg border p-6">
           <div className="space-y-2">
             <Skeleton className="h-6 w-48" />
             <Skeleton className="h-4 w-64" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Skeleton className="h-4 w-24" />
@@ -65,13 +65,13 @@ const SettingsLoadingSkeleton = () => {
         </div>
 
         {/* Second Card - System Information */}
-        <div className="border rounded-lg p-6 space-y-4">
+        <div className="space-y-4 rounded-lg border p-6">
           <div className="space-y-2">
             <Skeleton className="h-6 w-40" />
             <Skeleton className="h-4 w-56" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div className="space-y-2">
               <Skeleton className="h-4 w-32" />
               <Skeleton className="h-6 w-16" />
@@ -88,7 +88,7 @@ const SettingsLoadingSkeleton = () => {
         </div>
 
         {/* Third Card - Additional Settings */}
-        <div className="border rounded-lg p-6 space-y-4">
+        <div className="space-y-4 rounded-lg border p-6">
           <div className="space-y-2">
             <Skeleton className="h-6 w-44" />
             <Skeleton className="h-4 w-60" />
@@ -125,9 +125,9 @@ export default function SettingsPage() {
   const t = useTranslations("Settings.tabs");
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <Suspense fallback={<SettingsLoadingSkeleton />}>
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="mx-auto max-w-7xl px-6 py-8">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
@@ -188,4 +188,3 @@ export default function SettingsPage() {
     </div>
   );
 }
-

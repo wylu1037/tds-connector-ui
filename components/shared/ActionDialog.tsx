@@ -1,4 +1,3 @@
-import type React from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type React from "react";
 
 export interface ActionDialogProps {
   trigger: React.ReactNode;

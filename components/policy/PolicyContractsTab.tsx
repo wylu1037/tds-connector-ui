@@ -1,23 +1,7 @@
-"use client"
+"use client";
 
-import {
-  Clock,
-  Edit,
-  Eye,
-  FileText,
-  Plus,
-  Shield,
-  Trash2,
-  Users,
-  CheckCircle,
-  XCircle,
-  AlertTriangle,
-  Key,
-  Globe,
-  Lock,
-  TrendingUp,
-} from "lucide-react";
-import { MetricCard, StatusBadge } from "@/components/shared";
+import { MetricCard } from "@/components/shared";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,9 +10,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useContracts } from "@/hooks";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import {
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  Edit,
+  Eye,
+  FileText,
+  Globe,
+  Lock,
+  Plus,
+  Shield,
+  Trash2,
+  TrendingUp,
+  Users,
+  XCircle,
+} from "lucide-react";
 import { CreateContractTemplateDialog } from "./CreateContractTemplateDialog";
 
 // Policy规则类型图标映射
@@ -132,8 +131,8 @@ export function PolicyContractsTab() {
                             policy.severity === "high"
                               ? "destructive"
                               : policy.severity === "medium"
-                              ? "default"
-                              : "secondary"
+                                ? "default"
+                                : "secondary"
                           }
                         >
                           {policy.severity}
@@ -154,7 +153,7 @@ export function PolicyContractsTab() {
                         </Button>
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       {policy.description}
                     </p>
                   </CardHeader>
@@ -162,7 +161,7 @@ export function PolicyContractsTab() {
                     <div className="space-y-3">
                       {/* 简化展示：每个Policy只有一个规则 */}
                       {policy.rules.length > 0 && (
-                        <div className="flex items-center justify-between bg-muted/50 rounded-lg">
+                        <div className="bg-muted/50 flex items-center justify-between rounded-lg">
                           <div className="flex items-center gap-3">
                             {(() => {
                               const rule = policy.rules[0]; // 取第一个规则
@@ -170,12 +169,12 @@ export function PolicyContractsTab() {
                                 policyRuleIcons[rule.type] || Shield;
                               return (
                                 <>
-                                  <IconComponent className="h-5 w-5 text-primary" />
+                                  <IconComponent className="text-primary h-5 w-5" />
                                   <div>
                                     <p className="text-sm font-medium">
                                       {rule.name}
                                     </p>
-                                    <p className="text-xs text-muted-foreground">
+                                    <p className="text-muted-foreground text-xs">
                                       {rule.description}
                                     </p>
                                   </div>
@@ -196,8 +195,8 @@ export function PolicyContractsTab() {
                         </div>
                       )}
                     </div>
-                    <div className="flex items-center justify-between mt-3 pt-3 border-t">
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="mt-3 flex items-center justify-between border-t pt-3">
+                      <div className="text-muted-foreground flex items-center gap-4 text-xs">
                         <span>Enforcement: {policy.enforcementType}</span>
                         <span>•</span>
                         <span>
@@ -231,7 +230,7 @@ export function PolicyContractsTab() {
                 variant="secondary"
                 onClick={() => setIsCreateContractTemplateOpen(true)}
               >
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Create Contract
               </Button>
             </div>
@@ -249,8 +248,8 @@ export function PolicyContractsTab() {
                             contract.status === "active"
                               ? "default"
                               : contract.status === "draft"
-                              ? "secondary"
-                              : "outline"
+                                ? "secondary"
+                                : "outline"
                           }
                         >
                           {contract.status}
@@ -273,14 +272,14 @@ export function PolicyContractsTab() {
                         </Button>
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       {contract.description}
                     </p>
                   </CardHeader>
                   <CardContent className="pt-0">
                     <div className="space-y-3">
                       <div>
-                        <h5 className="text-sm mb-2 font-bold">
+                        <h5 className="mb-2 text-sm font-bold">
                           Included Policies:
                         </h5>
                         <div className="space-y-1">
@@ -291,15 +290,15 @@ export function PolicyContractsTab() {
                             return policy ? (
                               <div
                                 key={policyId}
-                                className="flex items-center gap-2 py-1 bg-muted/50 rounded"
+                                className="bg-muted/50 flex items-center gap-2 rounded py-1"
                               >
-                                <Shield className="h-4 w-4 text-primary" />
+                                <Shield className="text-primary h-4 w-4" />
                                 <span className="text-sm font-medium">
                                   {policy.name}
                                 </span>
                                 <Badge
                                   variant="outline"
-                                  className="text-xs ml-auto"
+                                  className="ml-auto text-xs"
                                 >
                                   1 rule
                                 </Badge>
@@ -307,10 +306,10 @@ export function PolicyContractsTab() {
                             ) : (
                               <div
                                 key={policyId}
-                                className="flex items-center gap-2 p-2 bg-muted/50 rounded"
+                                className="bg-muted/50 flex items-center gap-2 rounded p-2"
                               >
                                 <AlertTriangle className="h-4 w-4 text-yellow-500" />
-                                <span className="text-sm text-muted-foreground">
+                                <span className="text-muted-foreground text-sm">
                                   Policy not found: {policyId}
                                 </span>
                               </div>
@@ -319,8 +318,8 @@ export function PolicyContractsTab() {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between pt-3 border-t">
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <div className="flex items-center justify-between border-t pt-3">
+                        <div className="text-muted-foreground flex items-center gap-4 text-xs">
                           <span>Used: {contract.usageCount} times</span>
                           <span>•</span>
                           <span>

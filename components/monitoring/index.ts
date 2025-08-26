@@ -1,1 +1,1 @@
-export { MonitoringTab } from './MonitoringTab'
+export { MonitoringTab } from "./MonitoringTab";

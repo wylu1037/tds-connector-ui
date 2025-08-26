@@ -1,5 +1,8 @@
 "use client";
 
+import { Link, usePathname } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import {
   Activity,
   Database,
@@ -9,10 +12,6 @@ import {
   Network,
   Shield,
 } from "lucide-react";
-import { usePathname } from "@/i18n/navigation";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 export default function Navigation() {
@@ -85,7 +84,7 @@ export default function Navigation() {
 
   return (
     <div className="py-8">
-      <nav className="relative flex space-x-1 p-1 bg-muted rounded-lg">
+      <nav className="bg-muted relative flex space-x-1 rounded-lg p-1">
         {navigationItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeRoute === item.value;
@@ -95,8 +94,8 @@ export default function Navigation() {
               key={item.value}
               href={item.href}
               className={cn(
-                "relative flex items-center space-x-2 px-3 py-1 rounded-md text-sm font-medium transition-colors",
-                "hover:text-foreground flex-1 justify-center z-10",
+                "relative flex items-center space-x-2 rounded-md px-3 py-1 text-sm font-medium transition-colors",
+                "hover:text-foreground z-10 flex-1 justify-center",
                 isActive
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -106,7 +105,7 @@ export default function Navigation() {
               {isActive && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-background rounded-md"
+                  className="bg-background absolute inset-0 rounded-md"
                   initial={false}
                   transition={{
                     type: "spring",

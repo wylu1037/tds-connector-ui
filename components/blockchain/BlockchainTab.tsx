@@ -1,22 +1,7 @@
-"use client"
+"use client";
 
-import {
-  AlertCircle,
-  CheckCircle,
-  Clock,
-  Database,
-  Eye,
-  Network,
-  Shield,
-  Link,
-  Activity,
-  Folder,
-  FileSearch,
-  Building,
-  GitBranch,
-} from "lucide-react";
 import { MetricCard, StatusBadge } from "@/components/shared";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -24,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -34,6 +18,19 @@ import {
 } from "@/components/ui/select";
 import { useBlockchain } from "@/hooks";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import {
+  Activity,
+  AlertCircle,
+  Building,
+  CheckCircle,
+  Clock,
+  Database,
+  FileSearch,
+  Folder,
+  GitBranch,
+  Network,
+  Shield,
+} from "lucide-react";
 import { useState } from "react";
 
 // Sub chain type mapping
@@ -65,12 +62,7 @@ const subChainTypes = {
 };
 
 export function BlockchainTab() {
-  const {
-    blockchainNetworks,
-    blockchainTransactions,
-    activeNetworks,
-    recentTransactions,
-  } = useBlockchain();
+  const { blockchainNetworks, recentTransactions } = useBlockchain();
 
   const { currentDataSpace } = useDataSpace();
 
@@ -153,7 +145,7 @@ export function BlockchainTab() {
           <CardContent>
             {mainChain ? (
               <div className="space-y-4">
-                <div className="p-4 border rounded-lg">
+                <div className="rounded-lg border p-4">
                   <div className="grid gap-3">
                     <div className="flex items-center justify-between">
                       <h4 className="font-semibold">{mainChain.name}</h4>
@@ -203,19 +195,19 @@ export function BlockchainTab() {
                       <span className="text-muted-foreground">
                         Description:
                       </span>
-                      <p className="text-sm mt-1">{mainChain.description}</p>
+                      <p className="mt-1 text-sm">{mainChain.description}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Main Chain Recent Transactions */}
                 <div>
-                  <h5 className="font-medium mb-3">Recent Transactions</h5>
+                  <h5 className="mb-3 font-medium">Recent Transactions</h5>
                   <div className="space-y-2">
                     {mainChainTransactions.slice(0, 3).map((tx) => (
                       <div
                         key={tx.id}
-                        className="flex items-center justify-between p-2 border rounded"
+                        className="flex items-center justify-between rounded border p-2"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="flex items-center space-x-1">
@@ -232,10 +224,10 @@ export function BlockchainTab() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-xs text-muted-foreground font-mono">
+                          <div className="text-muted-foreground font-mono text-xs">
                             {tx.hash.slice(0, 8)}...{tx.hash.slice(-6)}
                           </div>
-                          <div className="text-xs text-muted-foreground">
+                          <div className="text-muted-foreground text-xs">
                             {new Date(tx.timestamp).toLocaleTimeString()}
                           </div>
                         </div>
@@ -245,7 +237,7 @@ export function BlockchainTab() {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
+              <div className="text-muted-foreground py-8 text-center">
                 No main chain connected
               </div>
             )}
@@ -277,7 +269,7 @@ export function BlockchainTab() {
                     )
                   }
                 >
-                  <SelectTrigger className="w-fit bg-background border border-border">
+                  <SelectTrigger className="bg-background border-border w-fit border">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -300,7 +292,7 @@ export function BlockchainTab() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="p-4 border rounded-lg">
+              <div className="rounded-lg border p-4">
                 <div className="grid gap-3">
                   <div className="flex items-center justify-between">
                     <h4 className="font-semibold">
@@ -351,7 +343,7 @@ export function BlockchainTab() {
                   </div>
                   <div>
                     <span className="text-muted-foreground">Description:</span>
-                    <p className="text-sm mt-1">
+                    <p className="mt-1 text-sm">
                       {currentSubChainInfo.description}
                     </p>
                   </div>
@@ -360,13 +352,13 @@ export function BlockchainTab() {
 
               {/* Sub Chain Recent Transactions */}
               <div>
-                <h5 className="font-medium mb-3">Recent Transactions</h5>
+                <h5 className="mb-3 font-medium">Recent Transactions</h5>
                 <div className="space-y-2">
                   {subChainTransactions.length > 0 ? (
                     subChainTransactions.slice(0, 3).map((tx) => (
                       <div
                         key={tx.id}
-                        className="flex items-center justify-between p-2 border rounded"
+                        className="flex items-center justify-between rounded border p-2"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="flex items-center space-x-1">
@@ -385,17 +377,17 @@ export function BlockchainTab() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-xs text-muted-foreground font-mono">
+                          <div className="text-muted-foreground font-mono text-xs">
                             {tx.hash.slice(0, 8)}...{tx.hash.slice(-6)}
                           </div>
-                          <div className="text-xs text-muted-foreground">
+                          <div className="text-muted-foreground text-xs">
                             {new Date(tx.timestamp).toLocaleTimeString()}
                           </div>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="text-center py-4 text-muted-foreground">
+                    <div className="text-muted-foreground py-4 text-center">
                       No recent transactions for{" "}
                       {currentSubChainInfo.name.toLowerCase()}
                     </div>

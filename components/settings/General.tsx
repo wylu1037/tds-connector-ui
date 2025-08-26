@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Settings } from "lucide-react";
 
 export default function GeneralSettings() {
@@ -33,7 +33,7 @@ export default function GeneralSettings() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="connector-id">Connector ID</Label>
@@ -105,21 +105,21 @@ export default function GeneralSettings() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-sm font-medium">
                 Connector Version
               </p>
               <p className="text-lg font-semibold">v0.0.1</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-sm font-medium">
                 IDS Framework
               </p>
               <p className="text-lg font-semibold">v0.0.1</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-sm font-medium">
                 Last Updated
               </p>
               <p className="text-lg font-semibold">2025-07-15</p>

@@ -1,62 +1,64 @@
-import { useState } from "react"
-import { SandboxEnvironment, OCIImage, DataProcessingJob } from "@/types"
+import { DataProcessingJob, OCIImage, SandboxEnvironment } from "@/types";
+import { useState } from "react";
 
 export interface UseSandboxReturn {
   // Sandbox environments
-  sandboxEnvironments: SandboxEnvironment[]
-  setSandboxEnvironments: (environments: SandboxEnvironment[]) => void
-  
+  sandboxEnvironments: SandboxEnvironment[];
+  setSandboxEnvironments: (environments: SandboxEnvironment[]) => void;
+
   // OCI images
-  ociImages: OCIImage[]
-  setOciImages: (images: OCIImage[]) => void
-  
+  ociImages: OCIImage[];
+  setOciImages: (images: OCIImage[]) => void;
+
   // Data processing jobs
-  dataProcessingJobs: DataProcessingJob[]
-  setDataProcessingJobs: (jobs: DataProcessingJob[]) => void
-  
+  dataProcessingJobs: DataProcessingJob[];
+  setDataProcessingJobs: (jobs: DataProcessingJob[]) => void;
+
   // Dialog states
-  isCreateSandboxOpen: boolean
-  setIsCreateSandboxOpen: (open: boolean) => void
-  isCreateJobOpen: boolean
-  setIsCreateJobOpen: (open: boolean) => void
-  
+  isCreateSandboxOpen: boolean;
+  setIsCreateSandboxOpen: (open: boolean) => void;
+  isCreateJobOpen: boolean;
+  setIsCreateJobOpen: (open: boolean) => void;
+
   // Selected items
-  selectedSandbox: SandboxEnvironment | null
-  setSelectedSandbox: (sandbox: SandboxEnvironment | null) => void
-  
+  selectedSandbox: SandboxEnvironment | null;
+  setSelectedSandbox: (sandbox: SandboxEnvironment | null) => void;
+
   // Form states
   newSandbox: {
-    name: string
-    runtime: string
-    image: string
-    memoryLimit: string
-    networkIsolated: boolean
-  }
-  setNewSandbox: (sandbox: any) => void
-  
+    name: string;
+    runtime: string;
+    image: string;
+    memoryLimit: string;
+    networkIsolated: boolean;
+  };
+  setNewSandbox: (sandbox: any) => void;
+
   newJob: {
-    name: string
-    sandboxId: string
-    dataOfferingId: string
-    script: string
-  }
-  setNewJob: (job: any) => void
-  
+    name: string;
+    sandboxId: string;
+    dataOfferingId: string;
+    script: string;
+  };
+  setNewJob: (job: any) => void;
+
   // Actions
-  createSandbox: () => Promise<void>
-  createJob: () => Promise<void>
-  startSandbox: (sandboxId: string) => Promise<void>
-  stopSandbox: (sandboxId: string) => Promise<void>
-  runJob: (jobId: string) => Promise<void>
-  
+  createSandbox: () => Promise<void>;
+  createJob: () => Promise<void>;
+  startSandbox: (sandboxId: string) => Promise<void>;
+  stopSandbox: (sandboxId: string) => Promise<void>;
+  runJob: (jobId: string) => Promise<void>;
+
   // Computed values
-  runningSandboxes: SandboxEnvironment[]
-  activeJobs: DataProcessingJob[]
-  completedJobs: DataProcessingJob[]
+  runningSandboxes: SandboxEnvironment[];
+  activeJobs: DataProcessingJob[];
+  completedJobs: DataProcessingJob[];
 }
 
 export function useSandbox(): UseSandboxReturn {
-  const [sandboxEnvironments, setSandboxEnvironments] = useState<SandboxEnvironment[]>([
+  const [sandboxEnvironments, setSandboxEnvironments] = useState<
+    SandboxEnvironment[]
+  >([
     {
       id: "1",
       name: "Python Analytics",
@@ -87,7 +89,7 @@ export function useSandbox(): UseSandboxReturn {
       networkIsolated: true,
       startupTime: 20,
     },
-  ])
+  ]);
 
   const [ociImages, setOciImages] = useState<OCIImage[]>([
     {
@@ -96,7 +98,8 @@ export function useSandbox(): UseSandboxReturn {
       tag: "3.9-latest",
       runtime: "python",
       size: "1.2 GB",
-      description: "Python environment with pandas, numpy, scikit-learn, and visualization libraries",
+      description:
+        "Python environment with pandas, numpy, scikit-learn, and visualization libraries",
       lastUpdated: "2024-01-10T00:00:00Z",
       verified: true,
       downloads: 1250,
@@ -107,7 +110,8 @@ export function useSandbox(): UseSandboxReturn {
       tag: "4.2.0",
       runtime: "r",
       size: "890 MB",
-      description: "R environment with tidyverse, ggplot2, and statistical packages",
+      description:
+        "R environment with tidyverse, ggplot2, and statistical packages",
       lastUpdated: "2024-01-12T00:00:00Z",
       verified: true,
       downloads: 845,
@@ -118,14 +122,17 @@ export function useSandbox(): UseSandboxReturn {
       tag: "18-alpine",
       runtime: "nodejs",
       size: "450 MB",
-      description: "Node.js environment for data processing and API integration",
+      description:
+        "Node.js environment for data processing and API integration",
       lastUpdated: "2024-01-14T00:00:00Z",
       verified: false,
       downloads: 320,
     },
-  ])
+  ]);
 
-  const [dataProcessingJobs, setDataProcessingJobs] = useState<DataProcessingJob[]>([
+  const [dataProcessingJobs, setDataProcessingJobs] = useState<
+    DataProcessingJob[]
+  >([
     {
       id: "1",
       name: "Customer Segmentation Analysis",
@@ -134,7 +141,8 @@ export function useSandbox(): UseSandboxReturn {
       status: "running",
       startTime: "2024-01-15T10:00:00Z",
       inputSize: "150 MB",
-      script: "import pandas as pd\nimport numpy as np\nfrom sklearn.cluster import KMeans\n\n# Load and process data\ndata = pd.read_csv('/data/customers.csv')\n# ... analysis code",
+      script:
+        "import pandas as pd\nimport numpy as np\nfrom sklearn.cluster import KMeans\n\n# Load and process data\ndata = pd.read_csv('/data/customers.csv')\n# ... analysis code",
     },
     {
       id: "2",
@@ -161,15 +169,16 @@ export function useSandbox(): UseSandboxReturn {
       script: "library(dplyr)\n# Quality check script",
       errorMessage: "Memory limit exceeded during data loading",
     },
-  ])
+  ]);
 
   // Dialog states
-  const [isCreateSandboxOpen, setIsCreateSandboxOpen] = useState(false)
-  const [isCreateJobOpen, setIsCreateJobOpen] = useState(false)
-  
+  const [isCreateSandboxOpen, setIsCreateSandboxOpen] = useState(false);
+  const [isCreateJobOpen, setIsCreateJobOpen] = useState(false);
+
   // Selected items
-  const [selectedSandbox, setSelectedSandbox] = useState<SandboxEnvironment | null>(null)
-  
+  const [selectedSandbox, setSelectedSandbox] =
+    useState<SandboxEnvironment | null>(null);
+
   // Form states
   const [newSandbox, setNewSandbox] = useState({
     name: "",
@@ -177,24 +186,29 @@ export function useSandbox(): UseSandboxReturn {
     image: "",
     memoryLimit: "2GB",
     networkIsolated: true,
-  })
+  });
 
   const [newJob, setNewJob] = useState({
     name: "",
     sandboxId: "",
     dataOfferingId: "",
     script: "",
-  })
+  });
 
   // Actions
   const createSandbox = async () => {
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     const newSandboxEnv: SandboxEnvironment = {
       id: Date.now().toString(),
       name: newSandbox.name,
       status: "creating",
       image: newSandbox.image,
-      runtime: newSandbox.runtime as "python" | "nodejs" | "java" | "r" | "custom",
+      runtime: newSandbox.runtime as
+        | "python"
+        | "nodejs"
+        | "java"
+        | "r"
+        | "custom",
       createdAt: new Date().toISOString(),
       lastUsed: new Date().toISOString(),
       cpuUsage: 0,
@@ -203,31 +217,31 @@ export function useSandbox(): UseSandboxReturn {
       dataVolumes: [],
       networkIsolated: newSandbox.networkIsolated,
       startupTime: 0,
-    }
-    setSandboxEnvironments(prev => [...prev, newSandboxEnv])
+    };
+    setSandboxEnvironments((prev) => [...prev, newSandboxEnv]);
     setNewSandbox({
       name: "",
       runtime: "python",
       image: "",
       memoryLimit: "2GB",
       networkIsolated: true,
-    })
-    setIsCreateSandboxOpen(false)
-    
+    });
+    setIsCreateSandboxOpen(false);
+
     // Simulate sandbox startup
     setTimeout(() => {
-      setSandboxEnvironments(prev => 
-        prev.map(env => 
-          env.id === newSandboxEnv.id 
+      setSandboxEnvironments((prev) =>
+        prev.map((env) =>
+          env.id === newSandboxEnv.id
             ? { ...env, status: "running" as const, startupTime: 18 }
             : env
         )
-      )
-    }, 3000)
-  }
+      );
+    }, 3000);
+  };
 
   const createJob = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const newDataJob: DataProcessingJob = {
       id: Date.now().toString(),
       name: newJob.name,
@@ -237,54 +251,68 @@ export function useSandbox(): UseSandboxReturn {
       startTime: new Date().toISOString(),
       inputSize: "Unknown",
       script: newJob.script,
-    }
-    setDataProcessingJobs(prev => [...prev, newDataJob])
+    };
+    setDataProcessingJobs((prev) => [...prev, newDataJob]);
     setNewJob({
       name: "",
       sandboxId: "",
       dataOfferingId: "",
       script: "",
-    })
-    setIsCreateJobOpen(false)
-  }
+    });
+    setIsCreateJobOpen(false);
+  };
 
   const startSandbox = async (sandboxId: string) => {
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setSandboxEnvironments(prev => 
-      prev.map(env => 
-        env.id === sandboxId 
-          ? { ...env, status: "running" as const, lastUsed: new Date().toISOString() }
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setSandboxEnvironments((prev) =>
+      prev.map((env) =>
+        env.id === sandboxId
+          ? {
+              ...env,
+              status: "running" as const,
+              lastUsed: new Date().toISOString(),
+            }
           : env
       )
-    )
-  }
+    );
+  };
 
   const stopSandbox = async (sandboxId: string) => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    setSandboxEnvironments(prev => 
-      prev.map(env => 
-        env.id === sandboxId 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setSandboxEnvironments((prev) =>
+      prev.map((env) =>
+        env.id === sandboxId
           ? { ...env, status: "stopped" as const, cpuUsage: 0, memoryUsage: 0 }
           : env
       )
-    )
-  }
+    );
+  };
 
   const runJob = async (jobId: string) => {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    setDataProcessingJobs(prev => 
-      prev.map(job => 
-        job.id === jobId 
-          ? { ...job, status: "running" as const, startTime: new Date().toISOString() }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setDataProcessingJobs((prev) =>
+      prev.map((job) =>
+        job.id === jobId
+          ? {
+              ...job,
+              status: "running" as const,
+              startTime: new Date().toISOString(),
+            }
           : job
       )
-    )
-  }
+    );
+  };
 
   // Computed values
-  const runningSandboxes = sandboxEnvironments.filter(env => env.status === "running")
-  const activeJobs = dataProcessingJobs.filter(job => job.status === "running" || job.status === "queued")
-  const completedJobs = dataProcessingJobs.filter(job => job.status === "completed" || job.status === "failed")
+  const runningSandboxes = sandboxEnvironments.filter(
+    (env) => env.status === "running"
+  );
+  const activeJobs = dataProcessingJobs.filter(
+    (job) => job.status === "running" || job.status === "queued"
+  );
+  const completedJobs = dataProcessingJobs.filter(
+    (job) => job.status === "completed" || job.status === "failed"
+  );
 
   return {
     sandboxEnvironments,
@@ -311,5 +339,5 @@ export function useSandbox(): UseSandboxReturn {
     runningSandboxes,
     activeJobs,
     completedJobs,
-  }
+  };
 }

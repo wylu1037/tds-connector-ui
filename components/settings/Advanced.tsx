@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,8 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -19,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import { Server } from "lucide-react";
 
 export default function AdvancedSettings() {
@@ -67,7 +67,7 @@ export default function AdvancedSettings() {
           <Separator />
           <div className="space-y-4">
             <h4 className="font-medium">Resource Limits</h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
                 <Label htmlFor="memory-limit">Memory Limit (GB)</Label>
                 <Input
@@ -100,7 +100,7 @@ export default function AdvancedSettings() {
           <Separator />
           <div className="space-y-4">
             <h4 className="font-medium">Sandbox Configuration</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="sandbox-runtime">Default Runtime</Label>
                 <Select defaultValue="libkrun">
@@ -138,7 +138,7 @@ export default function AdvancedSettings() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-4 border border-red-200 rounded-lg">
+          <div className="flex items-center justify-between rounded-lg border border-red-200 p-4">
             <div>
               <h4 className="font-medium text-red-600">Reset Configuration</h4>
               <p className="text-sm text-slate-500">
@@ -147,7 +147,7 @@ export default function AdvancedSettings() {
             </div>
             <Button variant="destructive">Reset</Button>
           </div>
-          <div className="flex items-center justify-between p-4 border border-red-200 rounded-lg">
+          <div className="flex items-center justify-between rounded-lg border border-red-200 p-4">
             <div>
               <h4 className="font-medium text-red-600">Delete Connector</h4>
               <p className="text-sm text-slate-500">

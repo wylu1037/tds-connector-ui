@@ -1,1 +1,1 @@
-export { DataOfferingTab } from './DataOfferingTab'
+export { DataOfferingTab } from "./DataOfferingTab";

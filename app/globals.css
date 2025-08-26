@@ -10,9 +10,13 @@
   --card-foreground: oklch(0.35 0 0); /* #4b5563 - Card text */
   --popover: oklch(1 0 0); /* #ffffff - Popover background */
   --popover-foreground: oklch(0.35 0 0); /* #4b5563 - Popover text */
-  --primary: oklch(0.55 0.15 200); /* #0891b2 - Teal primary for trust/security */
+  --primary: oklch(
+    0.55 0.15 200
+  ); /* #0891b2 - Teal primary for trust/security */
   --primary-foreground: oklch(1 0 0); /* #ffffff - White text on primary */
-  --secondary: oklch(0.65 0.15 160); /* #10b981 - Green accent for success/security */
+  --secondary: oklch(
+    0.65 0.15 160
+  ); /* #10b981 - Green accent for success/security */
   --secondary-foreground: oklch(1 0 0); /* #ffffff - White text on secondary */
   --muted: oklch(0.98 0 0); /* #f9fafb - Muted backgrounds */
   --muted-foreground: oklch(0.45 0 0); /* #6b7280 - Muted text */
@@ -22,7 +26,9 @@
   --destructive-foreground: oklch(1 0 0); /* #ffffff - Destructive text */
   --border: oklch(0.92 0 0); /* #e5e7eb - Light borders */
   --input: oklch(1 0 0); /* #ffffff - Input backgrounds */
-  --ring: oklch(0.55 0.15 200 / 0.5); /* Primary color with transparency for focus rings */
+  --ring: oklch(
+    0.55 0.15 200 / 0.5
+  ); /* Primary color with transparency for focus rings */
   --chart-1: oklch(0.55 0.15 200); /* #0891b2 - Primary teal for charts */
   --chart-2: oklch(0.65 0.15 160); /* #10b981 - Green for charts */
   --chart-3: oklch(0.65 0.18 85); /* #f59e0b - Amber for charts */
@@ -32,7 +38,9 @@
   --sidebar: oklch(0.98 0 0); /* #f9fafb - Light sidebar background */
   --sidebar-foreground: oklch(0.35 0 0); /* #4b5563 - Sidebar text */
   --sidebar-primary: oklch(0.55 0.15 200); /* #0891b2 - Sidebar primary */
-  --sidebar-primary-foreground: oklch(1 0 0); /* #ffffff - Sidebar primary text */
+  --sidebar-primary-foreground: oklch(
+    1 0 0
+  ); /* #ffffff - Sidebar primary text */
   --sidebar-accent: oklch(0.65 0.15 160); /* #10b981 - Sidebar accent */
   --sidebar-accent-foreground: oklch(1 0 0); /* #ffffff - Sidebar accent text */
   --sidebar-border: oklch(0.92 0 0); /* #e5e7eb - Sidebar borders */

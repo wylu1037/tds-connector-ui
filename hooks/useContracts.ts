@@ -1,65 +1,74 @@
-import { useState, useEffect } from "react"
-import { DigitalContract, SmartContractTemplate, PolicyTemplate, ContractTemplate } from "@/types"
-import { getDataForSpace } from "@/lib/services/DataSpaceDataService"
-import { useDataSpace } from "@/lib/contexts/DataSpaceContext"
+import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import { getDataForSpace } from "@/lib/services/DataSpaceDataService";
+import {
+  ContractTemplate,
+  DigitalContract,
+  PolicyTemplate,
+  SmartContractTemplate,
+} from "@/types";
+import { useEffect, useState } from "react";
 
 export interface UseContractsReturn {
   // Digital contracts
-  digitalContracts: DigitalContract[]
-  setDigitalContracts: (contracts: DigitalContract[]) => void
-  
+  digitalContracts: DigitalContract[];
+  setDigitalContracts: (contracts: DigitalContract[]) => void;
+
   // Policy templates
-  policyTemplates: PolicyTemplate[]
-  setPolicyTemplates: (templates: PolicyTemplate[]) => void
-  
+  policyTemplates: PolicyTemplate[];
+  setPolicyTemplates: (templates: PolicyTemplate[]) => void;
+
   // Contract templates
-  contractTemplates: ContractTemplate[]
-  setContractTemplates: (templates: ContractTemplate[]) => void
-  
+  contractTemplates: ContractTemplate[];
+  setContractTemplates: (templates: ContractTemplate[]) => void;
+
   // Smart contract templates
-  smartContractTemplates: SmartContractTemplate[]
-  setSmartContractTemplates: (templates: SmartContractTemplate[]) => void
-  
+  smartContractTemplates: SmartContractTemplate[];
+  setSmartContractTemplates: (templates: SmartContractTemplate[]) => void;
+
   // Dialog states
-  isCreateContractOpen: boolean
-  setIsCreateContractOpen: (open: boolean) => void
-  isCreateContractTemplateOpen: boolean
-  setIsCreateContractTemplateOpen: (open: boolean) => void
-  isDeploySmartContractOpen: boolean
-  setIsDeploySmartContractOpen: (open: boolean) => void
-  
+  isCreateContractOpen: boolean;
+  setIsCreateContractOpen: (open: boolean) => void;
+  isCreateContractTemplateOpen: boolean;
+  setIsCreateContractTemplateOpen: (open: boolean) => void;
+  isDeploySmartContractOpen: boolean;
+  setIsDeploySmartContractOpen: (open: boolean) => void;
+
   // Selected items
-  selectedContract: DigitalContract | null
-  setSelectedContract: (contract: DigitalContract | null) => void
-  selectedSmartContractTemplate: SmartContractTemplate | null
-  setSelectedSmartContractTemplate: (template: SmartContractTemplate | null) => void
-  
+  selectedContract: DigitalContract | null;
+  setSelectedContract: (contract: DigitalContract | null) => void;
+  selectedSmartContractTemplate: SmartContractTemplate | null;
+  setSelectedSmartContractTemplate: (
+    template: SmartContractTemplate | null
+  ) => void;
+
   // Form states
   newContract: {
-    title: string
-    description: string
-    provider: string
-    consumer: string
-    dataOfferingId: string
-    policyTemplateId: string
-    startDate: string
-    endDate: string
-  }
-  setNewContract: (contract: any) => void
-  
+    title: string;
+    description: string;
+    provider: string;
+    consumer: string;
+    dataOfferingId: string;
+    policyTemplateId: string;
+    startDate: string;
+    endDate: string;
+  };
+  setNewContract: (contract: any) => void;
+
   // Actions
-  createContract: () => Promise<void>
-  createContractTemplate: (template: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">) => Promise<void>
-  deploySmartContract: () => Promise<void>
-  
+  createContract: () => Promise<void>;
+  createContractTemplate: (
+    template: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">
+  ) => Promise<void>;
+  deploySmartContract: () => Promise<void>;
+
   // Computed values
-  activeContracts: DigitalContract[]
-  pendingContracts: DigitalContract[]
+  activeContracts: DigitalContract[];
+  pendingContracts: DigitalContract[];
 }
 
 export function useContracts(): UseContractsReturn {
   const { currentDataSpace } = useDataSpace();
-  
+
   const [digitalContracts, setDigitalContracts] = useState<DigitalContract[]>([
     {
       id: "1",
@@ -117,11 +126,13 @@ export function useContracts(): UseContractsReturn {
       ],
       violationCount: 0,
     },
-  ])
+  ]);
 
   const [policyTemplates, setPolicyTemplates] = useState<PolicyTemplate[]>([]);
-  const [contractTemplates, setContractTemplates] = useState<ContractTemplate[]>([]);
-  
+  const [contractTemplates, setContractTemplates] = useState<
+    ContractTemplate[]
+  >([]);
+
   // 当数据空间切换时，更新Policy和Contract模板数据
   useEffect(() => {
     const spaceData = getDataForSpace(currentDataSpace.id);
@@ -129,7 +140,9 @@ export function useContracts(): UseContractsReturn {
     setContractTemplates(spaceData.contractTemplates);
   }, [currentDataSpace.id]);
 
-  const [smartContractTemplates, setSmartContractTemplates] = useState<SmartContractTemplate[]>([
+  const [smartContractTemplates, setSmartContractTemplates] = useState<
+    SmartContractTemplate[]
+  >([
     {
       id: "1",
       name: "Data Access Control",
@@ -175,17 +188,21 @@ export function useContracts(): UseContractsReturn {
       ],
       deploymentCost: "0.03 ETH",
     },
-  ])
+  ]);
 
   // Dialog states
-  const [isCreateContractOpen, setIsCreateContractOpen] = useState(false)
-  const [isCreateContractTemplateOpen, setIsCreateContractTemplateOpen] = useState(false)
-  const [isDeploySmartContractOpen, setIsDeploySmartContractOpen] = useState(false)
-  
+  const [isCreateContractOpen, setIsCreateContractOpen] = useState(false);
+  const [isCreateContractTemplateOpen, setIsCreateContractTemplateOpen] =
+    useState(false);
+  const [isDeploySmartContractOpen, setIsDeploySmartContractOpen] =
+    useState(false);
+
   // Selected items
-  const [selectedContract, setSelectedContract] = useState<DigitalContract | null>(null)
-  const [selectedSmartContractTemplate, setSelectedSmartContractTemplate] = useState<SmartContractTemplate | null>(null)
-  
+  const [selectedContract, setSelectedContract] =
+    useState<DigitalContract | null>(null);
+  const [selectedSmartContractTemplate, setSelectedSmartContractTemplate] =
+    useState<SmartContractTemplate | null>(null);
+
   // Form states
   const [newContract, setNewContract] = useState({
     title: "",
@@ -196,11 +213,11 @@ export function useContracts(): UseContractsReturn {
     policyTemplateId: "",
     startDate: "",
     endDate: "",
-  })
+  });
 
   // Actions
   const createContract = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const newDigitalContract: DigitalContract = {
       id: Date.now().toString(),
       title: newContract.title,
@@ -215,8 +232,8 @@ export function useContracts(): UseContractsReturn {
       endDate: newContract.endDate,
       terms: [],
       violationCount: 0,
-    }
-    setDigitalContracts(prev => [...prev, newDigitalContract])
+    };
+    setDigitalContracts((prev) => [...prev, newDigitalContract]);
     setNewContract({
       title: "",
       description: "",
@@ -226,35 +243,44 @@ export function useContracts(): UseContractsReturn {
       policyTemplateId: "",
       startDate: "",
       endDate: "",
-    })
-    setIsCreateContractOpen(false)
-  }
+    });
+    setIsCreateContractOpen(false);
+  };
 
-  const createContractTemplate = async (template: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">) => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
+  const createContractTemplate = async (
+    template: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">
+  ) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     const newContractTemplate: ContractTemplate = {
       ...template,
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
       usageCount: 0,
-    }
-    setContractTemplates(prev => [...prev, newContractTemplate])
-    setIsCreateContractTemplateOpen(false)
-  }
+    };
+    setContractTemplates((prev) => [...prev, newContractTemplate]);
+    setIsCreateContractTemplateOpen(false);
+  };
 
   const deploySmartContract = async () => {
-    if (!selectedSmartContractTemplate) return
-    
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    if (!selectedSmartContractTemplate) return;
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     // In a real implementation, this would deploy to blockchain
-    console.log("Deploying smart contract:", selectedSmartContractTemplate.name)
-    setIsDeploySmartContractOpen(false)
-    setSelectedSmartContractTemplate(null)
-  }
+    console.log(
+      "Deploying smart contract:",
+      selectedSmartContractTemplate.name
+    );
+    setIsDeploySmartContractOpen(false);
+    setSelectedSmartContractTemplate(null);
+  };
 
   // Computed values
-  const activeContracts = digitalContracts.filter(contract => contract.status === "active")
-  const pendingContracts = digitalContracts.filter(contract => contract.status === "pending" || contract.status === "draft")
+  const activeContracts = digitalContracts.filter(
+    (contract) => contract.status === "active"
+  );
+  const pendingContracts = digitalContracts.filter(
+    (contract) => contract.status === "pending" || contract.status === "draft"
+  );
 
   return {
     digitalContracts,
@@ -282,5 +308,5 @@ export function useContracts(): UseContractsReturn {
     deploySmartContract,
     activeContracts,
     pendingContracts,
-  }
+  };
 }

@@ -2,7 +2,7 @@
   "Navigation": {
     "identity": "Identity & DID",
     "dataOffering": "Data Offering",
-    "dataConsumption": "Data Consumption", 
+    "dataConsumption": "Data Consumption",
     "policy": "Policy & Contracts",
     "blockchain": "Blockchain",
     "sandbox": "Sandbox",
@@ -32,7 +32,7 @@
   "Settings": {
     "tabs": {
       "general": "General",
-      "security": "Security", 
+      "security": "Security",
       "network": "Network",
       "blockchain": "Blockchain",
       "notifications": "Notifications",
@@ -45,7 +45,7 @@
     "connectorDescription": "Connector identity information and associated DID document details",
     "userDescription": "User identity information and associated verifiable credential details",
     "didIdentifier": "DID Identifier",
-    "connectorName": "Connector Name", 
+    "connectorName": "Connector Name",
     "connectorVersion": "Connector Version",
     "creationTime": "Creation Time",
     "userType": "User Type",

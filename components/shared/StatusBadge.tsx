@@ -1,97 +1,98 @@
-import { memo } from "react"
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
+import { memo } from "react";
 
 export interface StatusBadgeProps {
-  status: string
-  type?: "default" | "contract" | "sandbox" | "job" | "health"
-  className?: string
+  status: string;
+  type?: "default" | "contract" | "sandbox" | "job" | "health";
+  className?: string;
 }
 
-export const StatusBadge = memo(function StatusBadge({ status, type = "default", className }: StatusBadgeProps) {
+export const StatusBadge = memo(function StatusBadge({
+  status,
+  type = "default",
+  className,
+}: StatusBadgeProps) {
   const getStatusColor = (status: string, type: string) => {
     switch (type) {
       case "contract":
         switch (status) {
           case "active":
-            return "default"
+            return "default";
           case "pending":
           case "draft":
-            return "secondary"
+            return "secondary";
           case "expired":
           case "terminated":
-            return "outline"
+            return "outline";
           case "violated":
-            return "destructive"
+            return "destructive";
           default:
-            return "outline"
+            return "outline";
         }
-      
+
       case "sandbox":
         switch (status) {
           case "running":
-            return "default"
+            return "default";
           case "stopped":
           case "creating":
-            return "secondary"
+            return "secondary";
           case "destroying":
           case "error":
-            return "destructive"
+            return "destructive";
           default:
-            return "outline"
+            return "outline";
         }
-      
+
       case "job":
         switch (status) {
           case "completed":
-            return "default"
+            return "default";
           case "running":
-            return "secondary"
+            return "secondary";
           case "queued":
-            return "outline"
+            return "outline";
           case "failed":
           case "cancelled":
-            return "destructive"
+            return "destructive";
           default:
-            return "outline"
+            return "outline";
         }
-      
+
       case "health":
         switch (status) {
           case "healthy":
-            return "default"
+            return "default";
           case "warning":
-            return "secondary"
+            return "secondary";
           case "critical":
           case "offline":
-            return "destructive"
+            return "destructive";
           default:
-            return "outline"
+            return "outline";
         }
-      
+
       default:
         switch (status) {
           case "approved":
           case "connected":
           case "active":
-            return "default"
+            return "default";
           case "pending":
-            return "secondary"
+            return "secondary";
           case "rejected":
           case "disconnected":
           case "inactive":
-            return "destructive"
+            return "destructive";
           default:
-            return "outline"
+            return "outline";
         }
     }
-  }
+  };
 
   return (
-    <Badge 
-      variant={getStatusColor(status, type) as any} 
-      className={className}
-    >
+    <Badge variant={getStatusColor(status, type) as any} className={className}>
       {status}
     </Badge>
-  )
-})
+  );
+});

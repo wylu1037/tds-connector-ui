@@ -1,1 +1,1 @@
-export { PolicyContractsTab } from './PolicyContractsTab'
+export { PolicyContractsTab } from "./PolicyContractsTab";

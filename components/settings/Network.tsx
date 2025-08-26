@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -17,7 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Network } from "lucide-react";
 
 interface NetworkSettingsProps {
@@ -42,7 +42,7 @@ export default function NetworkSettings({
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="default-endpoint">Default Endpoint</Label>
@@ -77,7 +77,7 @@ export default function NetworkSettings({
                 <RadioGroup
                   value={proxyConfig}
                   onValueChange={setProxyConfig}
-                  className="flex justify-between items-center h-9"
+                  className="flex h-9 items-center justify-between"
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="no-proxy" id="no-proxy" />
@@ -108,7 +108,7 @@ export default function NetworkSettings({
           <Separator />
           <div className="space-y-4">
             <h4 className="font-medium">Connection Limits</h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
                 <Label
                   htmlFor="max-connections"

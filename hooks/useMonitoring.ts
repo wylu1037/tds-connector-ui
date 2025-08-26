@@ -1,31 +1,31 @@
-import { useState } from "react"
-import { SystemMetrics, SecurityAlert, ConnectorHealth } from "@/types"
+import { ConnectorHealth, SecurityAlert, SystemMetrics } from "@/types";
+import { useState } from "react";
 
 export interface UseMonitoringReturn {
   // System metrics
-  systemMetrics: SystemMetrics[]
-  setSystemMetrics: (metrics: SystemMetrics[]) => void
-  
+  systemMetrics: SystemMetrics[];
+  setSystemMetrics: (metrics: SystemMetrics[]) => void;
+
   // Security alerts
-  securityAlerts: SecurityAlert[]
-  setSecurityAlerts: (alerts: SecurityAlert[]) => void
-  
+  securityAlerts: SecurityAlert[];
+  setSecurityAlerts: (alerts: SecurityAlert[]) => void;
+
   // Connector health (from identity hook but used in monitoring)
-  connectorHealth: ConnectorHealth[]
-  setConnectorHealth: (health: ConnectorHealth[]) => void
-  
+  connectorHealth: ConnectorHealth[];
+  setConnectorHealth: (health: ConnectorHealth[]) => void;
+
   // Actions
-  resolveAlert: (alertId: string) => Promise<void>
-  dismissAlert: (alertId: string) => Promise<void>
-  refreshMetrics: () => Promise<void>
-  
+  resolveAlert: (alertId: string) => Promise<void>;
+  dismissAlert: (alertId: string) => Promise<void>;
+  refreshMetrics: () => Promise<void>;
+
   // Computed values
-  criticalAlerts: SecurityAlert[]
-  unresolvedAlerts: SecurityAlert[]
-  latestMetrics: SystemMetrics | null
-  healthySystems: number
-  systemsWithIssues: number
-  averageResponseTime: number
+  criticalAlerts: SecurityAlert[];
+  unresolvedAlerts: SecurityAlert[];
+  latestMetrics: SystemMetrics | null;
+  healthySystems: number;
+  systemsWithIssues: number;
+  averageResponseTime: number;
 }
 
 export function useMonitoring(): UseMonitoringReturn {
@@ -60,7 +60,7 @@ export function useMonitoring(): UseMonitoringReturn {
       activeConnections: 18,
       requestsPerMinute: 356,
     },
-  ])
+  ]);
 
   const [securityAlerts, setSecurityAlerts] = useState<SecurityAlert[]>([
     {
@@ -69,7 +69,8 @@ export function useMonitoring(): UseMonitoringReturn {
       severity: "high",
       type: "authentication",
       title: "Multiple Failed Login Attempts",
-      description: "5 failed login attempts detected from IP 192.168.1.100 in the last 10 minutes",
+      description:
+        "5 failed login attempts detected from IP 192.168.1.100 in the last 10 minutes",
       source: "Authentication Service",
       resolved: false,
     },
@@ -79,7 +80,8 @@ export function useMonitoring(): UseMonitoringReturn {
       severity: "medium",
       type: "data_access",
       title: "Unusual Data Access Pattern",
-      description: "Data access from new location detected for user did:example:user123",
+      description:
+        "Data access from new location detected for user did:example:user123",
       source: "Data Access Monitor",
       resolved: false,
     },
@@ -99,11 +101,12 @@ export function useMonitoring(): UseMonitoringReturn {
       severity: "critical",
       type: "policy_violation",
       title: "Data Retention Policy Violation",
-      description: "Data older than retention period detected in contract C-001",
+      description:
+        "Data older than retention period detected in contract C-001",
       source: "Policy Engine",
       resolved: false,
     },
-  ])
+  ]);
 
   const [connectorHealth, setConnectorHealth] = useState<ConnectorHealth[]>([
     {
@@ -142,28 +145,26 @@ export function useMonitoring(): UseMonitoringReturn {
       uptime: "95.2%",
       version: "v1.1.8",
     },
-  ])
+  ]);
 
   // Actions
   const resolveAlert = async (alertId: string) => {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    setSecurityAlerts(prev => 
-      prev.map(alert => 
-        alert.id === alertId 
-          ? { ...alert, resolved: true }
-          : alert
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setSecurityAlerts((prev) =>
+      prev.map((alert) =>
+        alert.id === alertId ? { ...alert, resolved: true } : alert
       )
-    )
-  }
+    );
+  };
 
   const dismissAlert = async (alertId: string) => {
-    await new Promise(resolve => setTimeout(resolve, 300))
-    setSecurityAlerts(prev => prev.filter(alert => alert.id !== alertId))
-  }
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    setSecurityAlerts((prev) => prev.filter((alert) => alert.id !== alertId));
+  };
 
   const refreshMetrics = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     // Generate new metrics
     const newMetric: SystemMetrics = {
       timestamp: new Date().toISOString(),
@@ -174,32 +175,33 @@ export function useMonitoring(): UseMonitoringReturn {
       networkOut: Math.floor(800 + Math.random() * 400),
       activeConnections: Math.floor(10 + Math.random() * 20),
       requestsPerMinute: Math.floor(250 + Math.random() * 200),
-    }
-    
-    setSystemMetrics(prev => [newMetric, ...prev.slice(0, 9)]) // Keep last 10 metrics
-  }
+    };
+
+    setSystemMetrics((prev) => [newMetric, ...prev.slice(0, 9)]); // Keep last 10 metrics
+  };
 
   // Computed values
-  const criticalAlerts = securityAlerts.filter(alert => 
-    alert.severity === "critical" && !alert.resolved
-  )
-  
-  const unresolvedAlerts = securityAlerts.filter(alert => !alert.resolved)
-  
-  const latestMetrics = systemMetrics.length > 0 ? systemMetrics[0] : null
-  
-  const healthySystems = connectorHealth.filter(health => 
-    health.status === "healthy"
-  ).length
-  
-  const systemsWithIssues = connectorHealth.filter(health => 
-    health.status === "warning" || health.status === "critical"
-  ).length
-  
-  const averageResponseTime = connectorHealth
-    .filter(health => health.responseTime > 0)
-    .reduce((sum, health) => sum + health.responseTime, 0) / 
-    connectorHealth.filter(health => health.responseTime > 0).length || 0
+  const criticalAlerts = securityAlerts.filter(
+    (alert) => alert.severity === "critical" && !alert.resolved
+  );
+
+  const unresolvedAlerts = securityAlerts.filter((alert) => !alert.resolved);
+
+  const latestMetrics = systemMetrics.length > 0 ? systemMetrics[0] : null;
+
+  const healthySystems = connectorHealth.filter(
+    (health) => health.status === "healthy"
+  ).length;
+
+  const systemsWithIssues = connectorHealth.filter(
+    (health) => health.status === "warning" || health.status === "critical"
+  ).length;
+
+  const averageResponseTime =
+    connectorHealth
+      .filter((health) => health.responseTime > 0)
+      .reduce((sum, health) => sum + health.responseTime, 0) /
+      connectorHealth.filter((health) => health.responseTime > 0).length || 0;
 
   return {
     systemMetrics,
@@ -217,5 +219,5 @@ export function useMonitoring(): UseMonitoringReturn {
     healthySystems,
     systemsWithIssues,
     averageResponseTime,
-  }
+  };
 }

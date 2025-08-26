@@ -1,15 +1,6 @@
-"use client"
+"use client";
 
-import {
-  Activity,
-  AlertTriangle,
-  CheckCircle,
-  Eye,
-  RefreshCw,
-  Shield,
-  X,
-} from "lucide-react";
-import { MetricCard, StatusBadge } from "@/components/shared"
+import { MetricCard, StatusBadge } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,6 +11,15 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useMonitoring } from "@/hooks";
+import {
+  Activity,
+  AlertTriangle,
+  CheckCircle,
+  Eye,
+  RefreshCw,
+  Shield,
+  X,
+} from "lucide-react";
 
 export function MonitoringTab() {
   const {
@@ -35,7 +35,7 @@ export function MonitoringTab() {
     healthySystems,
     systemsWithIssues,
     averageResponseTime,
-  } = useMonitoring()
+  } = useMonitoring();
 
   return (
     <div className="space-y-6">
@@ -92,7 +92,7 @@ export function MonitoringTab() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">CPU Usage</span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {latestMetrics.cpuUsage}%
                     </span>
                   </div>
@@ -102,7 +102,7 @@ export function MonitoringTab() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Memory Usage</span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {latestMetrics.memoryUsage}%
                     </span>
                   </div>
@@ -112,7 +112,7 @@ export function MonitoringTab() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Disk Usage</span>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {latestMetrics.diskUsage}%
                     </span>
                   </div>
@@ -162,18 +162,18 @@ export function MonitoringTab() {
             <CardDescription>Security events and system alerts</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 max-h-96 overflow-y-auto">
+            <div className="max-h-96 space-y-3 overflow-y-auto">
               {securityAlerts.map((alert) => (
                 <div
                   key={alert.id}
-                  className={`p-3 border rounded-lg ${
+                  className={`rounded-lg border p-3 ${
                     alert.resolved ? "bg-muted/50" : ""
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <h4 className="font-medium text-sm">{alert.title}</h4>
+                      <div className="mb-1 flex items-center space-x-2">
+                        <h4 className="text-sm font-medium">{alert.title}</h4>
                         <StatusBadge
                           status={alert.severity}
                           className="text-xs"
@@ -182,10 +182,10 @@ export function MonitoringTab() {
                           <StatusBadge status="resolved" className="text-xs" />
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground mb-2">
+                      <p className="text-muted-foreground mb-2 text-xs">
                         {alert.description}
                       </p>
-                      <div className="flex items-center space-x-4 text-xs text-muted-foreground">
+                      <div className="text-muted-foreground flex items-center space-x-4 text-xs">
                         <span>Type: {alert.type}</span>
                         <span>Source: {alert.source}</span>
                         <span>
@@ -235,8 +235,8 @@ export function MonitoringTab() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {connectorHealth.map((connector) => (
-              <div key={connector.id} className="p-4 border rounded-lg">
-                <div className="flex items-center justify-between mb-3">
+              <div key={connector.id} className="rounded-lg border p-4">
+                <div className="mb-3 flex items-center justify-between">
                   <h4 className="font-medium">{connector.name}</h4>
                   <StatusBadge status={connector.status} type="health" />
                 </div>
@@ -249,8 +249,8 @@ export function MonitoringTab() {
                         connector.responseTime > 300
                           ? "text-red-600"
                           : connector.responseTime > 200
-                          ? "text-yellow-600"
-                          : "text-green-600"
+                            ? "text-yellow-600"
+                            : "text-green-600"
                       }`}
                     >
                       {connector.responseTime}ms
@@ -293,19 +293,19 @@ export function MonitoringTab() {
             {systemMetrics.slice(0, 5).map((metric, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 border rounded"
+                className="flex items-center justify-between rounded border p-3"
               >
                 <div className="flex items-center space-x-4">
                   <div className="text-sm font-medium">
                     {new Date(metric.timestamp).toLocaleTimeString()}
                   </div>
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                  <div className="text-muted-foreground flex items-center space-x-2 text-sm">
                     <span>CPU: {metric.cpuUsage}%</span>
                     <span>Memory: {metric.memoryUsage}%</span>
                     <span>Disk: {metric.diskUsage}%</span>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                <div className="text-muted-foreground flex items-center space-x-4 text-sm">
                   <span>{metric.activeConnections} connections</span>
                   <span>{metric.requestsPerMinute} req/min</span>
                 </div>

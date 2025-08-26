@@ -1,49 +1,12 @@
-"use client"
+"use client";
 
-import {
-  Clock,
-  Database,
-  Download,
-  ExternalLink,
-  Plus,
-  Users,
-  Eye,
-  Edit,
-  Ban,
-  Shield,
-  MapPin,
-  Mail,
-  Building,
-  Calendar,
-  Activity,
-  Globe,
-  AlertTriangle,
-} from "lucide-react";
 import {
   ActionDialog,
   MetricCard,
   SearchFilter,
-  StatusBadge,
   SecurityRatingChart,
+  StatusBadge,
 } from "@/components/shared";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -56,14 +19,43 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings, useIdentity } from "@/hooks";
-import type {
-  DataRequest,
-  ExternalDataOffering,
-  DataContract,
-  ContractStatus,
-} from "@/types";
 import { cn } from "@/lib/utils";
+import type { ContractStatus, DataContract } from "@/types";
+import {
+  Activity,
+  AlertTriangle,
+  Ban,
+  Building,
+  Calendar,
+  Clock,
+  Database,
+  Download,
+  ExternalLink,
+  Eye,
+  Globe,
+  Mail,
+  MapPin,
+  Shield,
+  Users,
+} from "lucide-react";
 
 const categoryOptions = [
   { value: "all", label: "All Categories" },
@@ -119,23 +111,14 @@ const getContractStatusIcon = (status: ContractStatus) => {
 };
 
 export function DataConsumptionTab() {
-  const {
-    connectedConnectors,
-    isConnectConnectorOpen,
-    setIsConnectConnectorOpen,
-    newConnector,
-    setNewConnector,
-    connectConnector,
-  } = useIdentity()
+  const { connectedConnectors } = useIdentity();
 
   const {
     externalOfferings,
-    dataRequests,
     dataContracts,
     isRequestDataOpen,
     setIsRequestDataOpen,
     selectedOffering,
-    setSelectedOffering,
     newRequest,
     setNewRequest,
     searchQuery,
@@ -146,15 +129,9 @@ export function DataConsumptionTab() {
     filteredOfferings,
   } = useDataOfferings();
 
-  const activeRequestsCount = dataRequests.filter((r: DataRequest) => r.status === "pending" || r.status === "approved").length
   const activeContractsCount = dataContracts.filter(
     (c: DataContract) => c.status === "active" || c.status === "in_use"
   ).length;
-
-  const handleRequestData = (offering: ExternalDataOffering) => {
-    setSelectedOffering(offering)
-    setIsRequestDataOpen(true)
-  }
 
   return (
     <div className="space-y-6">
@@ -257,28 +234,28 @@ export function DataConsumptionTab() {
             />
 
             {/* Offerings List */}
-            <div className="space-y-3 max-h-96 overflow-y-auto">
+            <div className="max-h-96 space-y-3 overflow-y-auto">
               {filteredOfferings.map((offering) => (
-                <div key={offering.id} className="p-3 border rounded-lg">
+                <div key={offering.id} className="rounded-lg border p-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <h4 className="font-medium">{offering.title}</h4>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-muted-foreground mt-1 text-sm">
                         {offering.description}
                       </p>
-                      <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
+                      <div className="text-muted-foreground mt-2 flex items-center space-x-4 text-xs">
                         <span>Provider: {offering.provider}</span>
                         <span>Type: {offering.dataType}</span>
                         <span>Size: {offering.size}</span>
                         {offering.price && <span>Price: {offering.price}</span>}
                       </div>
                     </div>
-                    <Button
+                    {/* <Button
                       size="sm"
                       onClick={() => handleRequestData(offering)}
                     >
                       Request
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               ))}
@@ -293,7 +270,7 @@ export function DataConsumptionTab() {
             <CardDescription>Manage your active data contracts</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 max-h-96 overflow-y-auto">
+            <div className="max-h-96 space-y-3 overflow-y-auto">
               {dataContracts.map((contract: DataContract) => {
                 const ContractStatusIcon = getContractStatusIcon(
                   contract.status
@@ -304,17 +281,17 @@ export function DataConsumptionTab() {
                   contract.status === "active" || contract.status === "in_use";
 
                 return (
-                  <div key={contract.id} className="p-4 border rounded-lg">
-                    <div className="flex items-center justify-between mb-3">
+                  <div key={contract.id} className="rounded-lg border p-4">
+                    <div className="mb-3 flex items-center justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <ContractStatusIcon className="h-4 w-4 text-muted-foreground" />
-                          <h4 className="font-medium text-sm">
+                        <div className="mb-2 flex items-center space-x-2">
+                          <ContractStatusIcon className="text-muted-foreground h-4 w-4" />
+                          <h4 className="text-sm font-medium">
                             {contract.name}
                           </h4>
                           <div
                             className={cn(
-                              "flex items-center space-x-1 px-2 py-1 rounded-md text-xs",
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
                               contract.status === "active" &&
                                 "bg-green-100 text-green-800",
                               contract.status === "transferring" &&
@@ -337,7 +314,7 @@ export function DataConsumptionTab() {
                           </div>
                         </div>
                         {contract.connectorName && (
-                          <div className="flex items-center space-x-1 text-xs text-muted-foreground mb-1">
+                          <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-xs">
                             <Globe className="h-3 w-3" />
                             <span>Connected to: {contract.connectorName}</span>
                           </div>
@@ -440,7 +417,7 @@ export function DataConsumptionTab() {
                           <span className="text-muted-foreground">
                             Provider DID:
                           </span>
-                          <span className="font-mono truncate ml-2">
+                          <span className="ml-2 truncate font-mono">
                             {contract.providerDID}
                           </span>
                         </div>
@@ -464,13 +441,13 @@ export function DataConsumptionTab() {
                     </div>
 
                     {/* Usage Statistics */}
-                    <div className="mt-3 pt-3 border-t">
+                    <div className="mt-3 border-t pt-3">
                       <div className="grid grid-cols-3 gap-4 text-xs">
                         <div className="text-center">
                           <div className="text-muted-foreground">
                             Access Count
                           </div>
-                          <div className="font-medium text-sm">
+                          <div className="text-sm font-medium">
                             {contract.accessCount}
                             {contract.maxAccessCount && (
                               <span className="text-muted-foreground">
@@ -483,7 +460,7 @@ export function DataConsumptionTab() {
                           <div className="text-muted-foreground">
                             Data Volume
                           </div>
-                          <div className="font-medium text-sm">
+                          <div className="text-sm font-medium">
                             {contract.dataVolume}
                           </div>
                         </div>
@@ -491,7 +468,7 @@ export function DataConsumptionTab() {
                           <div className="text-muted-foreground">
                             Last Access
                           </div>
-                          <div className="font-medium text-sm">
+                          <div className="text-sm font-medium">
                             {contract.lastAccessed
                               ? new Date(
                                   contract.lastAccessed
@@ -504,8 +481,8 @@ export function DataConsumptionTab() {
 
                     {/* Warning Information */}
                     {(contract.isExpired || contract.isViolated) && (
-                      <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded-md">
-                        <div className="flex items-center space-x-2 text-red-800 text-xs">
+                      <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-2">
+                        <div className="flex items-center space-x-2 text-xs text-red-800">
                           <AlertTriangle className="h-4 w-4" />
                           <div>
                             {contract.isExpired && (
@@ -543,31 +520,31 @@ export function DataConsumptionTab() {
             {connectedConnectors.map((connector) => (
               <div
                 key={connector.id}
-                className="p-6 border rounded-lg space-y-4"
+                className="space-y-4 rounded-lg border p-6"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <h4 className="font-semibold text-lg">
+                    <div className="mb-1 flex items-center space-x-2">
+                      <h4 className="text-lg font-semibold">
                         {connector.name}
                       </h4>
                       <StatusBadge status={connector.status} />
                     </div>
                     {connector.organization && (
-                      <div className="flex items-center space-x-1 text-sm text-muted-foreground mb-1">
+                      <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-sm">
                         <Building className="h-3 w-3" />
                         <span>{connector.organization}</span>
                       </div>
                     )}
                     {connector.location && (
-                      <div className="flex items-center space-x-1 text-sm text-muted-foreground mb-1">
+                      <div className="text-muted-foreground mb-1 flex items-center space-x-1 text-sm">
                         <MapPin className="h-3 w-3" />
                         <span>{connector.location}</span>
                       </div>
                     )}
                     {connector.contactEmail && (
-                      <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                      <div className="text-muted-foreground flex items-center space-x-1 text-sm">
                         <Mail className="h-3 w-3" />
                         <span>{connector.contactEmail}</span>
                       </div>
@@ -582,7 +559,7 @@ export function DataConsumptionTab() {
                       />
                       <Badge
                         className={cn(
-                          "text-white text-xs",
+                          "text-xs text-white",
                           connector.securityAssessment.rating === "S" &&
                             "bg-green-600",
                           connector.securityAssessment.rating === "A" &&
@@ -603,22 +580,22 @@ export function DataConsumptionTab() {
 
                 {/* Description */}
                 {connector.description && (
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     {connector.description}
                   </p>
                 )}
 
                 {/* DID */}
-                <div className="bg-muted py-3 rounded-md">
-                  <div className="text-xs text-muted-foreground mb-1">DID:</div>
-                  <p className="text-sm font-mono break-all">{connector.did}</p>
+                <div className="bg-muted rounded-md py-3">
+                  <div className="text-muted-foreground mb-1 text-xs">DID:</div>
+                  <p className="font-mono text-sm break-all">{connector.did}</p>
                 </div>
 
                 {/* Data Categories */}
                 {connector.dataCategories &&
                   connector.dataCategories.length > 0 && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-2">
+                      <div className="text-muted-foreground mb-2 text-xs">
                         Data Categories:
                       </div>
                       <div className="flex flex-wrap gap-1">
@@ -639,7 +616,7 @@ export function DataConsumptionTab() {
                 {connector.certifications &&
                   connector.certifications.length > 0 && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-2">
+                      <div className="text-muted-foreground mb-2 text-xs">
                         Certifications:
                       </div>
                       <div className="flex flex-wrap gap-1">
@@ -649,7 +626,7 @@ export function DataConsumptionTab() {
                             variant="outline"
                             className="text-xs"
                           >
-                            <Shield className="h-3 w-3 mr-1" />
+                            <Shield className="mr-1 h-3 w-3" />
                             {cert}
                           </Badge>
                         ))}
@@ -658,12 +635,12 @@ export function DataConsumptionTab() {
                   )}
 
                 {/* Statistics */}
-                <div className="grid grid-cols-3 gap-4 pt-3 border-t">
+                <div className="grid grid-cols-3 gap-4 border-t pt-3">
                   <div className="text-center">
                     <div className="text-sm font-medium">
                       {connector.offeringsCount}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-muted-foreground text-xs">
                       Offerings
                     </div>
                   </div>
@@ -671,7 +648,7 @@ export function DataConsumptionTab() {
                     <div className="text-sm font-medium">
                       {new Date(connector.lastSeen).toLocaleDateString()}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-muted-foreground text-xs">
                       Last Seen
                     </div>
                   </div>
@@ -686,7 +663,7 @@ export function DataConsumptionTab() {
                         </div>
                       )}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-muted-foreground text-xs">
                       Security Review
                     </div>
                   </div>

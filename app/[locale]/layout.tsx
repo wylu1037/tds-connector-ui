@@ -1,12 +1,12 @@
-import { Playfair_Display, Source_Sans_3 } from "next/font/google";
-import type React from "react";
-import { ThemeProvider } from "@/components/theme-provider";
-import { DataSpaceProvider } from "@/lib/contexts/DataSpaceContext";
 import Header from "@/components/header";
-import { setRequestLocale } from 'next-intl/server';
-import { routing } from '@/i18n/routing';
-import { hasLocale } from 'next-intl';
-import { notFound } from 'next/navigation';
+import { ThemeProvider } from "@/components/theme-provider";
+import { routing } from "@/i18n/routing";
+import { DataSpaceProvider } from "@/lib/contexts/DataSpaceContext";
+import { hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import { notFound } from "next/navigation";
+import type React from "react";
 import "../globals.css";
 
 const playfair = Playfair_Display({
@@ -29,7 +29,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  
+
   // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -39,7 +39,9 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <div className={`${playfair.variable} ${sourceSans.variable} antialiased font-sans`}>
+    <div
+      className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}
+    >
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -47,7 +49,7 @@ export default async function LocaleLayout({
         disableTransitionOnChange
       >
         <DataSpaceProvider>
-          <div className="min-h-screen bg-background">
+          <div className="bg-background min-h-screen">
             {/* Header */}
             <Header />
 

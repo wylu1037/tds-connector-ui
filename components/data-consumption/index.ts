@@ -1,1 +1,1 @@
-export { DataConsumptionTab } from './DataConsumptionTab'
+export { DataConsumptionTab } from "./DataConsumptionTab";

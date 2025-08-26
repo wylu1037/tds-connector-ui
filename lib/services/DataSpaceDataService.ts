@@ -21,7 +21,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "h1",
         title: "Patient Demographics Dataset",
-        description: "Anonymized patient demographic data for healthcare analytics",
+        description:
+          "Anonymized patient demographic data for healthcare analytics",
         dataType: "local_file",
         accessPolicy: "GDPR Compliant",
         status: "active",
@@ -34,7 +35,7 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         },
       },
       {
-        id: "h2", 
+        id: "h2",
         title: "Medical Imaging Archive",
         description: "De-identified medical imaging data for research",
         dataType: "s3",
@@ -119,7 +120,7 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         createdAt: "2024-01-20T09:00:00Z",
         expiresAt: "2024-07-20T23:59:59Z",
         accessCount: 245,
-        dataVolume: "15.8 GB", 
+        dataVolume: "15.8 GB",
         maxAccessCount: 1000,
         violationCount: 0,
         isViolated: false,
@@ -141,11 +142,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-15T08:30:00Z",
         offeringsCount: 15,
-        description: "Leading European hospital network providing anonymized healthcare data for research and analytics",
+        description:
+          "Leading European hospital network providing anonymized healthcare data for research and analytics",
         organization: "EuroHealth Consortium",
         location: "Brussels, Belgium",
         contactEmail: "data@eurohospitals.eu",
-        dataCategories: ["Patient Demographics", "Medical Imaging", "Clinical Trials"],
+        dataCategories: [
+          "Patient Demographics",
+          "Medical Imaging",
+          "Clinical Trials",
+        ],
         certifications: ["ISO 27001", "GDPR Compliant", "HIPAA"],
         securityAssessment: {
           overallScore: 92.5,
@@ -155,57 +161,64 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 1.0,
               status: "green",
-              description: "Full mTLS implementation with certificate rotation and MFA for all access"
+              description:
+                "Full mTLS implementation with certificate rotation and MFA for all access",
             },
             {
-              name: "Security Communication & Encryption", 
+              name: "Security Communication & Encryption",
               weight: 0.15,
               score: 1.0,
               status: "green",
-              description: "TLS 1.3 with forward secrecy and message integrity verification"
+              description:
+                "TLS 1.3 with forward secrecy and message integrity verification",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.9,
-              status: "green", 
-              description: "RBAC with policy engine and real-time monitoring with minor gaps in enforcement"
+              status: "green",
+              description:
+                "RBAC with policy engine and real-time monitoring with minor gaps in enforcement",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.95,
               status: "green",
-              description: "Regular security audits, patching, and hardware-backed key protection"
+              description:
+                "Regular security audits, patching, and hardware-backed key protection",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 1.0,
               status: "green",
-              description: "Comprehensive logging with integrity protection and 12-month retention"
+              description:
+                "Comprehensive logging with integrity protection and 12-month retention",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.9,
               status: "green",
-              description: "GDPR compliant with automated data lifecycle management"
-            }
-          ]
-        }
+              description:
+                "GDPR compliant with automated data lifecycle management",
+            },
+          ],
+        },
       },
       {
-        id: "hconn2", 
+        id: "hconn2",
         name: "Research Institute",
         did: "did:health:research-inst-456",
         status: "connected",
         lastSeen: "2024-01-14T16:45:00Z",
         offeringsCount: 8,
-        description: "Medical research institute specializing in AI-driven healthcare analytics",
+        description:
+          "Medical research institute specializing in AI-driven healthcare analytics",
         organization: "MedTech Research Foundation",
         location: "Boston, MA, USA",
         contactEmail: "partnerships@medtechrf.org",
@@ -219,48 +232,53 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.8,
               status: "yellow",
-              description: "mTLS partially implemented, some certificate management gaps"
+              description:
+                "mTLS partially implemented, some certificate management gaps",
             },
             {
               name: "Security Communication & Encryption",
-              weight: 0.15, 
+              weight: 0.15,
               score: 0.9,
               status: "green",
-              description: "TLS 1.2/1.3 with strong ciphers and message signing"
+              description:
+                "TLS 1.2/1.3 with strong ciphers and message signing",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.7,
               status: "yellow",
-              description: "Basic RBAC implemented but usage control policies need enhancement"
+              description:
+                "Basic RBAC implemented but usage control policies need enhancement",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.75,
               status: "yellow",
-              description: "Regular audits but patch management could be more systematic"
+              description:
+                "Regular audits but patch management could be more systematic",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.8,
               status: "yellow",
-              description: "Good logging but integrity protection needs improvement"
+              description:
+                "Good logging but integrity protection needs improvement",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.85,
               status: "green",
-              description: "Good privacy controls with automated anonymization"
-            }
-          ]
-        }
+              description: "Good privacy controls with automated anonymization",
+            },
+          ],
+        },
       },
     ],
     digitalContracts: [],
@@ -288,7 +306,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "hp2",
         name: "Access Count Limitation",
-        description: "Maximum number of data access requests per month - 100 requests",
+        description:
+          "Maximum number of data access requests per month - 100 requests",
         rules: [
           {
             id: "hr2",
@@ -352,7 +371,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
             id: "hr5",
             type: "ip_restriction",
             name: "IP Whitelist",
-            description: "Only specified IP addresses can access healthcare data",
+            description:
+              "Only specified IP addresses can access healthcare data",
             value: "192.168.100.0/24,10.20.0.0/16",
             isActive: true,
           },
@@ -407,7 +427,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "hc1",
         name: "Basic Healthcare Access Contract",
-        description: "Basic contract with access period and encryption requirements",
+        description:
+          "Basic contract with access period and encryption requirements",
         policyIds: ["hp1", "hp4"],
         policies: [],
         contractType: "multi_policy",
@@ -417,8 +438,9 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       },
       {
         id: "hc2",
-        name: "Medical Research Contract", 
-        description: "Comprehensive contract for medical research with full restrictions",
+        name: "Medical Research Contract",
+        description:
+          "Comprehensive contract for medical research with full restrictions",
         policyIds: ["hp1", "hp2", "hp3", "hp4", "hp6"],
         policies: [],
         contractType: "multi_policy",
@@ -498,7 +520,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 4,
         blockHeight: 2456789,
         purpose: "Identity Management",
-        description: "Main chain for DID registration and identity verification in healthcare sector",
+        description:
+          "Main chain for DID registration and identity verification in healthcare sector",
       },
       {
         id: "healthcare-sub",
@@ -512,7 +535,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 3,
         blockHeight: 1234567,
         purpose: "Business Operations",
-        description: "Sub chain for audit logs and business transactions in healthcare data exchange",
+        description:
+          "Sub chain for audit logs and business transactions in healthcare data exchange",
       },
     ],
     blockchainTransactions: [
@@ -641,7 +665,7 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "success",
       },
       {
-        id: "hal2", 
+        id: "hal2",
         timestamp: "2024-01-20T09:15:00Z",
         action: "data_transfer",
         actor: "did:healthcare:researcher1",
@@ -652,7 +676,7 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       },
     ],
   },
-  
+
   finance: {
     dataOfferings: [
       {
@@ -713,11 +737,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-15T09:00:00Z",
         offeringsCount: 25,
-        description: "European Central Bank providing regulatory and market data",
+        description:
+          "European Central Bank providing regulatory and market data",
         organization: "European Central Bank",
         location: "Frankfurt, Germany",
         contactEmail: "data-sharing@ecb.europa.eu",
-        dataCategories: ["Market Data", "Regulatory Reports", "Economic Indicators"],
+        dataCategories: [
+          "Market Data",
+          "Regulatory Reports",
+          "Economic Indicators",
+        ],
         certifications: ["ISO 27001", "SOC 2", "PCI DSS"],
         securityAssessment: {
           overallScore: 96.0,
@@ -727,61 +756,72 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 1.0,
               status: "green",
-              description: "Banking-grade identity management with hardware security modules"
+              description:
+                "Banking-grade identity management with hardware security modules",
             },
             {
               name: "Security Communication & Encryption",
               weight: 0.15,
               score: 1.0,
               status: "green",
-              description: "Military-grade encryption with quantum-resistant algorithms"
+              description:
+                "Military-grade encryption with quantum-resistant algorithms",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.95,
               status: "green",
-              description: "Advanced ABAC with real-time policy enforcement and monitoring"
+              description:
+                "Advanced ABAC with real-time policy enforcement and monitoring",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 1.0,
               status: "green",
-              description: "Continuous security monitoring with zero-trust architecture"
+              description:
+                "Continuous security monitoring with zero-trust architecture",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 1.0,
               status: "green",
-              description: "Immutable audit logs with blockchain-based integrity"
+              description:
+                "Immutable audit logs with blockchain-based integrity",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.8,
               status: "yellow",
-              description: "Strong privacy controls with minor data retention optimization needed"
-            }
-          ]
-        }
+              description:
+                "Strong privacy controls with minor data retention optimization needed",
+            },
+          ],
+        },
       },
       {
         id: "fconn2",
         name: "FinTech Alliance",
         did: "did:finance:fintech-alliance-456",
-        status: "connected", 
+        status: "connected",
         lastSeen: "2024-01-14T18:30:00Z",
         offeringsCount: 12,
-        description: "Consortium of leading fintech companies sharing innovation data",
+        description:
+          "Consortium of leading fintech companies sharing innovation data",
         organization: "European FinTech Alliance",
         location: "London, UK",
         contactEmail: "partnerships@fintechalliance.eu",
-        dataCategories: ["Innovation Metrics", "Market Analytics", "Risk Models"],
+        dataCategories: [
+          "Innovation Metrics",
+          "Market Analytics",
+          "Risk Models",
+        ],
         certifications: ["ISO 27001", "FCA Regulated"],
         securityAssessment: {
           overallScore: 82.5,
@@ -791,48 +831,51 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.85,
               status: "green",
-              description: "Strong identity controls with multi-factor authentication"
+              description:
+                "Strong identity controls with multi-factor authentication",
             },
             {
               name: "Security Communication & Encryption",
               weight: 0.15,
               score: 0.9,
               status: "green",
-              description: "TLS 1.3 with strong cipher suites and certificate pinning"
+              description:
+                "TLS 1.3 with strong cipher suites and certificate pinning",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.8,
               status: "yellow",
-              description: "Good RBAC but usage policies need strengthening"
+              description: "Good RBAC but usage policies need strengthening",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.8,
               status: "yellow",
-              description: "Regular security updates with good vulnerability management"
+              description:
+                "Regular security updates with good vulnerability management",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.85,
               status: "green",
-              description: "Comprehensive logging with good retention policies"
+              description: "Comprehensive logging with good retention policies",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.9,
               status: "green",
-              description: "GDPR compliant with strong privacy by design"
-            }
-          ]
-        }
+              description: "GDPR compliant with strong privacy by design",
+            },
+          ],
+        },
       },
     ],
     digitalContracts: [],
@@ -840,7 +883,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "fp1",
         name: "Access Period Limitation",
-        description: "Maximum session duration for financial data access - 4 hours",
+        description:
+          "Maximum session duration for financial data access - 4 hours",
         rules: [
           {
             id: "fr1",
@@ -924,7 +968,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
             id: "fr5",
             type: "ip_restriction",
             name: "IP Whitelist",
-            description: "Only specified IP addresses can access financial data",
+            description:
+              "Only specified IP addresses can access financial data",
             value: "192.168.1.0/24,10.0.0.0/8",
             isActive: true,
           },
@@ -1014,7 +1059,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "fe1",
         title: "ESG Ratings Database",
-        description: "Environmental, Social, and Governance ratings for listed companies",
+        description:
+          "Environmental, Social, and Governance ratings for listed companies",
         dataType: "JSON/XML",
         provider: "ESG Analytics Inc",
         providerDID: "did:finance:esg123",
@@ -1060,7 +1106,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 5,
         blockHeight: 3567890,
         purpose: "Identity Management",
-        description: "Main chain for financial institution identity verification and KYC processes",
+        description:
+          "Main chain for financial institution identity verification and KYC processes",
       },
       {
         id: "finance-sub",
@@ -1074,7 +1121,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 4,
         blockHeight: 2345678,
         purpose: "Business Operations",
-        description: "Sub chain for transaction audit logs and compliance monitoring",
+        description:
+          "Sub chain for transaction audit logs and compliance monitoring",
       },
     ],
     blockchainTransactions: [
@@ -1304,11 +1352,17 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-15T07:45:00Z",
         offeringsCount: 20,
-        description: "Comprehensive smart city platform providing real-time urban mobility data and analytics",
+        description:
+          "Comprehensive smart city platform providing real-time urban mobility data and analytics",
         organization: "Metropolitan Smart City Alliance",
         location: "Amsterdam, Netherlands",
         contactEmail: "data@smartcity-amsterdam.eu",
-        dataCategories: ["Traffic Data", "Public Transport", "Bike Sharing", "Parking"],
+        dataCategories: [
+          "Traffic Data",
+          "Public Transport",
+          "Bike Sharing",
+          "Parking",
+        ],
         certifications: ["ISO 27001", "Smart City Certified", "GDPR Compliant"],
         securityAssessment: {
           overallScore: 85.5,
@@ -1318,48 +1372,54 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.85,
               status: "green",
-              description: "Strong IoT device identity management with certificate-based authentication"
+              description:
+                "Strong IoT device identity management with certificate-based authentication",
             },
             {
               name: "Security Communication & Encryption",
               weight: 0.15,
               score: 0.9,
               status: "green",
-              description: "TLS 1.3 for API communications with IoT security protocols"
+              description:
+                "TLS 1.3 for API communications with IoT security protocols",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.8,
               status: "yellow",
-              description: "Good RBAC implementation but real-time policy enforcement needs improvement"
+              description:
+                "Good RBAC implementation but real-time policy enforcement needs improvement",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.85,
               status: "green",
-              description: "Regular security updates with IoT device management and monitoring"
+              description:
+                "Regular security updates with IoT device management and monitoring",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.9,
               status: "green",
-              description: "Comprehensive logging with smart city data provenance tracking"
+              description:
+                "Comprehensive logging with smart city data provenance tracking",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.9,
               status: "green",
-              description: "Privacy-preserving data collection with citizen consent management"
-            }
-          ]
-        }
+              description:
+                "Privacy-preserving data collection with citizen consent management",
+            },
+          ],
+        },
       },
       {
         id: "mconn2",
@@ -1368,11 +1428,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "connected",
         lastSeen: "2024-01-14T19:20:00Z",
         offeringsCount: 12,
-        description: "Advanced transportation analytics and optimization platform for multi-modal urban mobility",
+        description:
+          "Advanced transportation analytics and optimization platform for multi-modal urban mobility",
         organization: "European Transport Research Institute",
         location: "Berlin, Germany",
         contactEmail: "partnerships@etri.eu",
-        dataCategories: ["Route Optimization", "Mobility Patterns", "Carbon Footprint"],
+        dataCategories: [
+          "Route Optimization",
+          "Mobility Patterns",
+          "Carbon Footprint",
+        ],
         certifications: ["ISO 14001", "Carbon Trust Standard"],
         securityAssessment: {
           overallScore: 76.0,
@@ -1382,48 +1447,54 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.75,
               status: "yellow",
-              description: "Basic identity management with some gaps in multi-modal authentication"
+              description:
+                "Basic identity management with some gaps in multi-modal authentication",
             },
             {
               name: "Security Communication & Encryption",
               weight: 0.15,
               score: 0.8,
               status: "yellow",
-              description: "Good encryption but some legacy transport protocols need updating"
+              description:
+                "Good encryption but some legacy transport protocols need updating",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.7,
               status: "yellow",
-              description: "Basic access controls with limited data usage policy enforcement"
+              description:
+                "Basic access controls with limited data usage policy enforcement",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.8,
               status: "yellow",
-              description: "Regular updates but vulnerability management could be more proactive"
+              description:
+                "Regular updates but vulnerability management could be more proactive",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.75,
               status: "yellow",
-              description: "Good logging but cross-system traceability needs improvement"
+              description:
+                "Good logging but cross-system traceability needs improvement",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.8,
               status: "yellow",
-              description: "GDPR compliant with room for improvement in anonymization techniques"
-            }
-          ]
-        }
+              description:
+                "GDPR compliant with room for improvement in anonymization techniques",
+            },
+          ],
+        },
       },
     ],
     digitalContracts: [],
@@ -1431,7 +1502,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "mp1",
         name: "Access Period Limitation",
-        description: "Maximum time window for real-time mobility data - 24 hours",
+        description:
+          "Maximum time window for real-time mobility data - 24 hours",
         rules: [
           {
             id: "mr1",
@@ -1451,7 +1523,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "mp2",
         name: "Access Count Limitation",
-        description: "Maximum API calls per day for mobility data - 5000 requests",
+        description:
+          "Maximum API calls per day for mobility data - 5000 requests",
         rules: [
           {
             id: "mr2",
@@ -1477,7 +1550,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
             id: "mr3",
             type: "identity_restriction",
             name: "Mobility Service Provider",
-            description: "Only registered mobility service providers can access",
+            description:
+              "Only registered mobility service providers can access",
             value: "mobility_provider",
             isActive: true,
           },
@@ -1490,7 +1564,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "mp4",
         name: "Data Transmission QPS Limit",
-        description: "Maximum API calls per second for mobility services - 50 QPS",
+        description:
+          "Maximum API calls per second for mobility services - 50 QPS",
         rules: [
           {
             id: "mr4",
@@ -1523,7 +1598,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "mc2",
         name: "Professional Mobility Service Contract",
-        description: "Comprehensive contract for registered mobility service providers",
+        description:
+          "Comprehensive contract for registered mobility service providers",
         policyIds: ["mp1", "mp2", "mp3", "mp4"],
         policies: [],
         contractType: "multi_policy",
@@ -1581,7 +1657,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 3,
         blockHeight: 1789012,
         purpose: "Identity Management",
-        description: "Main chain for mobility service provider identity verification",
+        description:
+          "Main chain for mobility service provider identity verification",
       },
       {
         id: "mobility-sub",
@@ -1595,7 +1672,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 2,
         blockHeight: 987654,
         purpose: "Business Operations",
-        description: "Sub chain for transportation data audit and smart city operations",
+        description:
+          "Sub chain for transportation data audit and smart city operations",
       },
     ],
     blockchainTransactions: [
@@ -1741,7 +1819,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "e1",
         title: "Grid Load Forecasting",
-        description: "Electrical grid load prediction models and historical data",
+        description:
+          "Electrical grid load prediction models and historical data",
         dataType: "s3",
         accessPolicy: "Utility Partners",
         status: "inactive",
@@ -1788,11 +1867,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "pending",
         lastSeen: "2024-01-10T12:00:00Z",
         offeringsCount: 5,
-        description: "Critical infrastructure operator managing national electrical grid data and renewable energy integration",
+        description:
+          "Critical infrastructure operator managing national electrical grid data and renewable energy integration",
         organization: "National Grid Energy Corp",
         location: "Frankfurt, Germany",
         contactEmail: "security@nationalgrid.de",
-        dataCategories: ["Grid Load", "Renewable Sources", "Critical Infrastructure"],
+        dataCategories: [
+          "Grid Load",
+          "Renewable Sources",
+          "Critical Infrastructure",
+        ],
         certifications: ["IEC 62443", "ISO 27019", "NERC CIP"],
         securityAssessment: {
           overallScore: 58.5,
@@ -1802,48 +1886,54 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.6,
               status: "yellow",
-              description: "Basic SCADA authentication but lacks modern identity federation"
+              description:
+                "Basic SCADA authentication but lacks modern identity federation",
             },
             {
               name: "Security Communication & Encryption",
               weight: 0.15,
               score: 0.7,
               status: "yellow",
-              description: "Some encrypted channels but legacy industrial protocols present"
+              description:
+                "Some encrypted channels but legacy industrial protocols present",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.5,
               status: "red",
-              description: "Limited access controls with insufficient data usage monitoring"
+              description:
+                "Limited access controls with insufficient data usage monitoring",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.6,
               status: "yellow",
-              description: "Critical infrastructure protection but patch management is slow"
+              description:
+                "Critical infrastructure protection but patch management is slow",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.4,
               status: "red",
-              description: "Basic logging but insufficient for comprehensive audit trails"
+              description:
+                "Basic logging but insufficient for comprehensive audit trails",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.8,
               status: "yellow",
-              description: "Good privacy controls but data retention policies need updates"
-            }
-          ]
-        }
+              description:
+                "Good privacy controls but data retention policies need updates",
+            },
+          ],
+        },
       },
       {
         id: "econn2",
@@ -1852,7 +1942,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "disconnected",
         lastSeen: "2024-01-05T16:30:00Z",
         offeringsCount: 3,
-        description: "Community-based renewable energy network providing distributed generation data and smart grid analytics",
+        description:
+          "Community-based renewable energy network providing distributed generation data and smart grid analytics",
         organization: "European Renewable Energy Alliance",
         location: "Copenhagen, Denmark",
         contactEmail: "data@renewablealliance.eu",
@@ -1866,48 +1957,49 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
           dimensions: [
             {
               name: "Identity & Trust Management",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.3,
               status: "red",
-              description: "Weak identity management with shared credentials"
+              description: "Weak identity management with shared credentials",
             },
             {
               name: "Security Communication & Encryption",
               weight: 0.15,
               score: 0.5,
               status: "red",
-              description: "Inconsistent encryption across distributed systems"
+              description: "Inconsistent encryption across distributed systems",
             },
             {
               name: "Access Control & Data Usage Control",
               weight: 0.25,
               score: 0.4,
               status: "red",
-              description: "Basic access controls with no data usage policies"
+              description: "Basic access controls with no data usage policies",
             },
             {
               name: "Platform & System Security",
-              weight: 0.20,
+              weight: 0.2,
               score: 0.3,
               status: "red",
-              description: "Outdated systems with known vulnerabilities"
+              description: "Outdated systems with known vulnerabilities",
             },
             {
               name: "Audit & Traceability",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.6,
               status: "yellow",
-              description: "Some logging capabilities but inconsistent across the network"
+              description:
+                "Some logging capabilities but inconsistent across the network",
             },
             {
               name: "User Information & Privacy",
-              weight: 0.10,
+              weight: 0.1,
               score: 0.7,
               status: "yellow",
-              description: "Basic privacy protection but needs improvement"
-            }
-          ]
-        }
+              description: "Basic privacy protection but needs improvement",
+            },
+          ],
+        },
       },
     ],
     digitalContracts: [],
@@ -1921,7 +2013,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
             id: "er1",
             type: "access_period",
             name: "Critical Access Window",
-            description: "Maximum access period for critical infrastructure data",
+            description:
+              "Maximum access period for critical infrastructure data",
             value: 2,
             unit: "hours",
             isActive: true,
@@ -1995,7 +2088,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
       {
         id: "ec1",
         name: "Critical Infrastructure Contract",
-        description: "Maximum security contract for critical energy infrastructure data",
+        description:
+          "Maximum security contract for critical energy infrastructure data",
         policyIds: ["ep1", "ep2", "ep3", "ep4"],
         policies: [],
         contractType: "multi_policy",
@@ -2030,7 +2124,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 7,
         blockHeight: 4567890,
         purpose: "Identity Management",
-        description: "Main chain for critical energy infrastructure identity verification",
+        description:
+          "Main chain for critical energy infrastructure identity verification",
       },
       {
         id: "energy-sub",
@@ -2044,7 +2139,8 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         consensusNodes: 5,
         blockHeight: 3456789,
         purpose: "Business Operations",
-        description: "Sub chain for energy grid operations and critical infrastructure audit logs",
+        description:
+          "Sub chain for energy grid operations and critical infrastructure audit logs",
       },
     ],
     blockchainTransactions: [

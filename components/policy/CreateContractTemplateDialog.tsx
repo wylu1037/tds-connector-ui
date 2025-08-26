@@ -1,7 +1,10 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -9,23 +12,22 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { FileText, Shield, AlertTriangle, CheckCircle } from "lucide-react"
-import { PolicyTemplate, ContractTemplate } from "@/types"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
+import { ContractTemplate, PolicyTemplate } from "@/types";
+import { AlertTriangle, CheckCircle, FileText, Shield } from "lucide-react";
+import { useState } from "react";
 
 interface CreateContractTemplateDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  policyTemplates: PolicyTemplate[]
-  onCreateContract: (contractTemplate: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  policyTemplates: PolicyTemplate[];
+  onCreateContract: (
+    contractTemplate: Omit<ContractTemplate, "id" | "createdAt" | "usageCount">
+  ) => void;
 }
 
 export function CreateContractTemplateDialog({
@@ -39,43 +41,49 @@ export function CreateContractTemplateDialog({
     description: "",
     contractType: "single_policy" as "single_policy" | "multi_policy",
     status: "draft" as "draft" | "active",
-  })
-  
-  const [selectedPolicyIds, setSelectedPolicyIds] = useState<string[]>([])
-  const [errors, setErrors] = useState<string[]>([])
+  });
+
+  const [selectedPolicyIds, setSelectedPolicyIds] = useState<string[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = () => {
-    const newErrors: string[] = []
-    
+    const newErrors: string[] = [];
+
     // Validation
     if (!formData.name.trim()) {
-      newErrors.push("Contract name is required")
+      newErrors.push("Contract name is required");
     }
-    
+
     if (!formData.description.trim()) {
-      newErrors.push("Contract description is required")
+      newErrors.push("Contract description is required");
     }
-    
+
     if (selectedPolicyIds.length === 0) {
-      newErrors.push("At least one policy must be selected")
+      newErrors.push("At least one policy must be selected");
     }
-    
-    if (formData.contractType === "single_policy" && selectedPolicyIds.length > 1) {
-      newErrors.push("Single policy contract can only have one policy")
+
+    if (
+      formData.contractType === "single_policy" &&
+      selectedPolicyIds.length > 1
+    ) {
+      newErrors.push("Single policy contract can only have one policy");
     }
-    
+
     if (newErrors.length > 0) {
-      setErrors(newErrors)
-      return
+      setErrors(newErrors);
+      return;
     }
-    
+
     // Get selected policy templates
-    const selectedPolicies = policyTemplates.filter(policy => 
+    const selectedPolicies = policyTemplates.filter((policy) =>
       selectedPolicyIds.includes(policy.id)
-    )
-    
+    );
+
     // Create contract template
-    const contractTemplate: Omit<ContractTemplate, "id" | "createdAt" | "usageCount"> = {
+    const contractTemplate: Omit<
+      ContractTemplate,
+      "id" | "createdAt" | "usageCount"
+    > = {
       name: formData.name,
       description: formData.description,
       policyIds: selectedPolicyIds,
@@ -83,49 +91,50 @@ export function CreateContractTemplateDialog({
       contractType: formData.contractType,
       status: formData.status,
       updatedAt: new Date().toISOString(),
-    }
-    
-    onCreateContract(contractTemplate)
-    
+    };
+
+    onCreateContract(contractTemplate);
+
     // Reset form
     setFormData({
       name: "",
       description: "",
       contractType: "single_policy",
       status: "draft",
-    })
-    setSelectedPolicyIds([])
-    setErrors([])
-    onOpenChange(false)
-  }
+    });
+    setSelectedPolicyIds([]);
+    setErrors([]);
+    onOpenChange(false);
+  };
 
   const handlePolicyToggle = (policyId: string, checked: boolean) => {
     if (checked) {
       if (formData.contractType === "single_policy") {
-        setSelectedPolicyIds([policyId]) // Replace for single policy
+        setSelectedPolicyIds([policyId]); // Replace for single policy
       } else {
-        setSelectedPolicyIds(prev => [...prev, policyId]) // Add for multi policy
+        setSelectedPolicyIds((prev) => [...prev, policyId]); // Add for multi policy
       }
     } else {
-      setSelectedPolicyIds(prev => prev.filter(id => id !== policyId))
+      setSelectedPolicyIds((prev) => prev.filter((id) => id !== policyId));
     }
-    
+
     // Clear errors when user makes changes
     if (errors.length > 0) {
-      setErrors([])
+      setErrors([]);
     }
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5" />
             Create Contract Template
           </DialogTitle>
           <DialogDescription>
-            Create a new contract template by combining one or more policy templates.
+            Create a new contract template by combining one or more policy
+            templates.
           </DialogDescription>
         </DialogHeader>
 
@@ -135,7 +144,7 @@ export function CreateContractTemplateDialog({
             <Alert variant="destructive">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                <ul className="list-disc list-inside space-y-1">
+                <ul className="list-inside list-disc space-y-1">
                   {errors.map((error, index) => (
                     <li key={index}>{error}</li>
                   ))}
@@ -153,7 +162,9 @@ export function CreateContractTemplateDialog({
                 className="border-border"
                 placeholder="e.g., Standard Data Sharing Agreement"
                 value={formData.name}
-                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, name: e.target.value }))
+                }
               />
             </div>
 
@@ -164,7 +175,12 @@ export function CreateContractTemplateDialog({
                 className="border-border"
                 placeholder="Describe what this contract template is for and when it should be used..."
                 value={formData.description}
-                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    description: e.target.value,
+                  }))
+                }
                 rows={3}
               />
             </div>
@@ -173,22 +189,33 @@ export function CreateContractTemplateDialog({
               <div className="space-y-2">
                 <Label>Contract Type</Label>
                 <RadioGroup
-                className="border border-border rounded-md p-2"
+                  className="border-border rounded-md border p-2"
                   value={formData.contractType}
                   onValueChange={(value: "single_policy" | "multi_policy") => {
-                    setFormData(prev => ({ ...prev, contractType: value }))
+                    setFormData((prev) => ({ ...prev, contractType: value }));
                     // Clear selections when changing type
-                    if (value === "single_policy" && selectedPolicyIds.length > 1) {
-                      setSelectedPolicyIds([selectedPolicyIds[0]])
+                    if (
+                      value === "single_policy" &&
+                      selectedPolicyIds.length > 1
+                    ) {
+                      setSelectedPolicyIds([selectedPolicyIds[0]]);
                     }
                   }}
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="single_policy" id="single" className="border-border" />
+                    <RadioGroupItem
+                      value="single_policy"
+                      id="single"
+                      className="border-border"
+                    />
                     <Label htmlFor="single">Single Policy</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="multi_policy" id="multi" className="border-border" />
+                    <RadioGroupItem
+                      value="multi_policy"
+                      id="multi"
+                      className="border-border"
+                    />
                     <Label htmlFor="multi">Multi Policy</Label>
                   </div>
                 </RadioGroup>
@@ -197,32 +224,42 @@ export function CreateContractTemplateDialog({
               <div className="space-y-2">
                 <Label>Initial Status</Label>
                 <RadioGroup
-                  className="border border-border rounded-md p-2"
+                  className="border-border rounded-md border p-2"
                   value={formData.status}
-                  onValueChange={(value: "draft" | "active") => 
-                    setFormData(prev => ({ ...prev, status: value }))
+                  onValueChange={(value: "draft" | "active") =>
+                    setFormData((prev) => ({ ...prev, status: value }))
                   }
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="draft" id="draft" className="border-border" />
+                    <RadioGroupItem
+                      value="draft"
+                      id="draft"
+                      className="border-border"
+                    />
                     <Label htmlFor="draft">Draft</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="active" id="active" className="border-border" />
+                    <RadioGroupItem
+                      value="active"
+                      id="active"
+                      className="border-border"
+                    />
                     <Label htmlFor="active">Active</Label>
                   </div>
                 </RadioGroup>
               </div>
             </div>
-          </div>
+          </div>;
 
-          {/* Policy Selection */}
+          {
+            /* Policy Selection */
+          }
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label className="text-base font-semibold">
-                Select Policies * 
+                Select Policies *
                 {formData.contractType === "single_policy" && (
-                  <span className="text-sm font-normal text-muted-foreground ml-2">
+                  <span className="text-muted-foreground ml-2 text-sm font-normal">
                     (Select one policy)
                   </span>
                 )}
@@ -232,23 +269,23 @@ export function CreateContractTemplateDialog({
               </Badge>
             </div>
 
-            <div className="grid gap-3 max-h-96 overflow-y-auto">
+            <div className="grid max-h-96 gap-3 overflow-y-auto">
               {policyTemplates.map((policy) => {
-                const isSelected = selectedPolicyIds.includes(policy.id)
-                const isDisabled = 
-                  formData.contractType === "single_policy" && 
-                  selectedPolicyIds.length >= 1 && 
-                  !isSelected
+                const isSelected = selectedPolicyIds.includes(policy.id);
+                const isDisabled =
+                  formData.contractType === "single_policy" &&
+                  selectedPolicyIds.length >= 1 &&
+                  !isSelected;
 
                 return (
-                  <Card 
-                    key={policy.id} 
+                  <Card
+                    key={policy.id}
                     className={`transition-all ${
-                      isSelected 
-                        ? "border-primary bg-primary/5" 
-                        : isDisabled 
-                        ? "opacity-50" 
-                        : "hover:bg-muted/50"
+                      isSelected
+                        ? "border-primary bg-primary/5"
+                        : isDisabled
+                          ? "opacity-50"
+                          : "hover:bg-muted/50"
                     }`}
                   >
                     <CardHeader className="pb-2">
@@ -258,21 +295,23 @@ export function CreateContractTemplateDialog({
                           className="border-border"
                           checked={isSelected}
                           disabled={isDisabled}
-                          onCheckedChange={(checked) => 
+                          onCheckedChange={(checked) =>
                             handlePolicyToggle(policy.id, !!checked)
                           }
                         />
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center gap-2">
-                            <Shield className="h-4 w-4 text-primary" />
-                            <CardTitle className="text-sm">{policy.name}</CardTitle>
+                            <Shield className="text-primary h-4 w-4" />
+                            <CardTitle className="text-sm">
+                              {policy.name}
+                            </CardTitle>
                             <Badge
                               variant={
                                 policy.severity === "high"
                                   ? "destructive"
                                   : policy.severity === "medium"
-                                  ? "default"
-                                  : "secondary"
+                                    ? "default"
+                                    : "secondary"
                               }
                               className="text-xs"
                             >
@@ -282,44 +321,69 @@ export function CreateContractTemplateDialog({
                               {policy.category}
                             </Badge>
                           </div>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-muted-foreground text-xs">
                             {policy.description}
                           </p>
                         </div>
                         {isSelected && (
-                          <CheckCircle className="h-5 w-5 text-primary" />
+                          <CheckCircle className="text-primary h-5 w-5" />
                         )}
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{policy.rules.length} rule{policy.rules.length !== 1 ? 's' : ''}</span>
+                      <div className="text-muted-foreground flex items-center gap-2 text-xs">
+                        <span>
+                          {policy.rules.length} rule
+                          {policy.rules.length !== 1 ? "s" : ""}
+                        </span>
                         <span>•</span>
                         <span>{policy.enforcementType} enforcement</span>
                         <span>•</span>
-                        <span>Created {new Date(policy.createdAt).toLocaleDateString()}</span>
+                        <span>
+                          Created{" "}
+                          {new Date(policy.createdAt).toLocaleDateString()}
+                        </span>
                       </div>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
-          </div>
+          </div>;
 
           {/* Summary */}
           {selectedPolicyIds.length > 0 && (
-            <div className="bg-muted/50 p-4 rounded-lg">
-              <div className="flex items-center gap-2 mb-2">
+            <div className="bg-muted/50 rounded-lg p-4">
+              <div className="mb-2 flex items-center gap-2">
                 <FileText className="h-4 w-4" />
-                <span className="font-medium text-sm">Contract Template Summary</span>
+                <span className="text-sm font-medium">
+                  Contract Template Summary
+                </span>
               </div>
-              <div className="text-sm text-muted-foreground space-y-1">
+              <div className="text-muted-foreground space-y-1 text-sm">
                 <p>
-                  This template will include {selectedPolicyIds.length} policy{selectedPolicyIds.length !== 1 ? ' templates' : ' template'} 
-                  with a total of {policyTemplates.filter(p => selectedPolicyIds.includes(p.id)).reduce((sum, p) => sum + p.rules.length, 0)} rules.
+                  This template will include {selectedPolicyIds.length} policy
+                  {selectedPolicyIds.length !== 1 ? " templates" : " template"}
+                  with a total of{" "}
+                  {policyTemplates
+                    .filter((p) => selectedPolicyIds.includes(p.id))
+                    .reduce((sum, p) => sum + p.rules.length, 0)}{" "}
+                  rules.
                 </p>
-                <p>Contract type: <strong>{formData.contractType === "single_policy" ? "Single Policy" : "Multi Policy"}</strong></p>
-                <p>Initial status: <strong>{formData.status === "draft" ? "Draft" : "Active"}</strong></p>
+                <p>
+                  Contract type:{" "}
+                  <strong>
+                    {formData.contractType === "single_policy"
+                      ? "Single Policy"
+                      : "Multi Policy"}
+                  </strong>
+                </p>
+                <p>
+                  Initial status:{" "}
+                  <strong>
+                    {formData.status === "draft" ? "Draft" : "Active"}
+                  </strong>
+                </p>
               </div>
             </div>
           )}
@@ -329,11 +393,9 @@ export function CreateContractTemplateDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit}>
-            Create Contract Template
-          </Button>
+          <Button onClick={handleSubmit}>Create Contract Template</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

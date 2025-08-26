@@ -26,23 +26,26 @@ Enterprise-grade IDS-compliant data space connector for secure data exchange, bu
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommended package manager)
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd tds-connector
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
 3. Run the development server:
+
 ```bash
 pnpm dev
 ```
@@ -85,21 +88,27 @@ pnpm dev
 ## Core Modules
 
 ### Identity Management
+
 Handles DID (Decentralized Identity) documents, verifiable credentials, and connector identity.
 
 ### Data Offering & Consumption
+
 Manages data catalogs, offerings, consumption requests, and data transfer protocols.
 
 ### Blockchain Integration
+
 Provides smart contract interaction, transaction management, and blockchain connectivity.
 
 ### Policy Management
+
 Implements usage control policies, contract templates, and policy enforcement.
 
 ### Monitoring & Analytics
+
 Real-time monitoring of system performance, transactions, and data flows.
 
 ### Sandbox Environment
+
 Safe testing environment for data operations and policy validation.
 
 ## Development
@@ -107,6 +116,7 @@ Safe testing environment for data operations and policy validation.
 The application uses modern React patterns with TypeScript for type safety. UI components are built with Radix UI primitives and styled with Tailwind CSS.
 
 Key development patterns:
+
 - Server/Client component separation
 - Custom hooks for business logic
 - Context providers for global state

@@ -1,1 +1,1 @@
-export { SandboxTab } from './SandboxTab'
+export { SandboxTab } from "./SandboxTab";

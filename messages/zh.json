@@ -2,7 +2,7 @@
   "Navigation": {
     "identity": "身份与 DID",
     "dataOffering": "数据提供",
-    "dataConsumption": "数据消费", 
+    "dataConsumption": "数据消费",
     "policy": "策略与合约",
     "blockchain": "区块链",
     "sandbox": "沙箱",
@@ -13,7 +13,7 @@
       "dataConsumption": "消费",
       "policy": "策略",
       "blockchain": "区块链",
-      "sandbox": "沙箱", 
+      "sandbox": "沙箱",
       "monitoring": "监控"
     }
   },
@@ -32,7 +32,7 @@
   "Settings": {
     "tabs": {
       "general": "常规",
-      "security": "安全", 
+      "security": "安全",
       "network": "网络",
       "blockchain": "区块链",
       "notifications": "通知",
@@ -45,7 +45,7 @@
     "connectorDescription": "连接器身份信息和相关DID文档详情",
     "userDescription": "用户身份信息和相关可验证凭证详情",
     "didIdentifier": "DID 标识符",
-    "connectorName": "连接器名称", 
+    "connectorName": "连接器名称",
     "connectorVersion": "连接器版本",
     "creationTime": "创建时间",
     "userType": "用户类型",

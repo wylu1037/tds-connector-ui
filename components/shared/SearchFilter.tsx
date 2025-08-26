@@ -1,4 +1,3 @@
-import { Filter, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -7,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Filter, Search } from "lucide-react";
 
 export interface FilterOption {
   value: string;
@@ -36,19 +36,19 @@ export function SearchFilter({
 }: SearchFilterProps) {
   return (
     <div className={`flex space-x-2 ${className || ""}`}>
-      <div className="flex-1 relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <div className="relative flex-1">
+        <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
         <Input
           placeholder={searchPlaceholder}
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-10 bg-background"
+          className="bg-background pl-10"
         />
       </div>
       {filterOptions.length > 0 && onFilterChange && (
         <Select value={filterValue} onValueChange={onFilterChange}>
-          <SelectTrigger className="w-42 bg-background">
-            <Filter className="h-4 w-4 mr-2" />
+          <SelectTrigger className="bg-background w-42">
+            <Filter className="mr-2 h-4 w-4" />
             <SelectValue placeholder={filterPlaceholder} />
           </SelectTrigger>
           <SelectContent>

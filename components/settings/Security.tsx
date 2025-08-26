@@ -1,11 +1,17 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Shield, CheckCircle } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { CheckCircle, Shield } from "lucide-react";
 
 export default function SecuritySettings() {
   return (
@@ -53,10 +59,10 @@ export default function SecuritySettings() {
           <Separator />
           <div className="space-y-4">
             <h4 className="font-medium">Certificate Management</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <Label>SSL Certificate Status</Label>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="mt-1 flex items-center gap-2">
                   <span className="text-sm text-slate-500">
                     Expires: 2024-12-15
                   </span>
@@ -68,7 +74,7 @@ export default function SecuritySettings() {
               </div>
               <div>
                 <Label>DID Certificate Status</Label>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="mt-1 flex items-center gap-2">
                   <span className="text-sm text-slate-500">
                     Last verified: 2024-01-15
                   </span>
@@ -83,7 +89,7 @@ export default function SecuritySettings() {
           <Separator />
           <div className="space-y-4">
             <h4 className="font-medium">Access Control</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label
                   htmlFor="session-timeout"
@@ -95,7 +101,7 @@ export default function SecuritySettings() {
                   id="session-timeout"
                   type="number"
                   defaultValue="30"
-                  className="w-32 bg-background"
+                  className="bg-background w-32"
                 />
               </div>
               <div className="space-y-2">
@@ -109,7 +115,7 @@ export default function SecuritySettings() {
                   id="max-login-attempts"
                   type="number"
                   defaultValue="5"
-                  className="w-32 bg-background"
+                  className="bg-background w-32"
                 />
               </div>
             </div>

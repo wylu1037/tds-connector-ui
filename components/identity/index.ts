@@ -1,1 +1,1 @@
-export { IdentityTab } from './IdentityTab'
+export { IdentityTab } from "./IdentityTab";

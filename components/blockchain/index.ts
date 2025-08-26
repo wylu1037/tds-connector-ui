@@ -1,1 +1,1 @@
-export { BlockchainTab } from './BlockchainTab'
+export { BlockchainTab } from "./BlockchainTab";

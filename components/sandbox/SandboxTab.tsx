@@ -1,17 +1,5 @@
-"use client"
+"use client";
 
-import {
-  Activity,
-  Clock,
-  Database,
-  Edit,
-  Eye,
-  Monitor,
-  Play,
-  Plus,
-  Square,
-  Trash2,
-} from "lucide-react";
 import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +21,18 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings, useSandbox } from "@/hooks";
+import {
+  Activity,
+  Clock,
+  Database,
+  Edit,
+  Eye,
+  Monitor,
+  Play,
+  Plus,
+  Square,
+  Trash2,
+} from "lucide-react";
 
 export function SandboxTab() {
   const {
@@ -55,9 +55,9 @@ export function SandboxTab() {
     runningSandboxes,
     activeJobs,
     completedJobs,
-  } = useSandbox()
+  } = useSandbox();
 
-  const { dataOfferings } = useDataOfferings()
+  const { dataOfferings } = useDataOfferings();
 
   return (
     <div className="space-y-6">
@@ -217,14 +217,14 @@ export function SandboxTab() {
           <CardContent>
             <div className="space-y-3">
               {sandboxEnvironments.map((sandbox) => (
-                <div key={sandbox.id} className="p-3 border rounded-lg">
+                <div key={sandbox.id} className="rounded-lg border p-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
+                      <div className="mb-1 flex items-center space-x-2">
                         <h4 className="font-medium">{sandbox.name}</h4>
                         <StatusBadge status={sandbox.status} type="sandbox" />
                       </div>
-                      <div className="text-sm text-muted-foreground space-y-1">
+                      <div className="text-muted-foreground space-y-1 text-sm">
                         <div>
                           Runtime: {sandbox.runtime} | Memory:{" "}
                           {sandbox.memoryLimit}
@@ -376,16 +376,16 @@ export function SandboxTab() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3 max-h-96 overflow-y-auto">
+            <div className="max-h-96 space-y-3 overflow-y-auto">
               {dataProcessingJobs.map((job) => (
-                <div key={job.id} className="p-3 border rounded-lg">
+                <div key={job.id} className="rounded-lg border p-3">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <h4 className="font-medium text-sm">{job.name}</h4>
+                      <div className="mb-1 flex items-center space-x-2">
+                        <h4 className="text-sm font-medium">{job.name}</h4>
                         <StatusBadge status={job.status} type="job" />
                       </div>
-                      <div className="text-xs text-muted-foreground space-y-1">
+                      <div className="text-muted-foreground space-y-1 text-xs">
                         <div>
                           Sandbox:{" "}
                           {
@@ -450,8 +450,8 @@ export function SandboxTab() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {ociImages.map((image) => (
-              <div key={image.id} className="p-4 border rounded-lg">
-                <div className="flex items-center justify-between mb-2">
+              <div key={image.id} className="rounded-lg border p-4">
+                <div className="mb-2 flex items-center justify-between">
                   <h4 className="font-medium">{image.name}</h4>
                   {image.verified && (
                     <div className="flex items-center space-x-1 text-green-600">
@@ -459,7 +459,7 @@ export function SandboxTab() {
                     </div>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground mb-2">
+                <p className="text-muted-foreground mb-2 text-sm">
                   {image.description}
                 </p>
                 <div className="flex items-center justify-between text-sm">
@@ -468,7 +468,7 @@ export function SandboxTab() {
                     <div>Size: {image.size}</div>
                     <div>Downloads: {image.downloads}</div>
                   </div>
-                  <div className="text-right text-xs text-muted-foreground">
+                  <div className="text-muted-foreground text-right text-xs">
                     <div>Tag: {image.tag}</div>
                     <div>
                       Updated:{" "}

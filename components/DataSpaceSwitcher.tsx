@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -15,14 +15,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
-import { Check, ChevronsUpDown, Globe } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { useDataSpace } from "@/lib/contexts/DataSpaceContext";
+import { cn } from "@/lib/utils";
+import { Check, ChevronsUpDown, Globe } from "lucide-react";
+import { useState } from "react";
 
 export function DataSpaceSwitcher() {
   const [open, setOpen] = useState(false);
-  const { currentDataSpace, availableDataSpaces, switchDataSpace } = useDataSpace();
+  const { currentDataSpace, availableDataSpaces, switchDataSpace } =
+    useDataSpace();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -78,7 +79,7 @@ export function DataSpaceSwitcher() {
                         {dataSpace.status}
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-muted-foreground mt-1 text-sm">
                       {dataSpace.description}
                     </p>
                   </div>

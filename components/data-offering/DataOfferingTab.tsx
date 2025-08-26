@@ -1,30 +1,6 @@
-"use client"
+"use client";
 
-import {
-  Database,
-  Edit,
-  Eye,
-  FileText,
-  Globe,
-  Plus,
-  Trash2,
-  File,
-  Cloud,
-  Server,
-  Link,
-  CheckCircle,
-  XCircle,
-  Clock,
-  AlertTriangle,
-  Pause,
-  Play,
-  Ban,
-  ArrowUpDown,
-  Activity,
-  WifiOff,
-} from "lucide-react";
 import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
-import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,6 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -54,8 +31,30 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings } from "@/hooks";
-import { DataSourceType, ContractStatus } from "@/types";
 import { cn } from "@/lib/utils";
+import { ContractStatus, DataSourceType } from "@/types";
+import {
+  Activity,
+  AlertTriangle,
+  ArrowUpDown,
+  Ban,
+  CheckCircle,
+  Clock,
+  Cloud,
+  Database,
+  Edit,
+  Eye,
+  File,
+  FileText,
+  Globe,
+  Link,
+  Pause,
+  Plus,
+  Server,
+  Trash2,
+  WifiOff,
+  XCircle,
+} from "lucide-react";
 
 // Data source type icon mapping
 const getDataSourceIcon = (type: DataSourceType) => {
@@ -321,7 +320,7 @@ export function DataOfferingTab() {
 
                   {/* Configuration based on data source type */}
                   {newOffering.dataType === "local_file" && (
-                    <div className="space-y-4 p-4 border rounded-lg bg-muted/50">
+                    <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
                       <h4 className="font-medium">Local File Configuration</h4>
                       <div className="space-y-2">
                         <Label htmlFor="file-path">File Path</Label>
@@ -368,7 +367,7 @@ export function DataOfferingTab() {
                   )}
 
                   {newOffering.dataType === "s3" && (
-                    <div className="space-y-4 p-4 border rounded-lg bg-muted/50">
+                    <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
                       <h4 className="font-medium">S3 Storage Configuration</h4>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -427,7 +426,7 @@ export function DataOfferingTab() {
                   )}
 
                   {newOffering.dataType === "nas" && (
-                    <div className="space-y-4 p-4 border rounded-lg bg-muted/50">
+                    <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
                       <h4 className="font-medium">NAS Storage Configuration</h4>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -492,7 +491,7 @@ export function DataOfferingTab() {
                   )}
 
                   {newOffering.dataType === "restful" && (
-                    <div className="space-y-4 p-4 border rounded-lg bg-muted/50">
+                    <div className="bg-muted/50 space-y-4 rounded-lg border p-4">
                       <h4 className="font-medium">RESTful API Configuration</h4>
                       <div className="space-y-2">
                         <Label htmlFor="api-endpoint">API Endpoint</Label>
@@ -563,7 +562,7 @@ export function DataOfferingTab() {
                       {/* Basic Authentication Fields */}
                       {(newOffering.sourceConfig as any)?.authentication
                         ?.type === "basic" && (
-                        <div className="space-y-4 p-3 border rounded bg-muted/30">
+                        <div className="bg-muted/30 space-y-4 rounded border p-3">
                           <h5 className="text-sm font-medium">
                             Basic Authentication
                           </h5>
@@ -626,7 +625,7 @@ export function DataOfferingTab() {
                       {/* API Key Authentication Fields */}
                       {(newOffering.sourceConfig as any)?.authentication
                         ?.type === "api_key" && (
-                        <div className="space-y-4 p-3 border rounded bg-muted/30">
+                        <div className="bg-muted/30 space-y-4 rounded border p-3">
                           <h5 className="text-sm font-medium">
                             API Key Authentication
                           </h5>
@@ -714,16 +713,16 @@ export function DataOfferingTab() {
                 return (
                   <div
                     key={offering.id}
-                    className="flex items-center justify-between p-3 border rounded-lg"
+                    className="flex items-center justify-between rounded-lg border p-3"
                   >
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
-                        <DataSourceIcon className="h-4 w-4 text-muted-foreground" />
+                        <DataSourceIcon className="text-muted-foreground h-4 w-4" />
                         <h4 className="font-medium">{offering.title}</h4>
                         <StatusBadge status={offering.status} />
                         <div
                           className={cn(
-                            "flex items-center space-x-1 px-2 py-1 rounded-md text-xs",
+                            "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
                             offering.registrationStatus === "registered" &&
                               "bg-green-100 text-green-800",
                             offering.registrationStatus === "registering" &&
@@ -747,10 +746,10 @@ export function DataOfferingTab() {
                           </span>
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-muted-foreground mt-1 text-sm">
                         {offering.description}
                       </p>
-                      <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
+                      <div className="text-muted-foreground mt-2 flex items-center space-x-4 text-xs">
                         <div className="flex items-center space-x-1">
                           <span>Type:</span>
                           <span className="font-medium">
@@ -788,8 +787,7 @@ export function DataOfferingTab() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Data Contract Management */}
+        ;{/* Data Contract Management */}
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -960,17 +958,17 @@ export function DataOfferingTab() {
                   contract.status === "active" || contract.status === "in_use";
 
                 return (
-                  <div key={contract.id} className="p-4 border rounded-lg">
-                    <div className="flex items-center justify-between mb-3">
+                  <div key={contract.id} className="rounded-lg border p-4">
+                    <div className="mb-3 flex items-center justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <ContractStatusIcon className="h-4 w-4 text-muted-foreground" />
-                          <h4 className="font-medium text-sm">
+                        <div className="mb-2 flex items-center space-x-2">
+                          <ContractStatusIcon className="text-muted-foreground h-4 w-4" />
+                          <h4 className="text-sm font-medium">
                             {contract.name}
                           </h4>
                           <div
                             className={cn(
-                              "flex items-center space-x-1 px-2 py-1 rounded-md text-xs",
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
                               contract.status === "active" &&
                                 "bg-green-100 text-green-800",
                               contract.status === "transferring" &&
@@ -1079,7 +1077,7 @@ export function DataOfferingTab() {
                         <span className="text-muted-foreground">
                           Contract Address:
                         </span>
-                        <span className="font-mono text-muted-foreground break-all ml-2">
+                        <span className="text-muted-foreground ml-2 font-mono break-all">
                           {contract.contractAddress}
                         </span>
                       </div>
@@ -1092,7 +1090,7 @@ export function DataOfferingTab() {
                           <span className="text-muted-foreground">
                             Provider DID:
                           </span>
-                          <span className="font-mono truncate ml-2">
+                          <span className="ml-2 truncate font-mono">
                             {contract.providerDID}
                           </span>
                         </div>
@@ -1100,7 +1098,7 @@ export function DataOfferingTab() {
                           <span className="text-muted-foreground">
                             Consumer DID:
                           </span>
-                          <span className="font-mono truncate ml-2">
+                          <span className="ml-2 truncate font-mono">
                             {contract.consumerDID}
                           </span>
                         </div>
@@ -1114,13 +1112,13 @@ export function DataOfferingTab() {
                     </div>
 
                     {/* Usage Statistics */}
-                    <div className="mt-3 pt-3 border-t">
+                    <div className="mt-3 border-t pt-3">
                       <div className="grid grid-cols-3 gap-4 text-xs">
                         <div className="text-center">
                           <div className="text-muted-foreground">
                             Access Count
                           </div>
-                          <div className="font-medium text-sm">
+                          <div className="text-sm font-medium">
                             {contract.accessCount}
                             {contract.maxAccessCount && (
                               <span className="text-muted-foreground">
@@ -1133,7 +1131,7 @@ export function DataOfferingTab() {
                           <div className="text-muted-foreground">
                             Data Volume
                           </div>
-                          <div className="font-medium text-sm">
+                          <div className="text-sm font-medium">
                             {contract.dataVolume}
                           </div>
                         </div>
@@ -1143,7 +1141,7 @@ export function DataOfferingTab() {
                           </div>
                           <div
                             className={cn(
-                              "font-medium text-sm",
+                              "text-sm font-medium",
                               contract.isExpired && "text-red-600"
                             )}
                           >
@@ -1159,8 +1157,8 @@ export function DataOfferingTab() {
 
                     {/* Warning Information */}
                     {(contract.isExpired || contract.isViolated) && (
-                      <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded-md">
-                        <div className="flex items-center space-x-2 text-red-800 text-xs">
+                      <div className="mt-3 rounded-md border border-red-200 bg-red-50 p-2">
+                        <div className="flex items-center space-x-2 text-xs text-red-800">
                           <AlertTriangle className="h-4 w-4" />
                           <div>
                             {contract.isExpired && (
@@ -1182,6 +1180,7 @@ export function DataOfferingTab() {
             </div>
           </CardContent>
         </Card>
+        ; ;;
       </div>
     </div>
   );
