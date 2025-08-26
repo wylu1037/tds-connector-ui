@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -68,16 +67,12 @@ export function DataSpaceSwitcher() {
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{dataSpace.name}</span>
-                      <Badge
-                        variant={
-                          dataSpace.status === "active"
-                            ? "default"
-                            : "secondary"
-                        }
-                        className="ml-2 text-xs"
-                      >
-                        {dataSpace.status}
-                      </Badge>
+                      {dataSpace.status === "active" && (
+                        <div className="relative">
+                          <div className="size-2 rounded-full bg-green-500"></div>
+                          <div className="absolute inset-0 size-2 animate-ping rounded-full bg-green-500 opacity-75"></div>
+                        </div>
+                      )}
                     </div>
                     <p className="text-muted-foreground mt-1 text-sm">
                       {dataSpace.description}

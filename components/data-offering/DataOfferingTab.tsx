@@ -787,7 +787,7 @@ export function DataOfferingTab() {
             </div>
           </CardContent>
         </Card>
-        ;{/* Data Contract Management */}
+        {/* Data Contract Management */}
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -1180,7 +1180,6 @@ export function DataOfferingTab() {
             </div>
           </CardContent>
         </Card>
-        ; ;;
       </div>
     </div>
   );

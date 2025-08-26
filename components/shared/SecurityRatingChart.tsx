@@ -1,7 +1,6 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -88,31 +87,41 @@ export function SecurityRatingChart({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="rounded-lg border bg-white p-3 shadow-lg">
-          <p className="font-medium">{data.name}</p>
-          <p className="text-muted-foreground text-sm">
-            Weight: {(data.weight * 100).toFixed(0)}%
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Score: {(data.score * 100).toFixed(0)}%
-          </p>
-          <p className="text-sm">
-            Status:{" "}
-            <span
-              className={cn(
-                "rounded px-1 py-0.5 text-xs",
-                data.status === "green" && "bg-green-100 text-green-800",
-                data.status === "yellow" && "bg-yellow-100 text-yellow-800",
-                data.status === "red" && "bg-red-100 text-red-800"
-              )}
-            >
-              {data.status === "green"
-                ? "Meets"
-                : data.status === "yellow"
-                  ? "Partial"
-                  : "Fails"}
-            </span>
-          </p>
+        <div className="z-50 rounded-lg border bg-white p-3 shadow-lg">
+          <p className="mb-2 font-medium text-gray-900">{data.name}</p>
+          <div className="space-y-1 text-sm">
+            <p className="text-gray-600">
+              Weighted Value: {data.value.toFixed(2)}
+            </p>
+            <p className="text-gray-600">
+              Weight: {(data.weight * 100).toFixed(0)}%
+            </p>
+            <p className="text-gray-600">
+              Score: {(data.score * 100).toFixed(0)}%
+            </p>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">Status:</span>
+              <span
+                className={cn(
+                  "rounded px-2 py-1 text-xs font-medium",
+                  data.status === "green" && "bg-green-100 text-green-800",
+                  data.status === "yellow" && "bg-yellow-100 text-yellow-800",
+                  data.status === "red" && "bg-red-100 text-red-800"
+                )}
+              >
+                {data.status === "green"
+                  ? "Compliant"
+                  : data.status === "yellow"
+                    ? "Partially Compliant"
+                    : "Non-Compliant"}
+              </span>
+            </div>
+          </div>
+          {data.description && (
+            <p className="mt-2 text-xs leading-relaxed text-gray-500">
+              {data.description}
+            </p>
+          )}
         </div>
       );
     }
@@ -131,17 +140,22 @@ export function SecurityRatingChart({
             outerRadius={size === "sm" ? 30 : size === "md" ? 45 : 60}
             dataKey="value"
             stroke="none"
+            paddingAngle={2}
           >
             {chartData.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[entry.status as keyof typeof COLORS]}
+                stroke="#ffffff"
+                strokeWidth={1}
+                style={{ cursor: "pointer" }}
               />
             ))}
           </Pie>
           <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
+      {/** pointer-events-none */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center">
           <div
@@ -176,12 +190,12 @@ export function SecurityRatingChart({
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="hover:text-foreground h-auto cursor-pointer p-0 hover:bg-transparent"
+        <div
+          className="hover:text-foreground cursor-pointer"
+          onClick={() => setIsModalOpen(true)}
         >
           {ChartComponent}
-        </Button>
+        </div>
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
