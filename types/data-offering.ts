@@ -45,8 +45,13 @@ export interface RESTfulConfig {
   method: "GET" | "POST"
   headers?: Record<string, string>
   authentication?: {
-    type: "bearer" | "basic" | "api_key"
-    credentials: Record<string, string>
+    type: "none" | "basic" | "api_key"
+    credentials?: {
+      username?: string
+      password?: string
+      headerName?: string
+      headerValue?: string
+    }
   }
 }
 

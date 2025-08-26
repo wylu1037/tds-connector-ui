@@ -6,16 +6,16 @@
     "policy": "Policy & Contracts",
     "blockchain": "Blockchain",
     "sandbox": "Sandbox",
-    "monitoring": "Monitoring"
-  },
-  "Navigation.short": {
-    "identity": "Identity",
-    "dataOffering": "Offering",
-    "dataConsumption": "Consumption",
-    "policy": "Policy",
-    "blockchain": "Chain",
-    "sandbox": "Sandbox",
-    "monitoring": "Monitor"
+    "monitoring": "Monitoring",
+    "short": {
+      "identity": "Identity",
+      "dataOffering": "Offering",
+      "dataConsumption": "Consumption",
+      "policy": "Policy",
+      "blockchain": "Chain",
+      "sandbox": "Sandbox",
+      "monitoring": "Monitor"
+    }
   },
   "Layout": {
     "title": "Trusted Data Space Connector",

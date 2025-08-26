@@ -533,6 +533,158 @@ export function DataOfferingTab() {
                           </SelectContent>
                         </Select>
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="auth-type">Authentication Type</Label>
+                        <Select
+                          onValueChange={(value) =>
+                            setNewOffering({
+                              ...newOffering,
+                              sourceConfig: {
+                                ...newOffering.sourceConfig,
+                                authentication: {
+                                  type: value as "none" | "basic" | "api_key",
+                                  credentials: undefined,
+                                },
+                              },
+                            })
+                          }
+                        >
+                          <SelectTrigger className="border-border">
+                            <SelectValue placeholder="Select authentication" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            <SelectItem value="basic">Basic</SelectItem>
+                            <SelectItem value="api_key">API Key</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Basic Authentication Fields */}
+                      {(newOffering.sourceConfig as any)?.authentication
+                        ?.type === "basic" && (
+                        <div className="space-y-4 p-3 border rounded bg-muted/30">
+                          <h5 className="text-sm font-medium">
+                            Basic Authentication
+                          </h5>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="space-y-2">
+                              <Label htmlFor="auth-username">Username</Label>
+                              <Input
+                                id="auth-username"
+                                className="border-border"
+                                placeholder="Username"
+                                onChange={(e) =>
+                                  setNewOffering({
+                                    ...newOffering,
+                                    sourceConfig: {
+                                      ...newOffering.sourceConfig,
+                                      authentication: {
+                                        ...(newOffering.sourceConfig as any)
+                                          ?.authentication,
+                                        credentials: {
+                                          ...(newOffering.sourceConfig as any)
+                                            ?.authentication?.credentials,
+                                          username: e.target.value,
+                                        },
+                                      },
+                                    },
+                                  })
+                                }
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="auth-password">Password</Label>
+                              <Input
+                                id="auth-password"
+                                type="password"
+                                className="border-border"
+                                placeholder="Password"
+                                onChange={(e) =>
+                                  setNewOffering({
+                                    ...newOffering,
+                                    sourceConfig: {
+                                      ...newOffering.sourceConfig,
+                                      authentication: {
+                                        ...(newOffering.sourceConfig as any)
+                                          ?.authentication,
+                                        credentials: {
+                                          ...(newOffering.sourceConfig as any)
+                                            ?.authentication?.credentials,
+                                          password: e.target.value,
+                                        },
+                                      },
+                                    },
+                                  })
+                                }
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* API Key Authentication Fields */}
+                      {(newOffering.sourceConfig as any)?.authentication
+                        ?.type === "api_key" && (
+                        <div className="space-y-4 p-3 border rounded bg-muted/30">
+                          <h5 className="text-sm font-medium">
+                            API Key Authentication
+                          </h5>
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="space-y-2">
+                              <Label htmlFor="header-name">Header Name</Label>
+                              <Input
+                                id="header-name"
+                                className="border-border"
+                                placeholder="X-API-Key"
+                                onChange={(e) =>
+                                  setNewOffering({
+                                    ...newOffering,
+                                    sourceConfig: {
+                                      ...newOffering.sourceConfig,
+                                      authentication: {
+                                        ...(newOffering.sourceConfig as any)
+                                          ?.authentication,
+                                        credentials: {
+                                          ...(newOffering.sourceConfig as any)
+                                            ?.authentication?.credentials,
+                                          headerName: e.target.value,
+                                        },
+                                      },
+                                    },
+                                  })
+                                }
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="header-value">Header Value</Label>
+                              <Input
+                                id="header-value"
+                                type="password"
+                                className="border-border"
+                                placeholder="API Key Value"
+                                onChange={(e) =>
+                                  setNewOffering({
+                                    ...newOffering,
+                                    sourceConfig: {
+                                      ...newOffering.sourceConfig,
+                                      authentication: {
+                                        ...(newOffering.sourceConfig as any)
+                                          ?.authentication,
+                                        credentials: {
+                                          ...(newOffering.sourceConfig as any)
+                                            ?.authentication?.credentials,
+                                          headerValue: e.target.value,
+                                        },
+                                      },
+                                    },
+                                  })
+                                }
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 

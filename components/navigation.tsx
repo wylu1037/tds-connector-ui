@@ -18,7 +18,7 @@ import { useTranslations } from "next-intl";
 export default function Navigation() {
   const pathname = usePathname();
   const t = useTranslations("Navigation");
-  const tShort = useTranslations("Navigation.short");
+  const tShort = useTranslations("Navigation");
 
   const navigationItems = [
     {
@@ -26,49 +26,49 @@ export default function Navigation() {
       href: "/identity",
       icon: Key,
       label: t("identity"),
-      shortLabel: tShort("identity"),
+      shortLabel: tShort("short.identity"),
     },
     {
       value: "data-offering",
       href: "/data-offering",
       icon: Database,
       label: t("dataOffering"),
-      shortLabel: tShort("dataOffering"),
+      shortLabel: tShort("short.dataOffering"),
     },
     {
       value: "data-consumption",
       href: "/data-consumption",
       icon: Network,
       label: t("dataConsumption"),
-      shortLabel: tShort("dataConsumption"),
+      shortLabel: tShort("short.dataConsumption"),
     },
     {
       value: "policy",
       href: "/policy",
       icon: Shield,
       label: t("policy"),
-      shortLabel: tShort("policy"),
+      shortLabel: tShort("short.policy"),
     },
     {
       value: "blockchain",
       href: "/blockchain",
       icon: LinkIcon,
       label: t("blockchain"),
-      shortLabel: tShort("blockchain"),
+      shortLabel: tShort("short.blockchain"),
     },
     {
       value: "sandbox",
       href: "/sandbox",
       icon: Monitor,
       label: t("sandbox"),
-      shortLabel: tShort("sandbox"),
+      shortLabel: tShort("short.sandbox"),
     },
     {
       value: "monitoring",
       href: "/monitoring",
       icon: Activity,
       label: t("monitoring"),
-      shortLabel: tShort("monitoring"),
+      shortLabel: tShort("short.monitoring"),
     },
   ];
 

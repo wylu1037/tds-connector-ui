@@ -6,16 +6,16 @@
     "policy": "策略与合约",
     "blockchain": "区块链",
     "sandbox": "沙箱",
-    "monitoring": "监控"
-  },
-  "Navigation.short": {
-    "identity": "身份",
-    "dataOffering": "提供",
-    "dataConsumption": "消费",
-    "policy": "策略",
-    "blockchain": "区块链",
-    "sandbox": "沙箱", 
-    "monitoring": "监控"
+    "monitoring": "监控",
+    "short": {
+      "identity": "身份",
+      "dataOffering": "提供",
+      "dataConsumption": "消费",
+      "policy": "策略",
+      "blockchain": "区块链",
+      "sandbox": "沙箱", 
+      "monitoring": "监控"
+    }
   },
   "Layout": {
     "title": "可信数据空间连接器",
