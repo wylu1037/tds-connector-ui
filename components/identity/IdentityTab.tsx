@@ -25,9 +25,11 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslations } from "next-intl";
 
 export function IdentityTab() {
   const { toast } = useToast();
+  const t = useTranslations('Identity');
   const [didViewMode, setDidViewMode] = useState<"visual" | "json">("visual");
   const [vcViewMode, setVcViewMode] = useState<"visual" | "json">("visual");
 
@@ -107,13 +109,13 @@ export function IdentityTab() {
     try {
       await navigator.clipboard.writeText(text);
       toast({
-        title: "Copy Success",
-        description: `${description} Copied to clipboard`,
+        title: t('copySuccess'),
+        description: `${description} ${t('copiedToClipboard')}`,
       });
     } catch (err) {
       toast({
-        title: "Copy Failed",
-        description: "Failed to copy to clipboard",
+        title: t('copyFailed'),
+        description: t('failedToCopy'),
         variant: "destructive",
       });
     }
@@ -129,17 +131,17 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <IdCard className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Identifier</CardTitle>
+              <CardTitle className="text-lg">{t('identifier')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              Unique Identifier
+              {t('uniqueIdentifier')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div>
             <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-              DID Subject Identifier
+              {t('didSubjectIdentifier')}
             </p>
             <div className="flex items-center gap-2">
               <code className="bg-muted rounded flex-1 text-sm break-all">
@@ -149,7 +151,7 @@ export function IdentityTab() {
                 variant="ghost"
                 size="sm"
                 onClick={() =>
-                  copyToClipboard(didDocumentData.id, "DID Identifier")
+                  copyToClipboard(didDocumentData.id, t('didIdentifier'))
                 }
               >
                 <Copy className="h-4 w-4" />
@@ -167,17 +169,17 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <Lock className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Authentication</CardTitle>
+              <CardTitle className="text-lg">{t('authentication')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              1 Method
+              {t('authMethod')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div>
             <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-              Public Key Authentication
+              {t('publicKeyAuth')}
             </p>
             <code className="bg-muted rounded block text-sm break-all">
               {didDocumentData.authentication[0]}
@@ -194,17 +196,17 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <Key className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Public Key Information</CardTitle>
+              <CardTitle className="text-lg">{t('publicKeyInfo')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              1 Key
+              {t('oneKey')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div>
             <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-              Verification Key #1
+              {t('verificationKey')}
             </p>
             <code className="text-xs font-mono block mb-3">
               {didDocumentData.publicKey[0].id}
@@ -212,7 +214,7 @@ export function IdentityTab() {
             <div className="space-y-2">
               <div className="flex justify-between py-2 border-b border-gray-100">
                 <span className="text-sm text-muted-foreground">
-                  Algorithm Type
+                  {t('algorithmType')}
                 </span>
                 <span className="text-sm font-medium">
                   {didDocumentData.publicKey[0].type}
@@ -220,7 +222,7 @@ export function IdentityTab() {
               </div>
               <div>
                 <span className="text-sm text-muted-foreground block mb-1">
-                  Public Key (Base58)
+                  {t('publicKeyBase58')}
                 </span>
                 <div className="flex items-center gap-2">
                   <code className="bg-muted rounded flex-1 text-sm break-all truncate">
@@ -232,7 +234,7 @@ export function IdentityTab() {
                     onClick={() =>
                       copyToClipboard(
                         didDocumentData.publicKey[0].publicKeyBase58,
-                        "Public Key"
+                        t('publicKeyBase58')
                       )
                     }
                   >
@@ -253,17 +255,17 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <Shield className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Service Endpoints</CardTitle>
+              <CardTitle className="text-lg">{t('serviceEndpoints')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              1 Service
+              {t('oneService')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div>
             <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-              Connector Service Interface
+              {t('connectorServiceInterface')}
             </p>
             <code className="text-xs font-mono block mb-3 truncate">
               {didDocumentData.service[0].id}
@@ -271,7 +273,7 @@ export function IdentityTab() {
             <div className="space-y-2">
               <div className="flex justify-between py-2 border-b border-gray-100">
                 <span className="text-sm text-muted-foreground">
-                  Service Type
+                  {t('serviceType')}
                 </span>
                 <span className="text-sm font-medium">
                   {didDocumentData.service[0].type}
@@ -279,7 +281,7 @@ export function IdentityTab() {
               </div>
               <div>
                 <span className="text-sm text-muted-foreground block mb-1">
-                  Service Address
+                  {t('serviceAddress')}
                 </span>
                 <div className="flex items-center gap-2">
                   <a
@@ -296,7 +298,7 @@ export function IdentityTab() {
                     onClick={() =>
                       copyToClipboard(
                         didDocumentData.service[0].serviceEndpoint,
-                        "Service Address"
+                        t('serviceAddress')
                       )
                     }
                   >
@@ -321,17 +323,17 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <IdCard className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">VC Identifier</CardTitle>
+              <CardTitle className="text-lg">{t('vcIdentifier')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              Unique Identifier
+              {t('uniqueIdentifier')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div>
             <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-              Credential ID
+              {t('credentialId')}
             </p>
             <div className="flex items-center gap-2">
               <code className="bg-muted rounded flex-1 text-sm break-all truncate">
@@ -340,7 +342,7 @@ export function IdentityTab() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => copyToClipboard(vcData.id, "VC Identifier")}
+                onClick={() => copyToClipboard(vcData.id, t('vcIdentifier'))}
               >
                 <Copy className="h-4 w-4" />
               </Button>
@@ -357,17 +359,17 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <User className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Issuer Information</CardTitle>
+              <CardTitle className="text-lg">{t('issuerInfo')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              Authority
+              {t('authority')}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div>
             <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-              Issuer DID
+              {t('issuerDid')}
             </p>
             <code className="bg-muted rounded block text-sm break-all">
               {vcData.issuer.id}
@@ -385,11 +387,11 @@ export function IdentityTab() {
                 <Calendar className="h-5 w-5 text-primary" />
               </div>
               <CardTitle className="text-lg whitespace-nowrap">
-                Issuance Info
+                {t('issuanceInfo')}
               </CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              Time Info
+              {t('timeInfo')}
             </Badge>
           </div>
         </CardHeader>
@@ -397,7 +399,7 @@ export function IdentityTab() {
           <div className="space-y-3">
             <div>
               <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Issuance Date
+                {t('issuanceDate')}
               </p>
               <code className="bg-muted rounded block text-sm">
                 {vcData.issuanceDate}
@@ -405,7 +407,7 @@ export function IdentityTab() {
             </div>
             <div>
               <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Expiration Date
+                {t('expirationDate')}
               </p>
               <code className="bg-muted rounded block text-sm">
                 {vcData.expirationDate}
@@ -423,10 +425,10 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <Tag className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Credential Type</CardTitle>
+              <CardTitle className="text-lg">{t('credentialType')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              2 Types
+              {t('twoTypes')}
             </Badge>
           </div>
         </CardHeader>
@@ -435,7 +437,7 @@ export function IdentityTab() {
             {vcData.type.map((type, index) => (
               <div key={index} className="bg-muted rounded-lg">
                 <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                  {index === 0 ? "Base Type" : "Specific Type"}
+                  {index === 0 ? t('baseType') : t('specificType')}
                 </p>
                 <code className="bg-muted rounded block text-sm">{type}</code>
               </div>
@@ -452,10 +454,10 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <User className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Credential Subject</CardTitle>
+              <CardTitle className="text-lg">{t('credentialSubject')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              Subject Information
+              {t('subjectInfo')}
             </Badge>
           </div>
         </CardHeader>
@@ -463,7 +465,7 @@ export function IdentityTab() {
           <div className="space-y-4">
             <div>
               <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Subject DID
+                {t('subjectDid')}
               </p>
               <code className="bg-muted rounded block text-sm break-all mb-4">
                 {vcData.credentialSubject.id}
@@ -471,30 +473,30 @@ export function IdentityTab() {
             </div>
             <div>
               <p className="text-sm font-medium mb-3 text-muted-foreground/80">
-                Proof Information
+                {t('proofInfo')}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div className="bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Name</p>
+                  <p className="text-sm text-muted-foreground">{t('name')}</p>
                   <p className="font-medium">{vcData.credentialSubject.name}</p>
                 </div>
                 <div className="bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Identity Type</p>
+                  <p className="text-sm text-muted-foreground">{t('identityType')}</p>
                   <p className="font-medium">{vcData.credentialSubject.type}</p>
                 </div>
                 <div className="bg-muted rounded-lg">
-                  <p className="text-sm text-muted-foreground">Organization</p>
+                  <p className="text-sm text-muted-foreground">{t('organization')}</p>
                   <p className="font-medium">
                     {vcData.credentialSubject.memberOf.name}
                   </p>
                 </div>
                 <div className="bg-muted rounded-lg">
                   <p className="text-sm text-muted-foreground whitespace-nowrap">
-                    Authentication Status
+                    {t('authStatus')}
                   </p>
                   <p className="font-medium text-green-600 flex items-center gap-1">
                     <CheckCircle className="h-4 w-4" />
-                    Verified
+                    {t('verified')}
                   </p>
                 </div>
               </div>
@@ -511,10 +513,10 @@ export function IdentityTab() {
               <div className="bg-primary/10 p-2 rounded-lg">
                 <Lock className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">Digital Signature</CardTitle>
+              <CardTitle className="text-lg">{t('digitalSignature')}</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
-              Verification Information
+              {t('verificationInfo')}
             </Badge>
           </div>
         </CardHeader>
@@ -522,7 +524,7 @@ export function IdentityTab() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <p className="text-sm font-medium mb-4 text-muted-foreground/80">
-                Signature Algorithm
+                {t('signatureAlgorithm')}
               </p>
               <code className="bg-muted rounded block text-sm">
                 {vcData.proof.type}
@@ -530,7 +532,7 @@ export function IdentityTab() {
             </div>
             <div>
               <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Verification Method
+                {t('verificationMethod')}
               </p>
               <div className="flex items-center gap-2">
                 <code className="bg-muted rounded flex-1 text-sm break-all truncate">
@@ -542,7 +544,7 @@ export function IdentityTab() {
                   onClick={() =>
                     copyToClipboard(
                       vcData.proof.verificationMethod,
-                      "Verification Method"
+                      t('verificationMethod')
                     )
                   }
                 >
@@ -552,7 +554,7 @@ export function IdentityTab() {
             </div>
             <div>
               <p className="text-sm font-medium mb-2 text-muted-foreground/80">
-                Signature Value
+                {t('signatureValue')}
               </p>
               <div className="flex items-center gap-2">
                 <code className="bg-muted rounded flex-1 text-sm break-all">
@@ -562,7 +564,7 @@ export function IdentityTab() {
                   variant="ghost"
                   size="sm"
                   onClick={() =>
-                    copyToClipboard(vcData.proof.jws, "Signature Value")
+                    copyToClipboard(vcData.proof.jws, t('signatureValue'))
                   }
                 >
                   <Copy className="h-4 w-4" />
@@ -584,11 +586,10 @@ export function IdentityTab() {
           <Card className="border border-border">
             <CardHeader className="border-b border-gray-200 pb-6">
               <CardTitle className="text-xl md:text-2xl font-bold">
-                Connector Identity
+                {t('connectorIdentity')}
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                Connector identity information and associated DID document
-                details
+                {t('connectorDescription')}
               </CardDescription>
             </CardHeader>
 
@@ -597,7 +598,7 @@ export function IdentityTab() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    DID Identifier
+                    {t('didIdentifier')}
                   </p>
                   <div className="flex items-center gap-2">
                     <code className="bg-muted rounded-lg font-mono text-sm break-all flex-grow">
@@ -609,7 +610,7 @@ export function IdentityTab() {
                       onClick={() =>
                         copyToClipboard(
                           connectorData.didIdentifier,
-                          "DID Identifier"
+                          t('didIdentifier')
                         )
                       }
                     >
@@ -620,7 +621,7 @@ export function IdentityTab() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    Connector Name
+                    {t('connectorName')}
                   </p>
                   <div className="bg-muted rounded-lg py-1">
                     <span className="font-medium">{connectorData.name}</span>
@@ -629,7 +630,7 @@ export function IdentityTab() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    Connector Version
+                    {t('connectorVersion')}
                   </p>
                   <div className="bg-muted rounded-lg">
                     <span className="font-medium">{connectorData.version}</span>
@@ -638,7 +639,7 @@ export function IdentityTab() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    Creation Time
+                    {t('creationTime')}
                   </p>
                   <div className="bg-muted rounded-lg">
                     <span className="font-medium">
@@ -655,10 +656,10 @@ export function IdentityTab() {
                 <div>
                   <h3 className="text-xl font-bold flex items-center gap-2">
                     <FileText className="h-5 w-5 text-primary" />
-                    <span>DID Document</span>
+                    <span>{t('didDocument')}</span>
                   </h3>
                   <p className="text-muted-foreground mt-1">
-                    View detailed content of the DID document
+                    {t('viewDetailContent')}
                   </p>
                 </div>
 
@@ -700,12 +701,12 @@ export function IdentityTab() {
                       onClick={() =>
                         copyToClipboard(
                           JSON.stringify(didDocumentData, null, 2),
-                          "DID Document JSON"
+                          t('didDocument') + " JSON"
                         )
                       }
                     >
                       <Copy className="h-4 w-4 mr-2" />
-                      Copy JSON
+                      {t('copyJson')}
                     </Button>
                   </div>
                 )}
@@ -719,11 +720,10 @@ export function IdentityTab() {
           <Card className="border border-border">
             <CardHeader className="border-b border-gray-200 pb-6">
               <CardTitle className="text-xl md:text-2xl font-bold">
-                User Identity
+                {t('userIdentity')}
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                User identity information and associated verifiable credential
-                details
+                {t('userDescription')}
               </CardDescription>
             </CardHeader>
 
@@ -732,7 +732,7 @@ export function IdentityTab() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    DID Identifier
+                    {t('didIdentifier')}
                   </p>
                   <div className="flex items-center gap-2">
                     <code className="bg-muted rounded-lg font-mono text-sm break-all flex-grow">
@@ -744,7 +744,7 @@ export function IdentityTab() {
                       onClick={() =>
                         copyToClipboard(
                           userData.didIdentifier,
-                          "User DID Identifier"
+                          t('didIdentifier')
                         )
                       }
                     >
@@ -755,7 +755,7 @@ export function IdentityTab() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    User Type
+                    {t('userType')}
                   </p>
                   <div className="bg-muted rounded-lg py-1">
                     <span className="font-medium">{userData.userType}</span>
@@ -764,7 +764,7 @@ export function IdentityTab() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    Last Authentication Time
+                    {t('lastAuthTime')}
                   </p>
                   <div className="bg-muted rounded-lg">
                     <span className="font-medium">
@@ -775,12 +775,12 @@ export function IdentityTab() {
 
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">
-                    Identity Status
+                    {t('identityStatus')}
                   </p>
                   <div className="bg-muted rounded-lg">
                     <span className="font-medium text-green-600 flex items-center gap-1">
                       <CheckCircle className="h-4 w-4" />
-                      Verified
+                      {t('verified')}
                     </span>
                   </div>
                 </div>
@@ -793,10 +793,10 @@ export function IdentityTab() {
                 <div>
                   <h3 className="text-xl font-bold flex items-center gap-2">
                     <FileText className="h-5 w-5 text-primary" />
-                    <span>Verifiable Credential</span>
+                    <span>{t('verifiableCredential')}</span>
                   </h3>
                   <p className="text-muted-foreground mt-1">
-                    View detailed content of the Verifiable Credential
+                    {t('viewVcDetailContent')}
                   </p>
                 </div>
 
@@ -838,12 +838,12 @@ export function IdentityTab() {
                       onClick={() =>
                         copyToClipboard(
                           JSON.stringify(vcData, null, 2),
-                          "Verifiable Credential JSON"
+                          t('verifiableCredential') + " JSON"
                         )
                       }
                     >
                       <Copy className="h-4 w-4 mr-2" />
-                      Copy JSON
+                      {t('copyJson')}
                     </Button>
                   </div>
                 )}

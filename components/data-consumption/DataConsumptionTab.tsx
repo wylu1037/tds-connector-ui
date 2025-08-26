@@ -609,7 +609,7 @@ export function DataConsumptionTab() {
                 )}
 
                 {/* DID */}
-                <div className="bg-muted p-3 rounded-md">
+                <div className="bg-muted py-3 rounded-md">
                   <div className="text-xs text-muted-foreground mb-1">DID:</div>
                   <p className="text-sm font-mono break-all">{connector.did}</p>
                 </div>

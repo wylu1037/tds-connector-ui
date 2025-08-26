@@ -22,6 +22,7 @@ export default function Header() {
   const { setTheme, theme } = useTheme();
   const [isRegistered, setIsRegistered] = useState(true);
   const t = useTranslations("Header");
+  const tLayout = useTranslations("Layout");
 
   return (
     <div className="border-b bg-card">
@@ -31,14 +32,14 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-primary" />
               <h1 className="text-2xl font-bold font-serif text-foreground hidden md:block">
-                Trusted Data Space Connector
+                {tLayout("title")}
               </h1>
             </Link>
             <Badge
               variant={isRegistered ? "default" : "secondary"}
               className="ml-4"
             >
-              {isRegistered ? "Registered" : "Not Registered"}
+              {isRegistered ? t("registered") : t("notRegistered")}
             </Badge>
           </div>
           <div className="flex items-center space-x-2">
@@ -51,7 +52,7 @@ export default function Header() {
             >
               <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
+              <span className="sr-only">{t("toggleTheme")}</span>
             </Button>
             <TooltipProvider>
               <Tooltip>
