@@ -244,7 +244,7 @@ export function SandboxTab() {
                       {sandbox.status === "stopped" ? (
                         <Button
                           size="sm"
-                          variant="outline"
+                          variant="ghost"
                           onClick={() => startSandbox(sandbox.id)}
                         >
                           <Play className="h-4 w-4" />
@@ -252,7 +252,7 @@ export function SandboxTab() {
                       ) : sandbox.status === "running" ? (
                         <Button
                           size="sm"
-                          variant="outline"
+                          variant="ghost"
                           onClick={() => stopSandbox(sandbox.id)}
                         >
                           <Square className="h-4 w-4" />

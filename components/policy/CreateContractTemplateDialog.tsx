@@ -18,7 +18,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { ContractTemplate, PolicyTemplate } from "@/types";
-import { AlertTriangle, CheckCircle, FileText, Shield } from "lucide-react";
+import { AlertTriangle, CheckCircle, Shield } from "lucide-react";
 import { useState } from "react";
 
 interface CreateContractTemplateDialogProps {
@@ -126,10 +126,9 @@ export function CreateContractTemplateDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
+      <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <FileText className="h-5 w-5" />
+          <DialogTitle className="flex items-center">
             Create Contract Template
           </DialogTitle>
           <DialogDescription>
@@ -152,11 +151,10 @@ export function CreateContractTemplateDialog({
               </AlertDescription>
             </Alert>
           )}
-
           {/* Basic Information */}
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Contract Template Name *</Label>
+              <Label htmlFor="name">Contract Template Name</Label>
               <Input
                 id="name"
                 className="border-border"
@@ -169,7 +167,7 @@ export function CreateContractTemplateDialog({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
                 className="border-border"
@@ -185,11 +183,11 @@ export function CreateContractTemplateDialog({
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-center justify-between">
               <div className="space-y-2">
                 <Label>Contract Type</Label>
                 <RadioGroup
-                  className="border-border rounded-md border p-2"
+                  className="flex rounded-md border p-2"
                   value={formData.contractType}
                   onValueChange={(value: "single_policy" | "multi_policy") => {
                     setFormData((prev) => ({ ...prev, contractType: value }));
@@ -208,7 +206,12 @@ export function CreateContractTemplateDialog({
                       id="single"
                       className="border-border"
                     />
-                    <Label htmlFor="single">Single Policy</Label>
+                    <Label
+                      className="text-muted-foreground/80"
+                      htmlFor="single"
+                    >
+                      Single Policy
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem
@@ -216,7 +219,9 @@ export function CreateContractTemplateDialog({
                       id="multi"
                       className="border-border"
                     />
-                    <Label htmlFor="multi">Multi Policy</Label>
+                    <Label className="text-muted-foreground/80" htmlFor="multi">
+                      Multi Policy
+                    </Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -224,7 +229,7 @@ export function CreateContractTemplateDialog({
               <div className="space-y-2">
                 <Label>Initial Status</Label>
                 <RadioGroup
-                  className="border-border rounded-md border p-2"
+                  className="flex rounded-md border p-2"
                   value={formData.status}
                   onValueChange={(value: "draft" | "active") =>
                     setFormData((prev) => ({ ...prev, status: value }))
@@ -236,7 +241,9 @@ export function CreateContractTemplateDialog({
                       id="draft"
                       className="border-border"
                     />
-                    <Label htmlFor="draft">Draft</Label>
+                    <Label className="text-muted-foreground/80" htmlFor="draft">
+                      Draft
+                    </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem
@@ -244,29 +251,33 @@ export function CreateContractTemplateDialog({
                       id="active"
                       className="border-border"
                     />
-                    <Label htmlFor="active">Active</Label>
+                    <Label
+                      className="text-muted-foreground/80"
+                      htmlFor="active"
+                    >
+                      Active
+                    </Label>
                   </div>
                 </RadioGroup>
               </div>
             </div>
-          </div>;
-
-          {
-            /* Policy Selection */
-          }
+          </div>
+          {/* Policy Selection */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label className="text-base font-semibold">
-                Select Policies *
+                Select Policies
                 {formData.contractType === "single_policy" && (
                   <span className="text-muted-foreground ml-2 text-sm font-normal">
                     (Select one policy)
                   </span>
                 )}
               </Label>
-              <Badge variant="outline">
-                {selectedPolicyIds.length} selected
-              </Badge>
+              {selectedPolicyIds.length > 0 && (
+                <Badge variant="secondary">
+                  {selectedPolicyIds.length} selected
+                </Badge>
+              )}
             </div>
 
             <div className="grid max-h-96 gap-3 overflow-y-auto">
@@ -302,7 +313,7 @@ export function CreateContractTemplateDialog({
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center gap-2">
                             <Shield className="text-primary h-4 w-4" />
-                            <CardTitle className="text-sm">
+                            <CardTitle className="line-clamp-1 text-sm">
                               {policy.name}
                             </CardTitle>
                             <Badge
@@ -349,44 +360,7 @@ export function CreateContractTemplateDialog({
                 );
               })}
             </div>
-          </div>;
-
-          {/* Summary */}
-          {selectedPolicyIds.length > 0 && (
-            <div className="bg-muted/50 rounded-lg p-4">
-              <div className="mb-2 flex items-center gap-2">
-                <FileText className="h-4 w-4" />
-                <span className="text-sm font-medium">
-                  Contract Template Summary
-                </span>
-              </div>
-              <div className="text-muted-foreground space-y-1 text-sm">
-                <p>
-                  This template will include {selectedPolicyIds.length} policy
-                  {selectedPolicyIds.length !== 1 ? " templates" : " template"}
-                  with a total of{" "}
-                  {policyTemplates
-                    .filter((p) => selectedPolicyIds.includes(p.id))
-                    .reduce((sum, p) => sum + p.rules.length, 0)}{" "}
-                  rules.
-                </p>
-                <p>
-                  Contract type:{" "}
-                  <strong>
-                    {formData.contractType === "single_policy"
-                      ? "Single Policy"
-                      : "Multi Policy"}
-                  </strong>
-                </p>
-                <p>
-                  Initial status:{" "}
-                  <strong>
-                    {formData.status === "draft" ? "Draft" : "Active"}
-                  </strong>
-                </p>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
         <DialogFooter>

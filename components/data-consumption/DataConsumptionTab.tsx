@@ -676,7 +676,7 @@ export function DataConsumptionTab() {
 
       {/* Data Request Dialog */}
       <ActionDialog
-        trigger={<></>}
+        trigger={null}
         title="Request Data Access"
         description={
           selectedOffering

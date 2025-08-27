@@ -1,5 +1,6 @@
 "use client";
 
+import { DateTimePicker } from "@/components/DateTimePicker";
 import { ActionDialog, MetricCard, StatusBadge } from "@/components/shared";
 import {
   AlertDialog,
@@ -918,16 +919,13 @@ export function DataOfferingTab() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="expires-at">Expiration Date</Label>
-                      <Input
-                        id="expires-at"
-                        type="datetime-local"
-                        className="border-border"
+                      <Label>Expiration Date</Label>
+                      <DateTimePicker
                         value={newContract.expiresAt}
-                        onChange={(e) =>
+                        onChange={(value) =>
                           setNewContract({
                             ...newContract,
-                            expiresAt: e.target.value,
+                            expiresAt: value,
                           })
                         }
                       />
