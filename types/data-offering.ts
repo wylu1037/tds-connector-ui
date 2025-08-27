@@ -7,6 +7,20 @@ export type RegistrationStatus =
   | "registering"
   | "failed";
 
+// Hosting status types
+export type HostingStatus = "hosted" | "self_managed" | "pending";
+
+// Cross-border audit status types
+export type CrossBorderAuditStatus = "approved" | "pending" | "rejected" | "not_required";
+
+// Traceability information interface
+export interface TraceabilityInfo {
+  dataSource: string;
+  blockchainMainChainId: string;
+  ownerDID: string;
+  traceabilityHash: string;
+}
+
 export interface DataOffering {
   id: string;
   title: string;
@@ -16,7 +30,13 @@ export interface DataOffering {
   status: "active" | "inactive" | "pending";
   registrationStatus: RegistrationStatus;
   createdAt: string;
-  // 根据数据类型添加特定配置
+  // New enhanced fields
+  hostingStatus: HostingStatus;
+  crossBorderAuditStatus: CrossBorderAuditStatus;
+  dataZoneCode: string;
+  storageLocation: string;
+  traceabilityInfo: TraceabilityInfo;
+  // Configuration based on data type
   sourceConfig?: LocalFileConfig | S3Config | NASConfig | RESTfulConfig;
 }
 
@@ -71,6 +91,12 @@ export interface ExternalDataOffering {
   lastUpdated: string;
   size: string;
   price?: string;
+  // New enhanced fields
+  hostingStatus: HostingStatus;
+  crossBorderAuditStatus: CrossBorderAuditStatus;
+  dataZoneCode: string;
+  storageLocation: string;
+  traceabilityInfo: TraceabilityInfo;
 }
 
 export interface DataRequest {

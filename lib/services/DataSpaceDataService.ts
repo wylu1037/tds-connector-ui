@@ -1,4 +1,4 @@
-// 基于数据空间的数据服务
+// Data space based data service
 export interface DataSpaceDataConfig {
   [key: string]: {
     dataOfferings: any[];
@@ -15,6 +15,20 @@ export interface DataSpaceDataConfig {
   };
 }
 
+// Hosting status types
+export type HostingStatus = 'hosted' | 'self_managed' | 'pending';
+
+// Cross-border audit status types
+export type CrossBorderAuditStatus = 'approved' | 'pending' | 'rejected' | 'not_required';
+
+// Traceability information interface
+export interface TraceabilityInfo {
+  dataSource: string;
+  blockchainMainChainId: string;
+  ownerDID: string;
+  traceabilityHash: string;
+}
+
 export const dataSpaceConfigs: DataSpaceDataConfig = {
   healthcare: {
     dataOfferings: [
@@ -28,6 +42,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "active",
         registrationStatus: "registered",
         createdAt: "2024-01-10T10:00:00Z",
+        hostingStatus: "hosted" as HostingStatus,
+        crossBorderAuditStatus: "approved" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-H001-2024",
+        storageLocation: "Trusted Healthcare Data Center",
+        traceabilityInfo: {
+          dataSource: "Regional Hospital Network",
+          blockchainMainChainId: "healthcare-main-1001",
+          ownerDID: "did:health:hospital-eu-123",
+          traceabilityHash: "0xa1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+        },
         sourceConfig: {
           filePath: "/data/healthcare/patient_demographics.csv",
           format: "CSV",
@@ -43,6 +67,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "active",
         registrationStatus: "registered",
         createdAt: "2024-01-12T14:30:00Z",
+        hostingStatus: "self_managed" as HostingStatus,
+        crossBorderAuditStatus: "approved" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-H002-2024",
+        storageLocation: "Private Medical Cloud Storage",
+        traceabilityInfo: {
+          dataSource: "Medical Research Institute",
+          blockchainMainChainId: "healthcare-main-1001",
+          ownerDID: "did:health:research-inst-456",
+          traceabilityHash: "0xb2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567"
+        },
         sourceConfig: {
           bucketName: "medical-imaging-archive",
           objectKey: "dicom/research-dataset",
@@ -473,6 +507,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         lastUpdated: "2024-01-15T08:00:00Z",
         size: "5.2 GB",
         price: "$2000/month",
+        hostingStatus: "hosted" as HostingStatus,
+        crossBorderAuditStatus: "approved" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-HE001-2024",
+        storageLocation: "International Pharma Data Center",
+        traceabilityInfo: {
+          dataSource: "Global Clinical Trial Network",
+          blockchainMainChainId: "healthcare-main-1001",
+          ownerDID: "did:health:pharma123",
+          traceabilityHash: "0xhe1a2b3c4d5e6789012345678901234567890abcdef1234567890abcdef123456"
+        },
       },
     ],
     dataRequests: [
@@ -688,6 +732,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "active",
         registrationStatus: "registered",
         createdAt: "2024-01-10T10:00:00Z",
+        hostingStatus: "hosted" as HostingStatus,
+        crossBorderAuditStatus: "approved" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-F001-2024",
+        storageLocation: "Financial Data Hosting Center",
+        traceabilityInfo: {
+          dataSource: "Market Data Providers Network",
+          blockchainMainChainId: "finance-main-2001",
+          ownerDID: "did:finance:bank123",
+          traceabilityHash: "0xf1a2b3c4d5e6789012345678901234567890abcdef1234567890abcdef123456"
+        },
         sourceConfig: {
           apiEndpoint: "https://api.market-data.com/v1/analytics",
           method: "GET",
@@ -703,6 +757,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "active",
         registrationStatus: "unregistered",
         createdAt: "2024-01-12T14:30:00Z",
+        hostingStatus: "pending" as HostingStatus,
+        crossBorderAuditStatus: "pending" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-F002-2024",
+        storageLocation: "Pending Hosting Assignment",
+        traceabilityInfo: {
+          dataSource: "Credit Analytics Institute",
+          blockchainMainChainId: "finance-main-2001",
+          ownerDID: "did:finance:fintech456",
+          traceabilityHash: "0xf2b3c4d5e6789012345678901234567890abcdef1234567890abcdef1234567"
+        },
         sourceConfig: {
           serverAddress: "192.168.100.50",
           sharePath: "/models/credit-risk",
@@ -1069,6 +1133,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         lastUpdated: "2024-01-15T10:00:00Z",
         size: "1.8 GB",
         price: "$5000/month",
+        hostingStatus: "hosted" as HostingStatus,
+        crossBorderAuditStatus: "approved" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-FE001-2024",
+        storageLocation: "Financial Analytics Cloud",
+        traceabilityInfo: {
+          dataSource: "Global ESG Rating Agencies",
+          blockchainMainChainId: "finance-main-2001",
+          ownerDID: "did:finance:esg123",
+          traceabilityHash: "0xfe1a2b3c4d5e6789012345678901234567890abcdef1234567890abcdef123456"
+        },
       },
     ],
     dataRequests: [
@@ -1274,6 +1348,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "active",
         registrationStatus: "registered",
         createdAt: "2024-01-10T10:00:00Z",
+        hostingStatus: "hosted" as HostingStatus,
+        crossBorderAuditStatus: "not_required" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-M001-2024",
+        storageLocation: "Smart City Data Hub",
+        traceabilityInfo: {
+          dataSource: "City Traffic Management System",
+          blockchainMainChainId: "mobility-main-3001",
+          ownerDID: "did:mobility:smart-city-123",
+          traceabilityHash: "0xm1a2b3c4d5e6789012345678901234567890abcdef1234567890abcdef123456"
+        },
         sourceConfig: {
           apiEndpoint: "https://api.city-traffic.gov/v1/flow",
           method: "GET",
@@ -1288,6 +1372,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "active",
         registrationStatus: "registering",
         createdAt: "2024-01-12T14:30:00Z",
+        hostingStatus: "self_managed" as HostingStatus,
+        crossBorderAuditStatus: "not_required" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-M002-2024",
+        storageLocation: "Municipal Transport Authority",
+        traceabilityInfo: {
+          dataSource: "Public Transport Network",
+          blockchainMainChainId: "mobility-main-3001",
+          ownerDID: "did:mobility:transport-hub-456",
+          traceabilityHash: "0xm2b3c4d5e6789012345678901234567890abcdef1234567890abcdef1234567"
+        },
         sourceConfig: {
           filePath: "/data/transport/gtfs-realtime.json",
           format: "JSON",
@@ -1620,6 +1714,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         category: "analytics",
         lastUpdated: "2024-01-15T06:00:00Z",
         size: "3.1 GB",
+        hostingStatus: "hosted" as HostingStatus,
+        crossBorderAuditStatus: "not_required" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-ME001-2024",
+        storageLocation: "Weather Analytics Hub",
+        traceabilityInfo: {
+          dataSource: "Meteorological Services Network",
+          blockchainMainChainId: "mobility-main-3001",
+          ownerDID: "did:mobility:weather123",
+          traceabilityHash: "0xme1a2b3c4d5e6789012345678901234567890abcdef1234567890abcdef123456"
+        },
       },
     ],
     dataRequests: [
@@ -1826,6 +1930,16 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         status: "inactive",
         registrationStatus: "failed",
         createdAt: "2024-01-10T10:00:00Z",
+        hostingStatus: "pending" as HostingStatus,
+        crossBorderAuditStatus: "rejected" as CrossBorderAuditStatus,
+        dataZoneCode: "DZ-E001-2024",
+        storageLocation: "Critical Infrastructure Center (Pending)",
+        traceabilityInfo: {
+          dataSource: "National Grid System",
+          blockchainMainChainId: "energy-main-4001",
+          ownerDID: "did:energy:grid-op-123",
+          traceabilityHash: "0xe1a2b3c4d5e6789012345678901234567890abcdef1234567890abcdef123456"
+        },
         sourceConfig: {
           bucketName: "energy-grid-data",
           objectKey: "forecasting/load-models",

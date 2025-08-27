@@ -21,6 +21,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -32,8 +38,14 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings } from "@/hooks";
+import { crossBorderAuditService } from "@/lib/services/CrossBorderAuditService";
 import { cn } from "@/lib/utils";
-import { ContractStatus, DataSourceType } from "@/types";
+import {
+  ContractStatus,
+  CrossBorderAuditStatus,
+  DataSourceType,
+  HostingStatus,
+} from "@/types";
 import {
   Activity,
   AlertTriangle,
@@ -49,13 +61,16 @@ import {
   FileText,
   Globe,
   Link,
+  MoreHorizontal,
   Pause,
   Plus,
   Server,
+  Shield,
   Trash2,
   WifiOff,
   XCircle,
 } from "lucide-react";
+import { useState } from "react";
 
 // Data source type icon mapping
 const getDataSourceIcon = (type: DataSourceType) => {
@@ -147,6 +162,66 @@ const getContractStatusLabel = (status: ContractStatus) => {
   }
 };
 
+// Hosting status icon mapping
+const getHostingStatusIcon = (status: HostingStatus) => {
+  switch (status) {
+    case "hosted":
+      return Shield;
+    case "self_managed":
+      return Server;
+    case "pending":
+      return Clock;
+    default:
+      return AlertTriangle;
+  }
+};
+
+// Hosting status label mapping
+const getHostingStatusLabel = (status: HostingStatus) => {
+  switch (status) {
+    case "hosted":
+      return "Hosted";
+    case "self_managed":
+      return "Self Managed";
+    case "pending":
+      return "Pending";
+    default:
+      return "Unknown";
+  }
+};
+
+// Cross-border audit status icon mapping
+const getCrossBorderAuditIcon = (status: CrossBorderAuditStatus) => {
+  switch (status) {
+    case "approved":
+      return CheckCircle;
+    case "pending":
+      return Clock;
+    case "rejected":
+      return XCircle;
+    case "not_required":
+      return Shield;
+    default:
+      return AlertTriangle;
+  }
+};
+
+// Cross-border audit status label mapping
+const getCrossBorderAuditLabel = (status: CrossBorderAuditStatus) => {
+  switch (status) {
+    case "approved":
+      return "Approved";
+    case "pending":
+      return "Pending";
+    case "rejected":
+      return "Rejected";
+    case "not_required":
+      return "Not Required";
+    default:
+      return "Unknown";
+  }
+};
+
 export function DataOfferingTab() {
   const {
     dataOfferings,
@@ -163,9 +238,19 @@ export function DataOfferingTab() {
     createContract,
   } = useDataOfferings();
 
+  // State for data details dialog
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [selectedOffering, setSelectedOffering] = useState<any>(null);
+
   const activeOfferingsCount = dataOfferings.filter(
     (o) => o.status === "active"
   ).length;
+
+  // Handle view details click
+  const handleViewDetails = (offering: any) => {
+    setSelectedOffering(offering);
+    setIsDetailsOpen(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -710,6 +795,12 @@ export function DataOfferingTab() {
                 const RegistrationIcon = getRegistrationIcon(
                   offering.registrationStatus
                 );
+                const HostingIcon = getHostingStatusIcon(
+                  offering.hostingStatus
+                );
+                const CrossBorderIcon = getCrossBorderAuditIcon(
+                  offering.crossBorderAuditStatus
+                );
 
                 return (
                   <div
@@ -719,7 +810,9 @@ export function DataOfferingTab() {
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
                         <DataSourceIcon className="text-muted-foreground h-4 w-4" />
-                        <h4 className="font-medium">{offering.title}</h4>
+                        <h4 className="font-medium whitespace-nowrap">
+                          {offering.title}
+                        </h4>
                         <StatusBadge status={offering.status} />
                         <div
                           className={cn(
@@ -746,6 +839,44 @@ export function DataOfferingTab() {
                               "Failed"}
                           </span>
                         </div>
+                        {/* Hosting Status Badge */}
+                        <div
+                          className={cn(
+                            "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                            offering.hostingStatus === "hosted" &&
+                              "bg-blue-100 text-blue-800",
+                            offering.hostingStatus === "self_managed" &&
+                              "bg-purple-100 whitespace-nowrap text-purple-800",
+                            offering.hostingStatus === "pending" &&
+                              "bg-orange-100 text-orange-800"
+                          )}
+                        >
+                          <HostingIcon className="h-3 w-3" />
+                          <span>
+                            {getHostingStatusLabel(offering.hostingStatus)}
+                          </span>
+                        </div>
+                        {/* Cross-border Audit Status Badge */}
+                        <div
+                          className={cn(
+                            "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                            offering.crossBorderAuditStatus === "approved" &&
+                              "bg-green-100 text-green-800",
+                            offering.crossBorderAuditStatus === "pending" &&
+                              "bg-yellow-100 text-yellow-800",
+                            offering.crossBorderAuditStatus === "rejected" &&
+                              "bg-red-100 text-red-800",
+                            offering.crossBorderAuditStatus ===
+                              "not_required" && "bg-gray-100 text-gray-800"
+                          )}
+                        >
+                          <CrossBorderIcon className="h-3 w-3" />
+                          <span>
+                            {getCrossBorderAuditLabel(
+                              offering.crossBorderAuditStatus
+                            )}
+                          </span>
+                        </div>
                       </div>
                       <p className="text-muted-foreground mt-1 text-sm">
                         {offering.description}
@@ -764,6 +895,12 @@ export function DataOfferingTab() {
                           </span>
                         </div>
                         <div className="flex items-center space-x-1">
+                          <span>Zone Code:</span>
+                          <span className="font-mono text-xs">
+                            {offering.dataZoneCode}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-1">
                           <span>Created:</span>
                           <span>
                             {new Date(offering.createdAt).toLocaleDateString()}
@@ -771,17 +908,30 @@ export function DataOfferingTab() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Button variant="ghost" size="sm" title="View Details">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="Edit">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" title="Delete">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    {/* Action Buttons */}
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm">
+                          <MoreHorizontal className="size-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                          onClick={() => handleViewDetails(offering)}
+                        >
+                          <Eye className="mr-2 size-4" />
+                          View
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Edit className="mr-2 size-4" />
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-destructive">
+                          <Trash2 className="mr-2 size-4" />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                 );
               })}
@@ -1179,6 +1329,303 @@ export function DataOfferingTab() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Data Details Dialog */}
+      <ActionDialog
+        className="max-h-[90vh] overflow-y-auto"
+        trigger={null}
+        title={
+          selectedOffering
+            ? `Data Details: ${selectedOffering.title}`
+            : "Data Details"
+        }
+        description="Comprehensive information about the data offering"
+        open={isDetailsOpen}
+        onOpenChange={setIsDetailsOpen}
+        maxWidth="lg"
+      >
+        {selectedOffering && (
+          <div className="space-y-6">
+            {/* Basic Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Basic Information</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Title</Label>
+                  <p className="text-sm">{selectedOffering.title}</p>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    Data Zone Code
+                  </Label>
+                  <p className="bg-muted rounded px-2 py-1 font-mono text-sm">
+                    {selectedOffering.dataZoneCode}
+                  </p>
+                </div>
+                <div className="col-span-2 space-y-2">
+                  <Label className="text-muted-foreground">Description</Label>
+                  <p className="text-sm">{selectedOffering.description}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Status Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Status Information</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Data Status</Label>
+                  <div>
+                    <StatusBadge status={selectedOffering.status} />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    Registration Status
+                  </Label>
+                  <div className="flex items-center space-x-2">
+                    {(() => {
+                      const RegistrationIcon = getRegistrationIcon(
+                        selectedOffering.registrationStatus
+                      );
+                      return <RegistrationIcon className="h-4 w-4" />;
+                    })()}
+                    <span className="text-sm capitalize">
+                      {selectedOffering.registrationStatus}
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    Hosting Status
+                  </Label>
+                  <div className="flex items-center space-x-2">
+                    {(() => {
+                      const HostingIcon = getHostingStatusIcon(
+                        selectedOffering.hostingStatus
+                      );
+                      return <HostingIcon className="h-4 w-4" />;
+                    })()}
+                    <span className="text-sm">
+                      {getHostingStatusLabel(selectedOffering.hostingStatus)}
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    Cross-border Audit
+                  </Label>
+                  <div className="flex items-center space-x-2">
+                    {(() => {
+                      const CrossBorderIcon = getCrossBorderAuditIcon(
+                        selectedOffering.crossBorderAuditStatus
+                      );
+                      return <CrossBorderIcon className="h-4 w-4" />;
+                    })()}
+                    <span className="text-sm">
+                      {getCrossBorderAuditLabel(
+                        selectedOffering.crossBorderAuditStatus
+                      )}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Storage Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Storage Information</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    Storage Location
+                  </Label>
+                  <p className="text-sm">{selectedOffering.storageLocation}</p>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Data Type</Label>
+                  <div className="flex items-center space-x-2">
+                    {(() => {
+                      const DataSourceIcon = getDataSourceIcon(
+                        selectedOffering.dataType
+                      );
+                      return <DataSourceIcon className="h-4 w-4" />;
+                    })()}
+                    <span className="text-sm">
+                      {getDataSourceLabel(selectedOffering.dataType)}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-2 space-y-2">
+                  <Label className="text-muted-foreground">Access Policy</Label>
+                  <p className="text-sm">{selectedOffering.accessPolicy}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Traceability Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">
+                Data Traceability Information
+              </h3>
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Data Source</Label>
+                  <p className="text-sm">
+                    {selectedOffering.traceabilityInfo.dataSource}
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-muted-foreground">
+                      Blockchain Main Chain ID
+                    </Label>
+                    <p className="bg-muted rounded px-2 py-1 font-mono text-xs break-all">
+                      {selectedOffering.traceabilityInfo.blockchainMainChainId}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-muted-foreground">Owner DID</Label>
+                    <p className="bg-muted rounded px-2 py-1 font-mono text-xs break-all">
+                      {selectedOffering.traceabilityInfo.ownerDID}
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">
+                    Traceability Hash
+                  </Label>
+                  <p className="bg-muted rounded px-2 py-1 font-mono text-xs break-all">
+                    {selectedOffering.traceabilityInfo.traceabilityHash}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Metadata */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Metadata</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Created Date</Label>
+                  <p className="text-sm">
+                    {new Date(selectedOffering.createdAt).toLocaleString()}
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Data ID</Label>
+                  <p className="font-mono text-xs">{selectedOffering.id}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Source Configuration */}
+            {selectedOffering.sourceConfig && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Source Configuration</h3>
+                <div className="bg-muted rounded-lg p-4">
+                  <pre className="text-muted-foreground overflow-x-auto text-xs">
+                    {JSON.stringify(selectedOffering.sourceConfig, null, 2)}
+                  </pre>
+                </div>
+              </div>
+            )}
+
+            {/* Cross-border Audit Actions */}
+            <div className="space-y-4 border-t pt-4">
+              <h3 className="text-lg font-semibold">
+                Cross-border Audit Actions
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    const result =
+                      await crossBorderAuditService.checkAuditRequirement(
+                        selectedOffering,
+                        "US",
+                        "offering_registration"
+                      );
+                    alert(
+                      `Audit Required: ${result.required}\nReason: ${result.reason}`
+                    );
+                  }}
+                >
+                  Check US Requirements
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    const result =
+                      await crossBorderAuditService.checkAuditRequirement(
+                        selectedOffering,
+                        "EU",
+                        "offering_registration"
+                      );
+                    alert(
+                      `Audit Required: ${result.required}\nReason: ${result.reason}`
+                    );
+                  }}
+                >
+                  Check EU Requirements
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={async () => {
+                    const complianceCheck =
+                      await crossBorderAuditService.runComplianceCheck(
+                        selectedOffering,
+                        "US"
+                      );
+                    const issuesText =
+                      complianceCheck.issues.length > 0
+                        ? `\nIssues: ${complianceCheck.issues.join(", ")}`
+                        : "";
+                    const recommendationsText =
+                      complianceCheck.recommendations.length > 0
+                        ? `\nRecommendations: ${complianceCheck.recommendations.join(", ")}`
+                        : "";
+                    alert(
+                      `Compliance Score: ${complianceCheck.score}/100\n` +
+                        `Status: ${complianceCheck.passed ? "PASSED" : "FAILED"}${issuesText}${recommendationsText}`
+                    );
+                  }}
+                >
+                  Run Compliance Check
+                </Button>
+                {selectedOffering?.crossBorderAuditStatus === "pending" && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => {
+                      const auditRequest =
+                        await crossBorderAuditService.submitAuditRequest(
+                          selectedOffering,
+                          "offering_registration",
+                          "did:example:connector123",
+                          "US"
+                        );
+                      alert(
+                        `Audit request submitted with ID: ${auditRequest.id}`
+                      );
+                    }}
+                  >
+                    Submit Audit Request
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            {/* Close Button */}
+            <div className="flex justify-end pt-4">
+              <Button onClick={() => setIsDetailsOpen(false)}>Close</Button>
+            </div>
+          </div>
+        )}
+      </ActionDialog>
     </div>
   );
 }

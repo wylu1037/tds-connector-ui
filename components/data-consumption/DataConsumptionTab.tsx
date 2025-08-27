@@ -38,13 +38,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings, useIdentity } from "@/hooks";
 import { cn } from "@/lib/utils";
-import type { ContractStatus, DataContract } from "@/types";
+import type { ContractStatus, DataContract, HostingStatus, CrossBorderAuditStatus } from "@/types";
 import {
   Activity,
   AlertTriangle,
   Ban,
   Building,
   Calendar,
+  CheckCircle,
   Clock,
   Database,
   Download,
@@ -53,8 +54,10 @@ import {
   Globe,
   Mail,
   MapPin,
+  Server,
   Shield,
   Users,
+  XCircle,
 } from "lucide-react";
 
 const categoryOptions = [
@@ -65,28 +68,6 @@ const categoryOptions = [
   { value: "healthcare", label: "Healthcare" },
   { value: "iot", label: "IoT" },
 ];
-
-// Contract status label mapping
-const getContractStatusLabel = (status: ContractStatus) => {
-  switch (status) {
-    case "active":
-      return "Active";
-    case "transferring":
-      return "Transferring";
-    case "in_use":
-      return "In Use";
-    case "suspended":
-      return "Suspended";
-    case "expired":
-      return "Expired";
-    case "data_unavailable":
-      return "Data Unavailable";
-    case "violated":
-      return "Violated";
-    default:
-      return "Unknown";
-  }
-};
 
 // Contract status icon mapping
 const getContractStatusIcon = (status: ContractStatus) => {
@@ -107,6 +88,88 @@ const getContractStatusIcon = (status: ContractStatus) => {
       return Ban;
     default:
       return AlertTriangle;
+  }
+};
+
+// Hosting status icon mapping
+const getHostingStatusIcon = (status: HostingStatus) => {
+  switch (status) {
+    case "hosted":
+      return Shield;
+    case "self_managed":
+      return Server;
+    case "pending":
+      return Clock;
+    default:
+      return AlertTriangle;
+  }
+};
+
+// Hosting status label mapping
+const getHostingStatusLabel = (status: HostingStatus) => {
+  switch (status) {
+    case "hosted":
+      return "Hosted";
+    case "self_managed":
+      return "Self Managed";
+    case "pending":
+      return "Pending";
+    default:
+      return "Unknown";
+  }
+};
+
+// Cross-border audit status icon mapping
+const getCrossBorderAuditIcon = (status: CrossBorderAuditStatus) => {
+  switch (status) {
+    case "approved":
+      return CheckCircle;
+    case "pending":
+      return Clock;
+    case "rejected":
+      return XCircle;
+    case "not_required":
+      return Shield;
+    default:
+      return AlertTriangle;
+  }
+};
+
+// Cross-border audit status label mapping
+const getCrossBorderAuditLabel = (status: CrossBorderAuditStatus) => {
+  switch (status) {
+    case "approved":
+      return "Approved";
+    case "pending":
+      return "Pending";
+    case "rejected":
+      return "Rejected";
+    case "not_required":
+      return "Not Required";
+    default:
+      return "Unknown";
+  }
+};
+
+// Contract status label mapping
+const getContractStatusLabel = (status: ContractStatus) => {
+  switch (status) {
+    case "active":
+      return "Active";
+    case "transferring":
+      return "Transferring";
+    case "in_use":
+      return "In Use";
+    case "suspended":
+      return "Suspended";
+    case "expired":
+      return "Expired";
+    case "data_unavailable":
+      return "Data Unavailable";
+    case "violated":
+      return "Violated";
+    default:
+      return "Unknown";
   }
 };
 
@@ -235,30 +298,77 @@ export function DataConsumptionTab() {
 
             {/* Offerings List */}
             <div className="max-h-96 space-y-3 overflow-y-auto">
-              {filteredOfferings.map((offering) => (
-                <div key={offering.id} className="rounded-lg border p-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h4 className="font-medium">{offering.title}</h4>
-                      <p className="text-muted-foreground mt-1 text-sm">
-                        {offering.description}
-                      </p>
-                      <div className="text-muted-foreground mt-2 flex items-center space-x-4 text-xs">
-                        <span>Provider: {offering.provider}</span>
-                        <span>Type: {offering.dataType}</span>
-                        <span>Size: {offering.size}</span>
-                        {offering.price && <span>Price: {offering.price}</span>}
+              {filteredOfferings.map((offering) => {
+                const HostingIcon = getHostingStatusIcon(offering.hostingStatus);
+                const CrossBorderIcon = getCrossBorderAuditIcon(
+                  offering.crossBorderAuditStatus
+                );
+
+                return (
+                  <div key={offering.id} className="rounded-lg border p-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <h4 className="font-medium">{offering.title}</h4>
+                          {/* Hosting Status Badge */}
+                          <div
+                            className={cn(
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                              offering.hostingStatus === "hosted" &&
+                                "bg-blue-100 text-blue-800",
+                              offering.hostingStatus === "self_managed" &&
+                                "bg-purple-100 text-purple-800",
+                              offering.hostingStatus === "pending" &&
+                                "bg-orange-100 text-orange-800"
+                            )}
+                          >
+                            <HostingIcon className="h-3 w-3" />
+                            <span>{getHostingStatusLabel(offering.hostingStatus)}</span>
+                          </div>
+                          {/* Cross-border Audit Status Badge */}
+                          <div
+                            className={cn(
+                              "flex items-center space-x-1 rounded-md px-2 py-1 text-xs",
+                              offering.crossBorderAuditStatus === "approved" &&
+                                "bg-green-100 text-green-800",
+                              offering.crossBorderAuditStatus === "pending" &&
+                                "bg-yellow-100 text-yellow-800",
+                              offering.crossBorderAuditStatus === "rejected" &&
+                                "bg-red-100 text-red-800",
+                              offering.crossBorderAuditStatus === "not_required" &&
+                                "bg-gray-100 text-gray-800"
+                            )}
+                          >
+                            <CrossBorderIcon className="h-3 w-3" />
+                            <span>
+                              {getCrossBorderAuditLabel(offering.crossBorderAuditStatus)}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-muted-foreground mt-1 text-sm">
+                          {offering.description}
+                        </p>
+                        <div className="text-muted-foreground mt-2 flex items-center space-x-4 text-xs">
+                          <span>Provider: {offering.provider}</span>
+                          <span>Type: {offering.dataType}</span>
+                          <span>Size: {offering.size}</span>
+                          {offering.price && <span>Price: {offering.price}</span>}
+                          <span>Zone: {offering.dataZoneCode}</span>
+                        </div>
+                        <div className="text-muted-foreground mt-1 text-xs">
+                          <span>Location: {offering.storageLocation}</span>
+                        </div>
                       </div>
+                      {/* <Button
+                        size="sm"
+                        onClick={() => handleRequestData(offering)}
+                      >
+                        Request
+                      </Button> */}
                     </div>
-                    {/* <Button
-                      size="sm"
-                      onClick={() => handleRequestData(offering)}
-                    >
-                      Request
-                    </Button> */}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
