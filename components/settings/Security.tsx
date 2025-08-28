@@ -12,45 +12,48 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { CheckCircle, Shield } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function SecuritySettings() {
+  const t = useTranslations("Settings.security");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Shield className="h-5 w-5" />
-            Security Configuration
+            {t("securityConfiguration")}
           </CardTitle>
           <CardDescription>
-            Manage security settings and authentication
+            {t("manageSecuritySettings")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
             {/* <div className="flex items-center justify-between">
               <div>
-                <Label>Two-Factor Authentication</Label>
+                <Label>{t("twoFactorAuth")}</Label>
                 <p className="text-sm text-slate-500">
-                  Enable 2FA for enhanced security
+                  {t("enable2faForSecurity")}
                 </p>
               </div>
               <Switch defaultChecked />
             </div> */}
             <div className="flex items-center justify-between">
               <div>
-                <Label>Auto-lock Session</Label>
+                <Label>{t("autoLockSession")}</Label>
                 <p className="text-sm text-slate-500">
-                  Automatically lock after inactivity
+                  {t("autoLockAfterInactivity")}
                 </p>
               </div>
               <Switch defaultChecked />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>Audit Logging</Label>
+                <Label>{t("auditLogging")}</Label>
                 <p className="text-sm text-slate-500">
-                  Log all security events
+                  {t("logAllSecurityEvents")}
                 </p>
               </div>
               <Switch defaultChecked />
@@ -58,13 +61,13 @@ export default function SecuritySettings() {
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">Certificate Management</h4>
+            <h4 className="font-medium">{t("certificateManagement")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <Label>SSL Certificate Status</Label>
+                <Label>{t("sslCertificateStatus")}</Label>
                 <div className="mt-1 flex items-center gap-2">
                   <span className="text-sm text-slate-500">
-                    Expires: 2024-12-15
+                    {t("expires")}: 2024-12-15
                   </span>
                   {/* <Badge className="bg-green-100 text-green-800">
                     Valid
@@ -73,10 +76,10 @@ export default function SecuritySettings() {
                 </div>
               </div>
               <div>
-                <Label>DID Certificate Status</Label>
+                <Label>{t("didCertificateStatus")}</Label>
                 <div className="mt-1 flex items-center gap-2">
                   <span className="text-sm text-slate-500">
-                    Last verified: 2024-01-15
+                    {t("lastVerified")}: 2024-01-15
                   </span>
                   {/* <Badge className="bg-green-100 text-green-800">
                     Active
@@ -88,14 +91,14 @@ export default function SecuritySettings() {
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">Access Control</h4>
+            <h4 className="font-medium">{t("accessControl")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label
                   htmlFor="session-timeout"
                   className="text-muted-foreground"
                 >
-                  Session Timeout (minutes)
+                  {t("sessionTimeout")}
                 </Label>
                 <Input
                   id="session-timeout"
@@ -109,7 +112,7 @@ export default function SecuritySettings() {
                   htmlFor="max-login-attempts"
                   className="text-muted-foreground"
                 >
-                  Max Login Attempts
+                  {t("maxLoginAttempts")}
                 </Label>
                 <Input
                   id="max-login-attempts"

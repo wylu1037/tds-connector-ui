@@ -18,25 +18,28 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function GeneralSettings() {
+  const t = useTranslations("Settings.general");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Settings className="h-5 w-5" />
-            Connector Configuration
+            {t("connectorConfiguration")}
           </CardTitle>
           <CardDescription>
-            Basic connector information and settings
+            {t("basicConnectorInfo")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="connector-id">Connector ID</Label>
+                <Label htmlFor="connector-id">{t("connectorId")}</Label>
 
                 <Input
                   id="connector-id"
@@ -46,49 +49,49 @@ export default function GeneralSettings() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="connector-title">Connector Title</Label>
+                <Label htmlFor="connector-title">{t("connectorTitle")}</Label>
                 <Input
                   id="connector-title"
-                  defaultValue="Enterprise Data Connector"
+                  defaultValue={t("defaultValues.connectorTitle")}
                   className="bg-background"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="connector-description">Description</Label>
+                <Label htmlFor="connector-description">{t("description")}</Label>
                 <Textarea
                   id="connector-description"
-                  defaultValue="Primary data connector for secure enterprise data exchange"
+                  defaultValue={t("defaultValues.description")}
                   className="bg-background"
                 />
               </div>
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="curator">Curator</Label>
+                <Label htmlFor="curator">{t("curator")}</Label>
                 <Input
                   id="curator"
-                  defaultValue="Data Management Team"
+                  defaultValue={t("defaultValues.curator")}
                   className="bg-background"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="maintainer">Maintainer</Label>
+                <Label htmlFor="maintainer">{t("maintainer")}</Label>
                 <Input
                   id="maintainer"
-                  defaultValue="IT Operations"
+                  defaultValue={t("defaultValues.maintainer")}
                   className="bg-background"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="deploy-mode">Deploy Mode</Label>
+                <Label htmlFor="deploy-mode">{t("deployMode")}</Label>
                 <Select defaultValue="production">
                   <SelectTrigger className="bg-background">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="development">Development</SelectItem>
-                    <SelectItem value="staging">Staging</SelectItem>
-                    <SelectItem value="production">Production</SelectItem>
+                    <SelectItem value="development">{t("development")}</SelectItem>
+                    <SelectItem value="staging">{t("staging")}</SelectItem>
+                    <SelectItem value="production">{t("production")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -99,28 +102,28 @@ export default function GeneralSettings() {
 
       <Card>
         <CardHeader>
-          <CardTitle>System Information</CardTitle>
+          <CardTitle>{t("systemInformation")}</CardTitle>
           <CardDescription>
-            Current system status and version information
+            {t("currentSystemStatus")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             <div>
               <p className="text-muted-foreground text-sm font-medium">
-                Connector Version
+                {t("connectorVersion")}
               </p>
               <p className="text-lg font-semibold">v0.0.1</p>
             </div>
             <div>
               <p className="text-muted-foreground text-sm font-medium">
-                IDS Framework
+                {t("idsFramework")}
               </p>
               <p className="text-lg font-semibold">v0.0.1</p>
             </div>
             <div>
               <p className="text-muted-foreground text-sm font-medium">
-                Last Updated
+                {t("lastUpdated")}
               </p>
               <p className="text-lg font-semibold">2025-07-15</p>
             </div>

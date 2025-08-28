@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Bell } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface NotificationsProps {
   notifications: {
@@ -34,25 +35,27 @@ export default function NotificationsSettings({
   notifications,
   setNotifications,
 }: NotificationsProps) {
+  const t = useTranslations("Settings.notifications");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5" />
-            Notification Preferences
+            {t("notificationPreferences")}
           </CardTitle>
           <CardDescription>
-            Configure notification settings and alerts
+            {t("configureNotificationSettings")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <Label>Data Access Requests</Label>
+                <Label>{t("dataAccessRequests")}</Label>
                 <p className="text-sm text-slate-500">
-                  Notify when new data requests are received
+                  {t("notifyDataRequests")}
                 </p>
               </div>
               <Switch
@@ -67,9 +70,9 @@ export default function NotificationsSettings({
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>Contract Updates</Label>
+                <Label>{t("contractUpdates")}</Label>
                 <p className="text-sm text-slate-500">
-                  Notify when contracts are modified or expire
+                  {t("notifyContractChanges")}
                 </p>
               </div>
               <Switch
@@ -84,9 +87,9 @@ export default function NotificationsSettings({
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>Security Alerts</Label>
+                <Label>{t("securityAlerts")}</Label>
                 <p className="text-sm text-slate-500">
-                  Notify about security events and violations
+                  {t("notifySecurityEvents")}
                 </p>
               </div>
               <Switch
@@ -101,9 +104,9 @@ export default function NotificationsSettings({
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>System Maintenance</Label>
+                <Label>{t("systemMaintenance")}</Label>
                 <p className="text-sm text-slate-500">
-                  Notify about scheduled maintenance
+                  {t("notifyMaintenance")}
                 </p>
               </div>
               <Switch
@@ -119,10 +122,10 @@ export default function NotificationsSettings({
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">Notification Channels</h4>
+            <h4 className="font-medium">{t("notificationChannels")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="email-notifications">Email Address</Label>
+                <Label htmlFor="email-notifications">{t("emailAddress")}</Label>
                 <Input
                   id="email-notifications"
                   type="email"
@@ -131,7 +134,7 @@ export default function NotificationsSettings({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="webhook-url">Webhook URL</Label>
+                <Label htmlFor="webhook-url">{t("webhookUrl")}</Label>
                 <Input
                   id="webhook-url"
                   placeholder="https://your-webhook.com/notifications"

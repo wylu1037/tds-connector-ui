@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Network } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface NetworkSettingsProps {
   proxyConfig: string;
@@ -29,23 +30,25 @@ export default function NetworkSettings({
   proxyConfig,
   setProxyConfig,
 }: NetworkSettingsProps) {
+  const t = useTranslations("Settings.network");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Network className="h-5 w-5" />
-            Network Configuration
+            {t("networkConfiguration")}
           </CardTitle>
           <CardDescription>
-            Configure network settings and connections
+            {t("configureNetworkSettings")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="default-endpoint">Default Endpoint</Label>
+                <Label htmlFor="default-endpoint">{t("defaultEndpoint")}</Label>
                 <Input
                   id="default-endpoint"
                   className="bg-background"
@@ -53,7 +56,7 @@ export default function NetworkSettings({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="inbound-model">Inbound Model Version</Label>
+                <Label htmlFor="inbound-model">{t("inboundModelVersion")}</Label>
                 <Input
                   id="inbound-model"
                   className="bg-background"
@@ -61,7 +64,7 @@ export default function NetworkSettings({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="outbound-model">Outbound Model Version</Label>
+                <Label htmlFor="outbound-model">{t("outboundModelVersion")}</Label>
                 <Input
                   id="outbound-model"
                   className="bg-background"
@@ -72,7 +75,7 @@ export default function NetworkSettings({
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label className="text-muted-foreground">
-                  Proxy Configuration
+                  {t("proxyConfiguration")}
                 </Label>
                 <RadioGroup
                   value={proxyConfig}
@@ -81,25 +84,25 @@ export default function NetworkSettings({
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="no-proxy" id="no-proxy" />
-                    <Label htmlFor="no-proxy">No proxy</Label>
+                    <Label htmlFor="no-proxy">{t("noProxy")}</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="manual-proxy" id="manual-proxy" />
-                    <Label htmlFor="manual-proxy">Manual configuration</Label>
+                    <Label htmlFor="manual-proxy">{t("manualConfiguration")}</Label>
                   </div>
                 </RadioGroup>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="log-level">Log Level</Label>
+                <Label htmlFor="log-level">{t("logLevel")}</Label>
                 <Select defaultValue="info">
                   <SelectTrigger className="bg-background">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="debug">Debug</SelectItem>
-                    <SelectItem value="info">Info</SelectItem>
-                    <SelectItem value="warn">Warning</SelectItem>
-                    <SelectItem value="error">Error</SelectItem>
+                    <SelectItem value="debug">{t("debug")}</SelectItem>
+                    <SelectItem value="info">{t("info")}</SelectItem>
+                    <SelectItem value="warn">{t("warning")}</SelectItem>
+                    <SelectItem value="error">{t("error")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -107,14 +110,14 @@ export default function NetworkSettings({
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">Connection Limits</h4>
+            <h4 className="font-medium">{t("connectionLimits")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
                 <Label
                   htmlFor="max-connections"
                   className="text-muted-foreground"
                 >
-                  Max Concurrent Connections
+                  {t("maxConcurrentConnections")}
                 </Label>
                 <Input
                   id="max-connections"
@@ -128,7 +131,7 @@ export default function NetworkSettings({
                   htmlFor="connection-timeout"
                   className="text-muted-foreground"
                 >
-                  Connection Timeout (seconds)
+                  {t("connectionTimeout")}
                 </Label>
                 <Input
                   id="connection-timeout"
@@ -139,7 +142,7 @@ export default function NetworkSettings({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="read-timeout" className="text-muted-foreground">
-                  Read Timeout (seconds)
+                  {t("readTimeout")}
                 </Label>
                 <Input
                   id="read-timeout"

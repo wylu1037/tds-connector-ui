@@ -20,45 +20,48 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Server } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function AdvancedSettings() {
+  const t = useTranslations("Settings.advanced");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Server className="h-5 w-5" />
-            Advanced Configuration
+            {t("advancedConfiguration")}
           </CardTitle>
           <CardDescription>
-            Advanced system settings and performance tuning
+            {t("advancedSystemSettings")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <Label>Debug Mode</Label>
+                <Label>{t("debugMode")}</Label>
                 <p className="text-sm text-slate-500">
-                  Enable detailed logging and debugging
+                  {t("enableDetailedLogging")}
                 </p>
               </div>
               <Switch />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>Performance Monitoring</Label>
+                <Label>{t("performanceMonitoring")}</Label>
                 <p className="text-sm text-slate-500">
-                  Enable detailed performance metrics
+                  {t("enablePerformanceMetrics")}
                 </p>
               </div>
               <Switch defaultChecked />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>Auto-backup</Label>
+                <Label>{t("autoBackup")}</Label>
                 <p className="text-sm text-slate-500">
-                  Automatically backup configuration
+                  {t("autoBackupConfiguration")}
                 </p>
               </div>
               <Switch defaultChecked />
@@ -66,10 +69,10 @@ export default function AdvancedSettings() {
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">Resource Limits</h4>
+            <h4 className="font-medium">{t("resourceLimits")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <div className="space-y-2">
-                <Label htmlFor="memory-limit">Memory Limit (GB)</Label>
+                <Label htmlFor="memory-limit">{t("memoryLimit")}</Label>
                 <Input
                   id="memory-limit"
                   type="number"
@@ -78,7 +81,7 @@ export default function AdvancedSettings() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cpu-limit">CPU Limit (%)</Label>
+                <Label htmlFor="cpu-limit">{t("cpuLimit")}</Label>
                 <Input
                   id="cpu-limit"
                   type="number"
@@ -87,7 +90,7 @@ export default function AdvancedSettings() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="storage-limit">Storage Limit (GB)</Label>
+                <Label htmlFor="storage-limit">{t("storageLimit")}</Label>
                 <Input
                   id="storage-limit"
                   type="number"
@@ -99,10 +102,10 @@ export default function AdvancedSettings() {
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">Sandbox Configuration</h4>
+            <h4 className="font-medium">{t("sandboxConfiguration")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="sandbox-runtime">Default Runtime</Label>
+                <Label htmlFor="sandbox-runtime">{t("defaultRuntime")}</Label>
                 <Select defaultValue="libkrun">
                   <SelectTrigger className="bg-background">
                     <SelectValue />
@@ -116,7 +119,7 @@ export default function AdvancedSettings() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="sandbox-timeout">
-                  Sandbox Timeout (minutes)
+                  {t("sandboxTimeout")}
                 </Label>
                 <Input
                   id="sandbox-timeout"
@@ -132,29 +135,29 @@ export default function AdvancedSettings() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-red-600">Danger Zone</CardTitle>
+          <CardTitle className="text-red-600">{t("dangerZone")}</CardTitle>
           <CardDescription>
-            Irreversible and destructive actions
+            {t("irreversibleActions")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between rounded-lg border border-red-200 p-4">
             <div>
-              <h4 className="font-medium text-red-600">Reset Configuration</h4>
+              <h4 className="font-medium text-red-600">{t("resetConfiguration")}</h4>
               <p className="text-sm text-slate-500">
-                Reset all settings to default values
+                {t("resetToDefaults")}
               </p>
             </div>
-            <Button variant="destructive">Reset</Button>
+            <Button variant="destructive">{t("reset")}</Button>
           </div>
           <div className="flex items-center justify-between rounded-lg border border-red-200 p-4">
             <div>
-              <h4 className="font-medium text-red-600">Delete Connector</h4>
+              <h4 className="font-medium text-red-600">{t("deleteConnector")}</h4>
               <p className="text-sm text-slate-500">
-                Permanently delete this connector and all data
+                {t("permanentlyDelete")}
               </p>
             </div>
-            <Button variant="destructive">Delete</Button>
+            <Button variant="destructive">{t("delete")}</Button>
           </div>
         </CardContent>
       </Card>

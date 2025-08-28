@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Database, Eye, EyeOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface BlockchainSettingsProps {
   showPassword: boolean;
@@ -29,38 +30,40 @@ export default function BlockchainSettings({
   showPassword,
   setShowPassword,
 }: BlockchainSettingsProps) {
+  const t = useTranslations("Settings.blockchain");
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Database className="h-5 w-5" />
-            Blockchain Configuration
+            {t("blockchainConfiguration")}
           </CardTitle>
           <CardDescription>
-            Configure blockchain network and DID settings
+            {t("configureBlockchainNetwork")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="blockchain-network">Blockchain Network</Label>
+                <Label htmlFor="blockchain-network">{t("blockchainNetwork")}</Label>
                 <Select defaultValue="hyperledger">
                   <SelectTrigger className="bg-background">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="hyperledger">
-                      Hyperledger Fabric
+                      {t("hyperledgerFabric")}
                     </SelectItem>
-                    <SelectItem value="ethereum">Ethereum Private</SelectItem>
-                    <SelectItem value="quorum">Quorum</SelectItem>
+                    <SelectItem value="ethereum">{t("ethereumPrivate")}</SelectItem>
+                    <SelectItem value="quorum">{t("quorum")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="network-url">Network URL</Label>
+                <Label htmlFor="network-url">{t("networkUrl")}</Label>
                 <Input
                   id="network-url"
                   className="bg-background"
@@ -68,7 +71,7 @@ export default function BlockchainSettings({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="channel-name">Channel Name</Label>
+                <Label htmlFor="channel-name">{t("channelName")}</Label>
                 <Input
                   id="channel-name"
                   className="bg-background"
@@ -78,7 +81,7 @@ export default function BlockchainSettings({
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="did-method">DID Method</Label>
+                <Label htmlFor="did-method">{t("didMethod")}</Label>
                 <Select defaultValue="fabric">
                   <SelectTrigger className="bg-background">
                     <SelectValue />
@@ -91,7 +94,7 @@ export default function BlockchainSettings({
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="wallet-address">Wallet Address</Label>
+                <Label htmlFor="wallet-address">{t("walletAddress")}</Label>
                 <div className="relative">
                   <Input
                     id="wallet-address"
@@ -115,7 +118,7 @@ export default function BlockchainSettings({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="gas-limit">Gas Limit</Label>
+                <Label htmlFor="gas-limit">{t("gasLimit")}</Label>
                 <Input
                   id="gas-limit"
                   type="number"
@@ -127,10 +130,10 @@ export default function BlockchainSettings({
           </div>
           <Separator />
           <div className="space-y-4">
-            <h4 className="font-medium">TrustStore Configuration</h4>
+            <h4 className="font-medium">{t("truststoreConfiguration")}</h4>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="truststore-url">TrustStore URL</Label>
+                <Label htmlFor="truststore-url">{t("truststoreUrl")}</Label>
                 <Input
                   id="truststore-url"
                   defaultValue="https://truststore.example.com"
@@ -138,7 +141,7 @@ export default function BlockchainSettings({
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="truststore-alias">TrustStore Alias</Label>
+                <Label htmlFor="truststore-alias">{t("truststoreAlias")}</Label>
                 <Input
                   id="truststore-alias"
                   defaultValue="connector-cert"
@@ -151,7 +154,7 @@ export default function BlockchainSettings({
                 htmlFor="truststore-password"
                 className="text-muted-foreground"
               >
-                TrustStore Password
+                {t("truststorePassword")}
               </Label>
               <div className="relative">
                 <Input
