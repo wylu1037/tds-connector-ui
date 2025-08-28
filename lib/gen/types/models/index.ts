@@ -1,0 +1,1 @@
+export type { ModelsUser } from './User.ts'

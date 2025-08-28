@@ -13,6 +13,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async rewrites() {
+    const baseUrl = process.env.TDSC_BASE_URL || 'http://172.22.0.23:8085';
+    return [
+      {
+        source: '/tdsc/:path*',
+        destination: `${baseUrl}/:path*`,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
