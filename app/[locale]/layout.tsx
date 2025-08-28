@@ -1,4 +1,5 @@
 import Header from "@/components/header";
+import QueryClientProvider from "@/components/providers/QueryClientProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { DataSpaceProvider } from "@/lib/contexts/DataSpaceContext";
@@ -42,22 +43,24 @@ export default async function LocaleLayout({
     <div
       className={`${playfair.variable} ${sourceSans.variable} font-sans antialiased`}
     >
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <DataSpaceProvider>
-          <div className="bg-background min-h-screen">
-            {/* Header */}
-            <Header />
+      <QueryClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <DataSpaceProvider>
+            <div className="bg-background min-h-screen">
+              {/* Header */}
+              <Header />
 
-            {/* Main Content */}
-            <div className="container mx-auto px-6 pb-8">{children}</div>
-          </div>
-        </DataSpaceProvider>
-      </ThemeProvider>
+              {/* Main Content */}
+              <div className="container mx-auto px-6 pb-8">{children}</div>
+            </div>
+          </DataSpaceProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </div>
   );
 }

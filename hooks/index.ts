@@ -17,3 +17,7 @@ export type { UseSandboxReturn } from "./useSandbox";
 
 export { useMonitoring } from "./useMonitoring";
 export type { UseMonitoringReturn } from "./useMonitoring";
+
+export { useFileUpload } from "./use-file-upload";
+export type { FileWithPreview, UseFileUploadOptions, UseFileUploadReturn } from "./use-file-upload";
+

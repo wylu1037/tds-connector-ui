@@ -38,7 +38,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useDataOfferings, useIdentity } from "@/hooks";
 import { cn } from "@/lib/utils";
-import type { ContractStatus, DataContract, HostingStatus, CrossBorderAuditStatus } from "@/types";
+import type {
+  ContractStatus,
+  CrossBorderAuditStatus,
+  DataContract,
+  HostingStatus,
+} from "@/types";
 import {
   Activity,
   AlertTriangle,
@@ -52,6 +57,7 @@ import {
   ExternalLink,
   Eye,
   Globe,
+  Loader2,
   Mail,
   MapPin,
   Server,
@@ -59,6 +65,8 @@ import {
   Users,
   XCircle,
 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const categoryOptions = [
   { value: "all", label: "All Categories" },
@@ -196,6 +204,60 @@ export function DataConsumptionTab() {
     (c: DataContract) => c.status === "active" || c.status === "in_use"
   ).length;
 
+  // State to track downloading files
+  const [downloadingFiles, setDownloadingFiles] = useState<Set<string>>(
+    new Set()
+  );
+
+  // Handle file download
+  const handleDownloadFile = async (contractId: string) => {
+    // Prevent multiple downloads of the same file
+    if (downloadingFiles.has(contractId)) {
+      return;
+    }
+
+    try {
+      // Set downloading state
+      setDownloadingFiles((prev) => new Set(prev).add(contractId));
+
+      // Create a temporary element to trigger download
+      const downloadUrl = `/tdsc/api/v1/offering/${contractId}`;
+
+      // Create a temporary link element and click it to trigger download
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = "12121"; // This will use the filename from server
+      link.style.display = "none";
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Show success message
+      toast.success("Download started");
+
+      // Simulate download completion after a short delay
+      // In a real implementation, you might want to listen for actual download events
+      setTimeout(() => {
+        setDownloadingFiles((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(contractId);
+          return newSet;
+        });
+      }, 2000); // Remove loading state after 2 seconds
+    } catch (error) {
+      console.error("Failed to download file:", error);
+      toast.error("Download failed");
+
+      // Remove from downloading state on error
+      setDownloadingFiles((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(contractId);
+        return newSet;
+      });
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Overview Cards */}
@@ -299,7 +361,9 @@ export function DataConsumptionTab() {
             {/* Offerings List */}
             <div className="max-h-96 space-y-3 overflow-y-auto">
               {filteredOfferings.map((offering) => {
-                const HostingIcon = getHostingStatusIcon(offering.hostingStatus);
+                const HostingIcon = getHostingStatusIcon(
+                  offering.hostingStatus
+                );
                 const CrossBorderIcon = getCrossBorderAuditIcon(
                   offering.crossBorderAuditStatus
                 );
@@ -308,7 +372,7 @@ export function DataConsumptionTab() {
                   <div key={offering.id} className="rounded-lg border p-3">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
+                        <div className="mb-2 flex items-center space-x-2">
                           <h4 className="font-medium">{offering.title}</h4>
                           {/* Hosting Status Badge */}
                           <div
@@ -323,7 +387,9 @@ export function DataConsumptionTab() {
                             )}
                           >
                             <HostingIcon className="h-3 w-3" />
-                            <span>{getHostingStatusLabel(offering.hostingStatus)}</span>
+                            <span>
+                              {getHostingStatusLabel(offering.hostingStatus)}
+                            </span>
                           </div>
                           {/* Cross-border Audit Status Badge */}
                           <div
@@ -335,13 +401,15 @@ export function DataConsumptionTab() {
                                 "bg-yellow-100 text-yellow-800",
                               offering.crossBorderAuditStatus === "rejected" &&
                                 "bg-red-100 text-red-800",
-                              offering.crossBorderAuditStatus === "not_required" &&
-                                "bg-gray-100 text-gray-800"
+                              offering.crossBorderAuditStatus ===
+                                "not_required" && "bg-gray-100 text-gray-800"
                             )}
                           >
                             <CrossBorderIcon className="h-3 w-3" />
                             <span>
-                              {getCrossBorderAuditLabel(offering.crossBorderAuditStatus)}
+                              {getCrossBorderAuditLabel(
+                                offering.crossBorderAuditStatus
+                              )}
                             </span>
                           </div>
                         </div>
@@ -352,7 +420,9 @@ export function DataConsumptionTab() {
                           <span>Provider: {offering.provider}</span>
                           <span>Type: {offering.dataType}</span>
                           <span>Size: {offering.size}</span>
-                          {offering.price && <span>Price: {offering.price}</span>}
+                          {offering.price && (
+                            <span>Price: {offering.price}</span>
+                          )}
                           <span>Zone: {offering.dataZoneCode}</span>
                         </div>
                         <div className="text-muted-foreground mt-1 text-xs">
@@ -439,8 +509,14 @@ export function DataConsumptionTab() {
                             variant="ghost"
                             size="sm"
                             title="Download Data"
+                            onClick={() => handleDownloadFile(contract.id)}
+                            disabled={downloadingFiles.has(contract.id)}
                           >
-                            <Download className="h-4 w-4" />
+                            {downloadingFiles.has(contract.id) ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Download className="h-4 w-4" />
+                            )}
                           </Button>
                         )}
                         {contract.accessMethods?.includes("api") && (

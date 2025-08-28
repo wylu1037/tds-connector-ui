@@ -171,6 +171,17 @@ export function useDataOfferings(): UseDataOfferingsReturn {
       registrationStatus: "unregistered",
       createdAt: new Date().toISOString(),
       sourceConfig: newOffering.sourceConfig,
+      // Add missing required fields
+      hostingStatus: "self_managed",
+      crossBorderAuditStatus: "not_required",
+      dataZoneCode: "DEFAULT",
+      storageLocation: "local",
+      traceabilityInfo: {
+        dataSource: newOffering.title,
+        blockchainMainChainId: "chain-001",
+        ownerDID: "did:example:owner123",
+        traceabilityHash: "hash-" + Date.now().toString(),
+      },
     };
     setDataOfferings((prev) => [...prev, newDataOffering]);
     setNewOffering({

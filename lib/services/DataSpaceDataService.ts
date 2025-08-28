@@ -101,6 +101,7 @@ export const dataSpaceConfigs: DataSpaceDataConfig = {
         violationCount: 0,
         isViolated: false,
         isExpired: false,
+        accessMethods: ["download"],
       },
       {
         id: "hc2",
